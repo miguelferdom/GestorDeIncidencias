@@ -32,6 +32,11 @@ En la parte publica de la web se mostrará una ventana de login para cualquier u
 	* Tecnico: verá la cola de incidencias ordenada por criticidad, podrá asignarse incidencias a su nombre, añadir comentarios y adjuntos, escribir sobre el campo solución y cerrar incidencias
 	* Administrador: Tendrá una vista similar a la de un técnico pero con más privilegios, pudiendo modificar cualquier campo (Descripción, comentario o solución), tambián podrá reabrir incidencias. Además dará de alta y baja a los técnicos y les podrá dar privilegios de administrador
 	
+El servicio interno realizará las siguientes tareas:
 
+	* Enviará un correo de notificación a los usuarios cuando su incidencia se resuelva.
+	* Generará informes sobre las incidencias: incidencias totales del mes desglosadas por categorias, número de incidencias atendidas por cada técnico y categoria de estas, tiempo medio de resolución de incidencia por categoría...
+	* actualizará la criticidad de las incidencias cada día aumentando su prioridad para evitar que haya solicitudes que se queden sin atender indefinidamente
+	
 	
 
