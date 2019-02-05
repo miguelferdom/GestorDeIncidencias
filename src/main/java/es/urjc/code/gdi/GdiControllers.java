@@ -32,13 +32,9 @@ public class GdiControllers {
 		return "nuevaincidencia_template";
 	}
 	
-	@PostMapping("/consultarincidencia")
-	//@RequestMapping("/consultarincidencia")
+	@RequestMapping("/consultarincidencia")
 	public String cargaConsultarIncidencia(Model model, @RequestParam String numincidencia) {
 		
-		//model.addAttribute("user", usuario);
-		//model.addAttribute("pass", password);
-		//model.addAttribute("profile", perfil);
 		model.addAttribute("issuenumber", numincidencia);
 				
 		return "consultarincidencia_template";
