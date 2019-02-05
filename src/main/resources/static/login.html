@@ -5,16 +5,16 @@
 		<title>[GDI] Login</title>
 	</head>
 	<body>
-		<form>
+		<form action="bienvenida" method="post">
 			<p>Usuario</p> 
 			<input type='text' name="usuario"/>
 			<p>Password</p>
-			<input type='password' name="passwrd"/>
+			<input type='password' name="password"/>
 			<p>Perfil</p>
-			<select>
-				<option value="usuario">Usuario</option>
-				<option value="teccnico">Técnico</option>
-				<option value="administrador">Administrador</option>
+			<select name="perfil">
+				<option value="usuario">usuario</option>
+				<option value="tecnico">tecnico</option>
+				<option value="administrador">administrador</option>
 			</select>
 			<input type='submit' value='Conectar'>
 		</form>
