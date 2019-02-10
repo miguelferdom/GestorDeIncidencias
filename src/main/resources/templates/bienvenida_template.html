@@ -1,31 +1,33 @@
+<!DOCTYPE html>
 <html>
-<body>
-	<p>bienvenido, {{user}}/{{pass}} [{{profile}}]</p>
-	
-	<p></p>
-	<form action="nuevaincidencia">
-		<input type='submit' value='Abrir incidencia'>
-	</form>
-	<p></p>
-	<a href="/nuevaincidencia">Abrir incidencia</a>
-	<p></p>
-	
-	<p> Numero de incidencia</p>
-	<form action="consultarincidencia" method="post">
-		<input type='text' name="numincidencia"/>
-		<input type='submit' value='Consultar incidencia'>
-	</form>
-	<p></p>
-	<a href="/consultarincidencia">Consultar incidencia</a>
-	<p></p>
-	
-	<p></p>
-	<form action="login">
-		<input type='submit' value='Cancelar'>
-	</form>
-	<p></p>
-	<a href="/login">Volver</a>
-	<p></p>
-	
-</body>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>[GDI]</title>
+	</head>
+	<h1>Gestor de Incidencias</h1>
+
+	<body>
+		<p>Bienvenido {{user}}/{{pass}} [{{profile}}]</p>
+		<p></p>
+		
+		<!-- Agrupación de campos -->
+		<fieldset>
+			<form action="nuevaincidencia">
+				<input type='submit' value='Abrir incidencia'>
+			</form>
+			<p></p>
+			
+			<label>Consultar incidencia
+				<form action="consultarincidencia" method="post">
+					<input type='text' name="numincidencia"/>
+					<input type='submit' value='Ver'>
+				</form>
+			</label>
+			<p></p>
+			
+			<form action="login">
+				<input type='submit' value='Cancelar'>
+			</form>
+		</fieldset>		
+	</body>
 </html>
