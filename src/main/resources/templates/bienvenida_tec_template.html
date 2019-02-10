@@ -29,12 +29,25 @@
 				<input type='submit' value='Cancelar'>
 			</form>
 		</fieldset>
+		<p></p>
 		
 		<!-- Agrupación de campos 2 -->
+		<p>Incidencias</p>
 		<fieldset>
-			{{#incidencias}}
-			<a href="incidencia / {{-index}}">{{urgencia}} {{categoria}} {{estado}} {{titulo}}</a><br>
-			{{/incidencias}} 
+			<ul>
+				{{#incidencias}}
+					<li>{{.}}</li>
+				{{/incidencias}}
+			</ul>
+			
+			<table>
+				{{#incidencias}}
+					<tr>
+						<td>{{-index}}</td>
+						<td>{{.}}</td>
+					</tr>
+				{{/incidencias}}
+			</table>
 		</fieldset>
 		
 	</body>
