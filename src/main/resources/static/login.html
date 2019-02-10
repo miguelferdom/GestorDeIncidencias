@@ -4,19 +4,33 @@
 		<meta charset="ISO-8859-1">
 		<title>[GDI] Login</title>
 	</head>
+	<h1>Gestor de Incidencias</h1>
 	<body>
 		<form action="bienvenida" method="post">
-			<p>Usuario</p> 
-			<input type='text' name="usuario"/>
-			<p>Password</p>
-			<input type='password' name="password"/>
-			<p>Perfil</p>
-			<select name="perfil">
-				<option value="usuario">usuario</option>
-				<option value="tecnico">tecnico</option>
-				<option value="administrador">administrador</option>
-			</select>
-			<input type='submit' value='Conectar'>
+			<!-- Agrupación de campos -->
+			
+			<fieldset>
+				<label>Usuario
+					<input type='text' name="usuario"/>
+				</label>
+				<p></p>
+				
+				<label>Password
+					<input type='password' name="password"/>
+				</label>
+				<p></p>
+				
+				<label>Perfil
+					<select name="perfil">
+						<option value="usuario">usuario</option>
+						<option value="tecnico">tecnico</option>
+						<option value="administrador">administrador</option>
+					</select>
+				</label>
+				<p></p>
+				
+				<input type='submit' value='Conectar'>
+			</fieldset>
 		</form>
 	</body>
 </html>
