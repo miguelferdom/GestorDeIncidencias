@@ -47,7 +47,7 @@ public class Comentario {
 	/**
 	 * Método get para devolver la Fecha de un Comentario
 	 * 
-	 * @return devuellve la Fecha de un Comentario
+	 * @return devuelve la Fecha de un Comentario
 	 */
 	public String getFecha () {
 		return this.fecha;
