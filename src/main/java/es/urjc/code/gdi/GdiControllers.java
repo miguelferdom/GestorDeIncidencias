@@ -1,6 +1,7 @@
 package es.urjc.code.gdi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GdiControllers {
 	
 	//creo una lista de incidencias para hacer de la aplicación con la información alojada en memoria
-	private ArrayList<Incidencia> incidencias = new ArrayList<>();
+	private List<Incidencia> incidencias = new ArrayList<>();
 	
 	// declaro el constructor vacio de la clase GdiControllers y lo uso para cargar información de incidencias en memoria
 	public GdiControllers () {
@@ -30,6 +31,10 @@ public class GdiControllers {
 	public String cargaLogin(Model model) {
 
 		model.addAttribute("incidencias", incidencias);
+		
+		for (Incidencia in : incidencias){
+			System.out.println(in.toString());
+		}
 		return "login.html";
 	}
 	
