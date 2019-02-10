@@ -40,7 +40,7 @@ public class GdiControllers {
 		model.addAttribute("pass", password);
 		model.addAttribute("profile", perfil);
 		
-		if (usuario.equals("usuario"))
+		if (perfil.equals("usuario"))
 		{
 			return "bienvenida_template";
 		}
