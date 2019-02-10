@@ -19,7 +19,9 @@ public class Usuario {
 	 * @param perfil Rol del usuario dentro de la aplicacion (usuario, técnico o administrador)
 	 */
 	public Usuario (String nombre, String password, String perfil) {
-		
+		setNombre (nombre);
+		setPassword(password);
+		setPerfil (perfil);
 	}
 	
 	/**
@@ -74,5 +76,10 @@ public class Usuario {
 	 */
 	public String getPerfil() {
 		return this.perfil;
+	}
+	
+	@Override
+	public String toString() {
+		return("[USUARIO] Nombre: " + getNombre() + "; password: " + getPassword() + "; perfil: " + getPerfil());
 	}
 }
