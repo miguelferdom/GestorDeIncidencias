@@ -190,12 +190,13 @@ public class Incidencia {
 	
 	@Override
 	public String toString() {
-		return ("[INCIDENCIA] Fecha: " + getFecha() + "\n" +
+		return ("[INCIDENCIA] idIncidencia: " + getIdIncidencia() + "\n" +
+				"[INCIDENCIA] Fecha: " + getFecha() + "\n" +
 				"[INCIDENCIA] Urgencia: " + getUrgencia() + "\n" +
 				"[INCIDENCIA] Categoria: " + getCategoria() + "\n" +
 				"[INCIDENCIA] Estado: " + getEstado() + "\n" +
 				"[INCIDENCIA] Título: " + getTitulo() + "\n" +
-				"[INCIDENCIA] Descripción :" + getDescripcion() + "\n" +
+				"[INCIDENCIA] Descripción: " + getDescripcion() + "\n" +
 				"[INCIDENCIA] Solución: " + getSolucion());
 	}
 }
