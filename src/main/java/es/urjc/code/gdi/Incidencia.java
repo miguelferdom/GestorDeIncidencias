@@ -2,6 +2,8 @@ package es.urjc.code.gdi;
 
 public class Incidencia {
 
+	private Long idIncidencia;
+	
 	/* 
 	 * Declaro fecha como String para crear la clase rapidamente y poder hacer alguna prueba
 	 * Más adelante la cambiaré a un tipo más adecuado junto con sus métodos get y set y el
@@ -23,6 +25,7 @@ public class Incidencia {
 	/**
 	 * Constructor completo de la clase
 	 * 
+	 * @param idIncidencia identificador único para una Incidencia
 	 * @param fecha Fecha en la que se crea una Incidencia. En formato DD/MM/YYYY HH:SS
 	 * @param urgencia Describe la criticidad de la incidencia (alta, media o baja)
 	 * @param categoria Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
@@ -30,13 +33,24 @@ public class Incidencia {
 	 * @param titulo Asunto descriptivo del problema reportado en la incidencia
 	 * @param descripcion Descripción detallada del problema que se necesita tratar
 	 */
-	public Incidencia (String urgencia, String categoria, String estado,String titulo, String descripcion) {
+	public Incidencia (Long idIncidencia, String urgencia, String categoria, String estado,String titulo, String descripcion) {
+		
+		setIdIncidencia(idIncidencia);
 		setFecha(fecha);
 		setUrgencia(urgencia);
 		setCategoria(categoria);
 		setEstado(estado);
 		setTitulo(titulo);
 		setDescripcion(descripcion);
+	}
+	
+	/**
+	 * Método set para establecer el identificador de una incidencia
+	 * 
+	 * @param idIncidencia identificador único para una Incidencia
+	 */
+	public void setIdIncidencia (Long idIncidencia) {
+		this.idIncidencia = idIncidencia;
 	}
 	
 	/**
@@ -100,6 +114,15 @@ public class Incidencia {
 	 */
 	public void setSolucion (String solucion) {
 		this.solucion = solucion;
+	}
+	
+	/**
+	 * Método get para devolver el identificador único una Incidencia
+	 * 
+	 * @return devuelve el identificador único una Incidencia
+	 */
+	public Long getIdIncidencia () {
+		return this.idIncidencia;
 	}
 	
 	/**
