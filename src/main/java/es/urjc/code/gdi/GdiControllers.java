@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ public class GdiControllers {
 	
 	//creo una lista de incidencias para hacer de la aplicación con la información alojada en memoria
 	private List<Incidencia> incidencias = new ArrayList<>();
+	private List<String> hincidencias = new ArrayList<>();
 	
 	// declaro el constructor vacio de la clase GdiControllers y lo uso para cargar información de incidencias en memoria
 	public GdiControllers () {
@@ -25,16 +27,28 @@ public class GdiControllers {
 		incidencias.add(new Incidencia("Alta", "Infraestructura", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar"));
 		incidencias.add(new Incidencia("Alta", "Microinformatica", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus"));
 		incidencias.add(new Incidencia("Alta", "Correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento."));
+	
+		hincidencias.add("Rojo");
+		hincidencias.add("Verde");
+		hincidencias.add("Azul");
 	}
 	
 	@RequestMapping("/login")
 	public String cargaLogin(Model model) {
 
 		model.addAttribute("incidencias", incidencias);
+		model.addAttribute("hincidencias", hincidencias);
 		
 		for (Incidencia in : incidencias){
 			System.out.println(in.toString());
+			System.out.println();
 		}
+		
+		for (String hin : hincidencias){
+			System.out.println(hin.toString());
+			System.out.println();
+		}
+		
 		return "login.html";
 	}
 	
@@ -47,12 +61,15 @@ public class GdiControllers {
 		
 		if (perfil.equals("usuario"))
 		{
-			return "bienvenida_template";
+			return "portalusuario";
 		}
 		else {
-			return "bienvenida_tec_template";
+			return "portaltecnico";
 		}
 	}
+	
+	
+	
 	
 	@RequestMapping("/nuevaincidencia")
 	public String cargaNuevaIncidencia(Model model) {
