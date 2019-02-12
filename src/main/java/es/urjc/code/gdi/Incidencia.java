@@ -1,5 +1,7 @@
 package es.urjc.code.gdi;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +14,7 @@ public class Incidencia {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idIncidencia;
 	
-	/* 
-	 * Declaro fecha como String para crear la clase rapidamente y poder hacer alguna prueba
-	 * Más adelante la cambiaré a un tipo más adecuado junto con sus métodos get y set y el
-	 * constructor completo
-	 */
-	private String fecha;
+	private LocalDateTime fecha;
 	private String urgencia;
 	private String categoria;
 	private String estado;
@@ -41,10 +38,10 @@ public class Incidencia {
 	 * @param titulo Asunto descriptivo del problema reportado en la incidencia
 	 * @param descripcion Descripción detallada del problema que se necesita tratar
 	 */
-	public Incidencia (Long idIncidencia, String urgencia, String categoria, String estado,String titulo, String descripcion) {
+	public Incidencia (String urgencia, String categoria, String estado,String titulo, String descripcion) {
 		
-		setIdIncidencia(idIncidencia);
-		setFecha(fecha);
+		super();
+		setFecha();
 		setUrgencia(urgencia);
 		setCategoria(categoria);
 		setEstado(estado);
@@ -66,8 +63,8 @@ public class Incidencia {
 	 * 
 	 * @param fecha Fecha en la que se crea una Incidencia. En formato DD/MM/YYYY HH:SS
 	 */
-	public void setFecha (String fecha) {
-		this.fecha = fecha;
+	public void setFecha () {
+		this.fecha = LocalDateTime.now();
 	}
 	
 	/**
@@ -138,7 +135,7 @@ public class Incidencia {
 	 * 
 	 * @return devuelve la fecha de una Incidencia
 	 */
-	public String getFecha () {
+	public LocalDateTime getFecha () {
 		return this.fecha;
 	}
 	
