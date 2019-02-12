@@ -1,11 +1,15 @@
 package es.urjc.code.gdi;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Incidencia {
@@ -21,6 +25,9 @@ public class Incidencia {
 	private String titulo;
 	private String descripcion;
 	private String solucion;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List <Comentario> comentarios = new ArrayList<>();
 	
 	/**
 	 * Constructor de la clase sin parámetros
@@ -120,6 +127,15 @@ public class Incidencia {
 	}
 	
 	/**
+	 * Método set para añadir una lista de comentarios a una Incidencia
+	 * 
+	 * @param comentarios Lista de comentarios asociados a la Incidencia
+	 */
+	public void setComentarios (List <Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+	
+	/**
 	 * Método get para devolver el identificador único una Incidencia
 	 * 
 	 * @return devuelve el identificador único una Incidencia
@@ -189,6 +205,15 @@ public class Incidencia {
 	 */
 	public String getSolucion () {
 		return this.solucion;
+	}
+	
+	/**
+	 * Método get para devolver la lista de comentarios asociados a una Incidencia
+	 * 
+	 * @return Lista de comentarios asociados a la Incidencia
+	 */
+	public List <Comentario> getComentarios () {
+		return this.comentarios;
 	}
 	
 	@Override
