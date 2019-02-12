@@ -1,13 +1,20 @@
 package es.urjc.code.gdi;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Comentario {
 
-	/* 
-	 * Declaro fecha como String para crear la clase rapidamente y poder hacer alguna prueba
-	 * Más adelante la cambiaré a un tipo más adecuado junto con sus métodos get y set y el
-	 * constructor completo
-	 */
-	private String fecha;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idComentario;
+
+	private LocalDateTime fecha;
 	private String anotacion;
 	
 	/**
@@ -18,21 +25,20 @@ public class Comentario {
 	/**
 	 * Constructor completo de la clase
 	 * 
-	 * @param fecha fecha en la que se anota un Comentario en formato DD/MM/YYYY HH:SS
 	 * @param anotacion contenido del Comentario
 	 */
-	public Comentario (String fecha, String anotacion) {
-		setFecha (fecha);
-		setAnotacion ( anotacion);
+	public Comentario (String anotacion) {
+		
+		super();
+		setFecha ();
+		setAnotacion (anotacion);
 	}
 	
 	/**
-	 * Método set para establecer la fecha de un Comentario
-	 * 
-	 * @param fecha fecha en la que se anota un comentario en formato DD/MM/YYYY HH:SS
+	 * Método set para establecer la fecha de un Comentario en formato DD/MM/YYYY HH:SS
 	 */
-	public void setFecha (String fecha) {
-		this.fecha = fecha;
+	public void setFecha () {
+		this.fecha = LocalDateTime.now();
 	}
 	
 	/**
@@ -49,7 +55,7 @@ public class Comentario {
 	 * 
 	 * @return devuelve la Fecha de un Comentario
 	 */
-	public String getFecha () {
+	public LocalDateTime getFecha () {
 		return this.fecha;
 	}
 	
