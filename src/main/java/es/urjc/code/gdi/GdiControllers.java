@@ -22,6 +22,9 @@ public class GdiControllers {
 	@Autowired
 	private RepositorioUsuario repoUsuarios;
 	
+	@Autowired
+	private RepositorioComentario repoComentarios;
+		
 	//creo una lista de incidencias para hacer de la aplicación con la información alojada en memoria
 	private List<Incidencia> incidencias = new ArrayList<>();
 	private List<String> hincidencias = new ArrayList<>();
@@ -65,6 +68,37 @@ public class GdiControllers {
 		repoUsuarios.save(new Usuario("admi2", "1234", "administrador"));
 		repoUsuarios.save(new Usuario("admi3", "1234", "administrador"));
 		repoUsuarios.save(new Usuario("admi4", "1234", "administrador"));
+
+		repoComentarios.save(new Comentario("comentario 01"));
+		repoComentarios.save(new Comentario("comentario 02"));
+		repoComentarios.save(new Comentario("comentario 03"));
+		repoComentarios.save(new Comentario("comentario 04"));
+		repoComentarios.save(new Comentario("comentario 05"));
+		repoComentarios.save(new Comentario("comentario 06"));
+		repoComentarios.save(new Comentario("comentario 07"));
+		repoComentarios.save(new Comentario("comentario 08"));
+		repoComentarios.save(new Comentario("comentario 09"));
+		repoComentarios.save(new Comentario("comentario 10"));
+		repoComentarios.save(new Comentario("comentario 11"));
+		repoComentarios.save(new Comentario("comentario 12"));
+		repoComentarios.save(new Comentario("comentario 13"));
+		repoComentarios.save(new Comentario("comentario 14"));
+		repoComentarios.save(new Comentario("comentario 15"));
+		repoComentarios.save(new Comentario("comentario 16"));
+		repoComentarios.save(new Comentario("comentario 17"));
+		repoComentarios.save(new Comentario("comentario 18"));
+		repoComentarios.save(new Comentario("comentario 19"));
+		repoComentarios.save(new Comentario("comentario 20"));
+		repoComentarios.save(new Comentario("comentario 21"));
+		repoComentarios.save(new Comentario("comentario 22"));
+		repoComentarios.save(new Comentario("comentario 23"));
+		repoComentarios.save(new Comentario("comentario 24"));
+		repoComentarios.save(new Comentario("comentario 25"));
+		repoComentarios.save(new Comentario("comentario 26"));
+		repoComentarios.save(new Comentario("comentario 27"));
+		repoComentarios.save(new Comentario("comentario 28"));
+		repoComentarios.save(new Comentario("comentario 29"));
+		repoComentarios.save(new Comentario("comentario 30"));
 	}
 	
 	@RequestMapping("/login")
