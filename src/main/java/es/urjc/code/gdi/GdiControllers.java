@@ -18,6 +18,9 @@ public class GdiControllers {
 	
 	@Autowired
 	private RepositorioIncidencia repoIncidencias;
+
+	@Autowired
+	private RepositorioUsuario repoUsuarios;
 	
 	//creo una lista de incidencias para hacer de la aplicación con la información alojada en memoria
 	private List<Incidencia> incidencias = new ArrayList<>();
@@ -49,6 +52,19 @@ public class GdiControllers {
 		repoIncidencias.save(new Incidencia("Alta", "Infraestructura", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar"));
 		repoIncidencias.save(new Incidencia("Alta", "Microinformatica", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus"));
 		repoIncidencias.save(new Incidencia("Alta", "Correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento."));	
+	
+		repoUsuarios.save(new Usuario("user1", "1234", "usuario"));
+		repoUsuarios.save(new Usuario("user2", "1234", "usuario"));
+		repoUsuarios.save(new Usuario("user3", "1234", "usuario"));
+		repoUsuarios.save(new Usuario("user4", "1234", "usuario"));
+		repoUsuarios.save(new Usuario("tecn1", "1234", "tecnico"));
+		repoUsuarios.save(new Usuario("tecn2", "1234", "tecnico"));
+		repoUsuarios.save(new Usuario("tecn3", "1234", "tecnico"));
+		repoUsuarios.save(new Usuario("tecn4", "1234", "tecnico"));
+		repoUsuarios.save(new Usuario("admi1", "1234", "administrador"));
+		repoUsuarios.save(new Usuario("admi2", "1234", "administrador"));
+		repoUsuarios.save(new Usuario("admi3", "1234", "administrador"));
+		repoUsuarios.save(new Usuario("admi4", "1234", "administrador"));
 	}
 	
 	@RequestMapping("/login")
