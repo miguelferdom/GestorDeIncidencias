@@ -30,8 +30,6 @@ public class Incidencia {
 	/**
 	 * Constructor completo de la clase
 	 * 
-	 * @param idIncidencia identificador único para una Incidencia
-	 * @param fecha Fecha en la que se crea una Incidencia. En formato DD/MM/YYYY HH:SS
 	 * @param urgencia Describe la criticidad de la incidencia (alta, media o baja)
 	 * @param categoria Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
 	 * @param estado Describe la situación actual de la incidencia (abierta, solucionada, cerrada)
