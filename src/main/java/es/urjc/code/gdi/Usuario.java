@@ -1,7 +1,17 @@
 package es.urjc.code.gdi;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idUsuario;
+	
 	private String nombre;
 	private String password;
 	private String perfil;
@@ -19,9 +29,20 @@ public class Usuario {
 	 * @param perfil Rol del usuario dentro de la aplicacion (usuario, técnico o administrador)
 	 */
 	public Usuario (String nombre, String password, String perfil) {
+		
+		super();
 		setNombre (nombre);
 		setPassword(password);
 		setPerfil (perfil);
+	}
+	
+	/**
+	 * Método set para establecer el identificador de un usuario
+	 * 
+	 * @param idIncidencia identificador único para un Usuario
+	 */
+	public void setIdUsuario (Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	/**
@@ -40,6 +61,15 @@ public class Usuario {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * Método get para devolver el identificador único un Usuario
+	 * 
+	 * @return devuelve el identificador único un Usuario
+	 */
+	public Long getIdUsuario () {
+		return this.idUsuario;
 	}
 	
 	/**
