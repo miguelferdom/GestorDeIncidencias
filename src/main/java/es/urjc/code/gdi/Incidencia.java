@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -29,6 +30,12 @@ public class Incidencia {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List <Comentario> comentarios = new ArrayList<>();
 	
+	@ManyToOne
+	private Usuario asignatario;
+	
+	@ManyToOne
+	private Usuario cliente;
+		
 	/**
 	 * Constructor de la clase sin parámetros
 	 */
@@ -43,10 +50,11 @@ public class Incidencia {
 	 * @param titulo Asunto descriptivo del problema reportado en la incidencia
 	 * @param descripcion Descripción detallada del problema que se necesita tratar
 	 */
-	public Incidencia (String urgencia, String categoria, String estado,String titulo, String descripcion) {
+	public Incidencia (Usuario cliente, String urgencia, String categoria, String estado,String titulo, String descripcion) {
 		
 		super();
 		setFecha();
+		setCliente (cliente);
 		setUrgencia(urgencia);
 		setCategoria(categoria);
 		setEstado(estado);
@@ -57,7 +65,7 @@ public class Incidencia {
 	/**
 	 * Método set para establecer el identificador de una incidencia
 	 * 
-	 * @param idIncidencia identificador único para una Incidencia
+	 * @param idIncidencia Identificador único para una Incidencia
 	 */
 	public void setIdIncidencia (Long idIncidencia) {
 		this.idIncidencia = idIncidencia;
@@ -136,9 +144,27 @@ public class Incidencia {
 	}
 	
 	/**
+	 * Método set para establecer el asignatario de una Incidencia
+	 * 
+	 * @param asignatario Identificador del usuario que ha reconocido la incidencia para atenderla
+	 */
+	public void setAsignatario (Usuario asignatario) {
+		this.asignatario = asignatario;
+	}
+	
+	/**
+	 * Método set para establecer el cliente de una Incidencia
+	 * 
+	 * @param asignatario Identificador del usuario que ha abierto la incidencia
+	 */
+	public void setCliente (Usuario cliente) {
+		this.cliente = cliente;
+	}
+	
+	/**
 	 * Método get para devolver el identificador único una Incidencia
 	 * 
-	 * @return devuelve el identificador único una Incidencia
+	 * @return Devuelve el identificador único una Incidencia
 	 */
 	public Long getIdIncidencia () {
 		return this.idIncidencia;
@@ -147,7 +173,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver la Fecha de creación de una Incidencia
 	 * 
-	 * @return devuelve la fecha de una Incidencia
+	 * @return Devuelve la fecha de una Incidencia
 	 */
 	public LocalDateTime getFecha () {
 		return this.fecha;
@@ -156,7 +182,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver la urgencia de una Incidencia
 	 * 
-	 * @return devuelve la urgencia de una Incidencia
+	 * @return Devuelve la urgencia de una Incidencia
 	 */
 	public String getUrgencia () {
 		return this.urgencia;
@@ -165,7 +191,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver la categoría de una Incidencia
 	 * 
-	 * @return devuelve la categoria de una Incidencia
+	 * @return Devuelve la categoria de una Incidencia
 	 */
 	public String getCategoria () {
 		return this.categoria;
@@ -174,7 +200,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver el estado de una Incidencia
 	 * 
-	 * @return devuelve el estado de una Incidencia
+	 * @return Devuelve el estado de una Incidencia
 	 */
 	public String getEstado () {
 		return this.estado;
@@ -183,7 +209,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver el título de una Incidencia
 	 * 
-	 * @return devuelve el titulo de una Incidencia
+	 * @return Devuelve el titulo de una Incidencia
 	 */
 	public String getTitulo () {
 		return this.titulo;
@@ -192,7 +218,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver la descripción de una Incidencia
 	 * 
-	 * @return devuelve la descripcion de una Incidencia
+	 * @return Devuelve la descripcion de una Incidencia
 	 */
 	public String getDescripcion () {
 		return this.descripcion;
@@ -201,7 +227,7 @@ public class Incidencia {
 	/**
 	 * Método get para devolver la solución de una Incidencia
 	 * 
-	 * @return devuelve la solucion de una Incidencia
+	 * @return Devuelve la solucion de una Incidencia
 	 */
 	public String getSolucion () {
 		return this.solucion;
@@ -210,14 +236,32 @@ public class Incidencia {
 	/**
 	 * Método get para devolver la lista de comentarios asociados a una Incidencia
 	 * 
-	 * @return Lista de comentarios asociados a la Incidencia
+	 * @return Devuelve la lista de comentarios asociados a la Incidencia
 	 */
 	public List <Comentario> getComentarios () {
 		return this.comentarios;
 	}
 	
+	/**
+	 * Método get para devolver el asignatario de una Incidencia
+	 * 
+	 * @return Devuelve el identificador del usuario que ha reconocido la incidencia para atenderla
+	 */
+	public Usuario setAsignatario () {
+		return this.asignatario;
+	}
+	
+	/**
+	 * Método get para devolver el cliente de una Incidencia
+	 * 
+	 * @return Devuelve el identificador del usuario que ha abierto la incidencia
+	 */
+	public Usuario setCliente () {
+		return this.cliente;
+	}
+	
 	@Override
-	public String toString() {
+	public String toString () {
 		return ("[INCIDENCIA] idIncidencia: " + getIdIncidencia() + "\n" +
 				"[INCIDENCIA] Fecha: " + getFecha() + "\n" +
 				"[INCIDENCIA] Urgencia: " + getUrgencia() + "\n" +
