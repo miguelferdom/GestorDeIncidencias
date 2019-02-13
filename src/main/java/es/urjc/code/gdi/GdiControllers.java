@@ -30,27 +30,43 @@ public class GdiControllers {
 	@PostConstruct
 	public void init() {
 		
-		repoUsuarios.save(new Usuario("user1", "1234", "usuario"));
-		repoUsuarios.save(new Usuario("user2", "1234", "usuario"));
-		repoUsuarios.save(new Usuario("user3", "1234", "usuario"));
-		repoUsuarios.save(new Usuario("user4", "1234", "usuario"));
-		repoUsuarios.save(new Usuario("tecn1", "1234", "tecnico"));
-		repoUsuarios.save(new Usuario("tecn2", "1234", "tecnico"));
-		repoUsuarios.save(new Usuario("tecn3", "1234", "tecnico"));
-		repoUsuarios.save(new Usuario("tecn4", "1234", "tecnico"));
-		repoUsuarios.save(new Usuario("admi1", "1234", "administrador"));
-		repoUsuarios.save(new Usuario("admi2", "1234", "administrador"));
-		repoUsuarios.save(new Usuario("admi3", "1234", "administrador"));
-		repoUsuarios.save(new Usuario("admi4", "1234", "administrador"));
+		Usuario user1 = new Usuario("user1", "1234", "usuario");
+		Usuario user2 = new Usuario("user2", "1234", "usuario");
+		Usuario user3 = new Usuario("user3", "1234", "usuario");
+		Usuario user4 = new Usuario("user4", "1234", "usuario");
+		Usuario tecn1 = new Usuario("tecn1", "1234", "tecnico");
+		Usuario tecn2 = new Usuario("tecn2", "1234", "tecnico");
+		Usuario tecn3 = new Usuario("tecn3", "1234", "tecnico");
+		Usuario tecn4 = new Usuario("tecn4", "1234", "tecnico");
+		Usuario admi1 = new Usuario("admi1", "1234", "administrador");
+		Usuario admi2 = new Usuario("admi2", "1234", "administrador");
+		Usuario admi3 = new Usuario("admi3", "1234", "administrador");
+		Usuario admi4 = new Usuario("admi4", "1234", "administrador");
 		
-		Incidencia inc1 = new Incidencia("Alta", "Correo", "Aceptada", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
-		Incidencia inc2 = new Incidencia("Alta", "Correo", "Abierta", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
-		Incidencia inc3 = new Incidencia("Alta", "SW ventas", "Abierta", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
-		Incidencia inc4 = new Incidencia("Alta", "SW RRHH", "Aceptada", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
-		Incidencia inc5 = new Incidencia("Alta", "Microinformatica", "Abierta", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
-		Incidencia inc6 = new Incidencia("Alta", "Infraestructura", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
-		Incidencia inc7 = new Incidencia("Alta", "Microinformatica", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
-		Incidencia inc8 = new Incidencia("Alta", "Correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
+		repoUsuarios.save(user1);
+		repoUsuarios.save(user2);
+		repoUsuarios.save(user3);
+		repoUsuarios.save(user4);
+		repoUsuarios.save(tecn1);
+		repoUsuarios.save(tecn2);
+		repoUsuarios.save(tecn3);
+		repoUsuarios.save(tecn4);
+		repoUsuarios.save(admi1);
+		repoUsuarios.save(admi2);
+		repoUsuarios.save(admi3);
+		repoUsuarios.save(admi4);
+		
+		Incidencia inc1 = new Incidencia(user1, "Alta", "Correo", "Aceptada", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
+		inc1.setAsignatario(tecn2);
+		Incidencia inc2 = new Incidencia(user1, "Alta", "Correo", "Abierta", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
+		Incidencia inc3 = new Incidencia(user2, "Alta", "SW ventas", "Abierta", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
+		Incidencia inc4 = new Incidencia(user3, "Alta", "SW RRHH", "Aceptada", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
+		inc4.setAsignatario(tecn1);
+		Incidencia inc5 = new Incidencia(user4, "Alta", "Microinformatica", "Abierta", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
+		Incidencia inc6 = new Incidencia(tecn1, "Alta", "Infraestructura", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
+		inc6.setAsignatario(admi2);
+		Incidencia inc7 = new Incidencia(tecn2, "Alta", "Microinformatica", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
+		Incidencia inc8 = new Incidencia(admi3, "Alta", "Correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
 		
 		inc1.getComentarios().add(new Comentario("comentario 01"));
 		inc1.getComentarios().add(new Comentario("comentario 02"));
