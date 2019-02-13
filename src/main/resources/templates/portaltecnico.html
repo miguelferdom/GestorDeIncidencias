@@ -3,7 +3,25 @@
 	<head>
 	<meta charset="ISO-8859-1">
 	<title>[GDI]</title>
+	<style>
+		table {
+		  width:100%;
+		}
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		}
+		th, td {
+		  padding: 5px;
+		  text-align: left;
+		}
+		th {
+		  background-color: black;
+		  color: white;
+		}
+	</style>
 	</head>
+	
 	<h1>Gestor de Incidencias</h1>
 	
 	<body>
@@ -30,32 +48,32 @@
 			</form>
 		</fieldset>
 		<p></p>
+		<p></p>
 		
 		<!-- Agrupación de campos 2 -->
-		<p>Incidencias</p>
-
-		<p>Texto antes del intento de lista</p>
-		{{#incidencias}}
-			<p>{{incidencias.titulo}}</p>
-		{{/incidencias}}
-		<p>Texto despues del intento de lista</p>
+		<p>Cola de incidencias</p>
 		
 		<fieldset>
-			<ul>
-				{{#hincidencias}}
-					<li>{{.}}</li>
-					<li>texto de prueba 1</li>
-				{{/hincidencias}}
-			</ul>
-			
 			<table>
-				{{#hincidencias}}
+				<tr>
+					<th>Id Incidencia</th>
+					<th>Fecha/hora</th>
+					<th>Urgencia</th>
+					<th>Estado</th>
+					<th>Categoria</th>
+					<th>Titulo</th>
+				</tr>
+				
+				{{#incidencias}}
 					<tr>
-						<td>{{-index}}</td>
-						<td>{{.}}</td>
-						<td>texto de prueba 2</td>
+						<td>{{idIncidencia}}</td>
+						<td>{{fecha}}</td>
+						<td>{{urgencia}}</td>
+						<td>{{estado}}</td>
+						<td>{{categoria}}</td>
+						<td>{{titulo}}</td>
 					</tr>
-				{{/hincidencias}}
+				{{/incidencias}}
 			</table>
 		</fieldset>
 		
