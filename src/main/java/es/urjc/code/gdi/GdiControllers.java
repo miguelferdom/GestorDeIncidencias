@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -149,12 +150,14 @@ public class GdiControllers {
 		return "nuevaincidencia_template";
 	}
 	
-	@RequestMapping("/consultarincidencia")
-	public String cargaConsultarIncidencia(Model model, @RequestParam String numincidencia) {
+	@PostMapping("/consultarincidencia")
+	public String cargaConsultarIncidencia(Model model, @RequestParam Long numincidencia) {
 		
-		model.addAttribute("issuenumber", numincidencia);
-				
-		return "consultarincidencia_template";
+		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + numincidencia + " no encontrada"));
+		
+		model.addAttribute("incidencia", incidencia);
+		
+		return "consultarincidencia";
 	}
 	
 	@RequestMapping("/volverabienvenida")
