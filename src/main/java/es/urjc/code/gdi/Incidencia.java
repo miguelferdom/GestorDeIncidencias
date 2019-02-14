@@ -60,6 +60,7 @@ public class Incidencia {
 		setEstado(estado);
 		setTitulo(titulo);
 		setDescripcion(descripcion);
+		setSolucion("");
 	}
 	
 	/**
