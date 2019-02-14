@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>[GDI]</title>
+		
+		<style>
+			table {
+			  width:100%;
+			}
+			table, th, td {
+			  border: 1px solid black;
+			  border-collapse: collapse;
+			}
+			th, td {
+			  padding: 5px;
+			  text-align: left;
+			}
+			th {
+			  background-color: black;
+			  color: white;
+			}
+		</style>
+	</head>
+	<h1>Gestor de Incidencias</h1>
+	
+	<body>
+		
+		<label>Numero de incidencia: {{incidencia.idIncidencia}}</label>
+		<br>
+		<br>
+		
+		<fieldset>
+			<legend>Datos del usuario</legend>
+			<label>Nombre de usuario: {{incidencia.cliente.nombre}}</label>
+		</fieldset>
+		<br>
+		<br>
+		
+		<fieldset>
+			<legend>Datos de la incidencia</legend>
+				<br>
+				<label>Titulo: {{incidencia.titulo}}</label>
+				<br>
+				<br>
+				
+				<label>Descripcion</label><br>
+				<fieldset>{{incidencia.descripcion}}</fieldset>
+				<br>
+				
+				<label>Comentarios</label><br>
+					<table>
+						<tr>
+							<td>Id Comentario</td>
+							<td>Fecha</td>
+							<td>Anotacion</td>
+						</tr>
+						{{#incidencia.comentarios}}
+							<tr>
+								<td char=true>{{idComentario}}</td>
+								<td char=true>{{fecha}}</td>
+								<td>{{anotacion}}</td>
+							</tr>
+						{{/incidencia.comentarios}}
+					</table>
+				<br>
+
+				<label>Solucion</label><br>
+				<fieldset>{{incidencia.solucion}}</fieldset>
+				
+		</fieldset>
+	</body>
+</html>
