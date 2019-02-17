@@ -44,6 +44,7 @@ public class Incidencia {
 	/**
 	 * Constructor completo de la clase
 	 * 
+	 * @param cliente Identifica al usuario que ha abierto la incidencia
 	 * @param urgencia Describe la criticidad de la incidencia (alta, media o baja)
 	 * @param categoria Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
 	 * @param estado Describe la situación actual de la incidencia (abierta, solucionada, cerrada)
