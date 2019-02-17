@@ -36,7 +36,7 @@
 			<p></p>
 			
 			<label>Consultar incidencia
-				<form action="consultarincidencia" method="post">
+				<form action="consultarincidencia" method="get">
 					<input type='number' name="numincidencia"/>
 					<input type='submit' value='Ver'>
 				</form>
@@ -66,7 +66,7 @@
 				
 				{{#incidencias}}
 					<tr>
-						<td>{{idIncidencia}}</td>
+						<td><a href="/consultarincidencia?numincidencia={{idIncidencia}}">{{idIncidencia}}</a></td>
 						<td>{{fecha}}</td>
 						<td>{{urgencia}}</td>
 						<td>{{estado}}</td>
