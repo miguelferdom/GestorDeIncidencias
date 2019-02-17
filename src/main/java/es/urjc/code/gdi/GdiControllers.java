@@ -26,10 +26,73 @@ public class GdiControllers {
 	@Autowired
 	private RepositorioComentario repoComentarios;
 	
+	@Autowired
+	private RepositorioDepartamento repoDepartamentos;
+	
+	@Autowired
+	private RepositorioTipoDeProblema repoTipoDeProblemas;
+	
 	private List<Incidencia> incidencias;
 
 	@PostConstruct
 	public void init() {
+		
+		Departamento dpto1 = new Departamento ("Correo", 2);
+		Departamento dpto2 = new Departamento ("Ventas", 7);
+		Departamento dpto3 = new Departamento ("Microinformatica", 2);
+		Departamento dpto4 = new Departamento ("RRHH", 5);
+		Departamento dpto5 = new Departamento ("Sistemas", 8);
+		Departamento dpto6 = new Departamento ("BBDD", 8);
+		Departamento dpto7 = new Departamento ("Comunicaciones", 8);
+		
+		
+		dpto1.getProblemas().add(new TipoDeProblema("Alta de correo", 5));
+		dpto1.getProblemas().add(new TipoDeProblema("Baja de correo", 5));
+		dpto1.getProblemas().add(new TipoDeProblema("Recuperacion de correos", 7));
+		dpto1.getProblemas().add(new TipoDeProblema("Recepcion de correo malicioso", 10));
+		dpto1.getProblemas().add(new TipoDeProblema("Recepcion Spam", 6));
+		dpto1.getProblemas().add(new TipoDeProblema("Problema al enviar correos", 9));
+		dpto1.getProblemas().add(new TipoDeProblema("Problema al recibir correos", 9));
+		repoDepartamentos.save(dpto1);
+		dpto2.getProblemas().add(new TipoDeProblema("SW ventas no funciona", 10));
+		dpto2.getProblemas().add(new TipoDeProblema("SW ventas funciona muy lento", 6));
+		dpto2.getProblemas().add(new TipoDeProblema("SW Ventas no guarda datos", 7));
+		dpto2.getProblemas().add(new TipoDeProblema("SW Ventas no recupera datos", 7));
+		dpto2.getProblemas().add(new TipoDeProblema("Recuperación de archivos historicos", 2));
+		repoDepartamentos.save(dpto2);
+		dpto3.getProblemas().add(new TipoDeProblema("No funciona la pantalla", 3));
+		dpto3.getProblemas().add(new TipoDeProblema("No funciona el raton", 3));
+		dpto3.getProblemas().add(new TipoDeProblema("No funciona el teclado", 3));
+		dpto3.getProblemas().add(new TipoDeProblema("Entrega de PC", 7));
+		dpto3.getProblemas().add(new TipoDeProblema("Retirada de PC", 4));
+		dpto3.getProblemas().add(new TipoDeProblema("Instalacion de SW ofimatico", 7));
+		dpto3.getProblemas().add(new TipoDeProblema("Revision de configuracion de SW", 7));
+		repoDepartamentos.save(dpto3);
+		dpto4.getProblemas().add(new TipoDeProblema("Alta empleado", 7));
+		dpto4.getProblemas().add(new TipoDeProblema("Baja empleado", 7));
+		dpto4.getProblemas().add(new TipoDeProblema("SW RRHH no funciona", 9));
+		dpto4.getProblemas().add(new TipoDeProblema("SW RRHH funciona muy lento", 7));
+		repoDepartamentos.save(dpto4);
+		dpto5.getProblemas().add(new TipoDeProblema("Ampliacion espacio de disco", 5));
+		dpto5.getProblemas().add(new TipoDeProblema("Llenado de disco", 8));
+		dpto5.getProblemas().add(new TipoDeProblema("Caida de servidor", 10));
+		dpto5.getProblemas().add(new TipoDeProblema("Caida de proceso", 9));
+		dpto5.getProblemas().add(new TipoDeProblema("Antivirus", 5));
+		dpto5.getProblemas().add(new TipoDeProblema("Ampliacion recursos de servidor", 6));
+		dpto5.getProblemas().add(new TipoDeProblema("Retirada de servidor", 4));
+		repoDepartamentos.save(dpto5);
+		dpto6.getProblemas().add(new TipoDeProblema("Caida BD", 10));
+		dpto6.getProblemas().add(new TipoDeProblema("Caida Listener", 8));
+		dpto6.getProblemas().add(new TipoDeProblema("Llenado de archivers", 7));
+		dpto6.getProblemas().add(new TipoDeProblema("Lentitud en consultas", 7));
+		repoDepartamentos.save(dpto6);
+		dpto7.getProblemas().add(new TipoDeProblema("Caida de red", 10));
+		dpto7.getProblemas().add(new TipoDeProblema("Lentitud en red", 8));
+		dpto7.getProblemas().add(new TipoDeProblema("Error en llamadas entrantes", 7));
+		dpto7.getProblemas().add(new TipoDeProblema("Error en llamadas salientes", 7));
+		dpto7.getProblemas().add(new TipoDeProblema("Linea de datos principal caida", 8));
+		dpto7.getProblemas().add(new TipoDeProblema("Linea de datos backup caida", 6));
+		repoDepartamentos.save(dpto7);
 		
 		Usuario user1 = new Usuario("user1", "1234", "usuario");
 		Usuario user2 = new Usuario("user2", "1234", "usuario");
@@ -57,17 +120,17 @@ public class GdiControllers {
 		repoUsuarios.save(admi3);
 		repoUsuarios.save(admi4);
 		
-		Incidencia inc1 = new Incidencia(user1, "Alta", "Correo", "Aceptada", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
+		Incidencia inc1 = new Incidencia(user1, dpto1, "Alta de correo", "Aceptada", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
 		inc1.setAsignatario(tecn2);
-		Incidencia inc2 = new Incidencia(user1, "Alta", "Correo", "Abierta", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
-		Incidencia inc3 = new Incidencia(user2, "Alta", "SW ventas", "Abierta", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
-		Incidencia inc4 = new Incidencia(user3, "Alta", "SW RRHH", "Aceptada", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
+		Incidencia inc2 = new Incidencia(user1, dpto1, "Baja de correo", "Abierta", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
+		Incidencia inc3 = new Incidencia(user2, dpto2, "SW Ventas no recupera datos", "Abierta", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
+		Incidencia inc4 = new Incidencia(user3, dpto4, "Baja empleado", "Aceptada", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
 		inc4.setAsignatario(tecn1);
-		Incidencia inc5 = new Incidencia(user4, "Alta", "Microinformatica", "Abierta", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
-		Incidencia inc6 = new Incidencia(tecn1, "Alta", "Infraestructura", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
+		Incidencia inc5 = new Incidencia(user4, dpto3, "Entrega de PC", "Abierta", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
+		Incidencia inc6 = new Incidencia(tecn1, dpto5, "Caida de servidor", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
 		inc6.setAsignatario(admi2);
-		Incidencia inc7 = new Incidencia(tecn2, "Alta", "Microinformatica", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
-		Incidencia inc8 = new Incidencia(admi3, "Alta", "Correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
+		Incidencia inc7 = new Incidencia(tecn2, dpto5, "Antivirus", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
+		Incidencia inc8 = new Incidencia(admi3, dpto1, "Alta de correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
 		
 		inc1.getComentarios().add(new Comentario("comentario 01"));
 		inc1.getComentarios().add(new Comentario("comentario 02"));
