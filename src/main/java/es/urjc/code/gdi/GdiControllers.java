@@ -210,7 +210,7 @@ public class GdiControllers {
 	
 	@RequestMapping("/nuevaincidencia")
 	public String cargaNuevaIncidencia(Model model) {
-		return "nuevaincidencia_template";
+		return "nuevaincidencia";
 	}
 	
 	@GetMapping("/consultarincidencia")
