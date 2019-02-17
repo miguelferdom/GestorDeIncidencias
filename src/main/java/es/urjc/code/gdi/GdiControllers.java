@@ -150,7 +150,7 @@ public class GdiControllers {
 		return "nuevaincidencia_template";
 	}
 	
-	@PostMapping("/consultarincidencia")
+	@GetMapping("/consultarincidencia")
 	public String cargaConsultarIncidencia(Model model, @RequestParam Long numincidencia) {
 		
 		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + numincidencia + " no encontrada"));
