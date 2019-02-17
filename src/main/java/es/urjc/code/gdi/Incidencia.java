@@ -20,8 +20,8 @@ public class Incidencia {
 	private Long idIncidencia;
 	
 	private LocalDateTime fecha;
-	private String urgencia;
-	private String categoria;
+	private int urgencia;
+	private String problema;
 	private String estado;
 	private String titulo;
 	private String descripcion;
@@ -35,6 +35,9 @@ public class Incidencia {
 	
 	@ManyToOne
 	private Usuario cliente;
+	
+	@ManyToOne
+	private Departamento departamento;
 		
 	/**
 	 * Constructor de la clase sin parámetros
@@ -45,19 +48,20 @@ public class Incidencia {
 	 * Constructor completo de la clase
 	 * 
 	 * @param cliente Identifica al usuario que ha abierto la incidencia
-	 * @param urgencia Describe la criticidad de la incidencia (alta, media o baja)
-	 * @param categoria Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
+	 * @param departamento Identifica el area principal en el que se categoriza la incidencia
+	 * @param problema Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
 	 * @param estado Describe la situación actual de la incidencia (abierta, solucionada, cerrada)
 	 * @param titulo Asunto descriptivo del problema reportado en la incidencia
 	 * @param descripcion Descripción detallada del problema que se necesita tratar
 	 */
-	public Incidencia (Usuario cliente, String urgencia, String categoria, String estado,String titulo, String descripcion) {
+	public Incidencia (Usuario cliente, Departamento departamento, String problema, String estado,String titulo, String descripcion) {
 		
 		super();
 		setFecha();
 		setCliente (cliente);
-		setUrgencia(urgencia);
-		setCategoria(categoria);
+		setDepartamento (departamento);
+		setProblema(problema);
+		setUrgencia(departamento, problema);
 		setEstado(estado);
 		setTitulo(titulo);
 		setDescripcion(descripcion);
@@ -84,20 +88,18 @@ public class Incidencia {
 	
 	/**
 	 * Método set para establecer la urgencia de una Incidencia
-	 * 
-	 * @param urgencia Describe la criticidad de la incidencia (alta, media o baja)
 	 */
-	public void setUrgencia (String urgencia) {
-		this.urgencia = urgencia;
+	public void setUrgencia (Departamento departamento, String problema) {
+		this.urgencia = departamento.getUrgenciaProblemaDepartamento(problema);
 	}
 	
 	/**
-	 * Método set para establecer la categoria de una Incidencia
+	 * Método set para establecer la problema de una Incidencia
 	 * 
-	 * @param categoria Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
+	 * @param problema Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
 	 */
-	public void setCategoria (String categoria) {
-		this.categoria = categoria;
+	public void setProblema (String problema) {
+		this.problema = problema;
 	}
 	
 	/**
@@ -164,6 +166,15 @@ public class Incidencia {
 	}
 	
 	/**
+	 * Método set para establecer el departamento de una Incidencia
+	 * 
+	 * @param asignatario Identificador del area principal en el que se categoriza la incidencia
+	 */
+	public void setDepartamento (Departamento departamento) {
+		this.departamento = departamento;
+	}
+	
+	/**
 	 * Método get para devolver el identificador único una Incidencia
 	 * 
 	 * @return Devuelve el identificador único una Incidencia
@@ -186,17 +197,17 @@ public class Incidencia {
 	 * 
 	 * @return Devuelve la urgencia de una Incidencia
 	 */
-	public String getUrgencia () {
+	public int getUrgencia () {
 		return this.urgencia;
 	}
 	
 	/**
 	 * Método get para devolver la categoría de una Incidencia
 	 * 
-	 * @return Devuelve la categoria de una Incidencia
+	 * @return Devuelve la problema de una Incidencia
 	 */
-	public String getCategoria () {
-		return this.categoria;
+	public String getProblema () {
+		return this.problema;
 	}
 	
 	/**
@@ -249,7 +260,7 @@ public class Incidencia {
 	 * 
 	 * @return Devuelve el identificador del usuario que ha reconocido la incidencia para atenderla
 	 */
-	public Usuario setAsignatario () {
+	public Usuario getAsignatario () {
 		return this.asignatario;
 	}
 	
@@ -258,8 +269,17 @@ public class Incidencia {
 	 * 
 	 * @return Devuelve el identificador del usuario que ha abierto la incidencia
 	 */
-	public Usuario setCliente () {
+	public Usuario getCliente () {
 		return this.cliente;
+	}
+	
+	/**
+	 * Método get para devolver el departamento de una Incidencia
+	 * 
+	 * @return Identificador del area principal en el que se categoriza la incidencia
+	 */
+	public Departamento getDepartamento () {
+		return this.departamento;
 	}
 	
 	@Override
@@ -267,7 +287,7 @@ public class Incidencia {
 		return ("[INCIDENCIA] idIncidencia: " + getIdIncidencia() + "\n" +
 				"[INCIDENCIA] Fecha: " + getFecha() + "\n" +
 				"[INCIDENCIA] Urgencia: " + getUrgencia() + "\n" +
-				"[INCIDENCIA] Categoria: " + getCategoria() + "\n" +
+				"[INCIDENCIA] Categoria: " + getProblema() + "\n" +
 				"[INCIDENCIA] Estado: " + getEstado() + "\n" +
 				"[INCIDENCIA] Título: " + getTitulo() + "\n" +
 				"[INCIDENCIA] Descripción: " + getDescripcion() + "\n" +
