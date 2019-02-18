@@ -58,7 +58,7 @@ public class GdiControllers {
 		dpto2.getProblemas().add(new TipoDeProblema("SW ventas funciona muy lento", 6));
 		dpto2.getProblemas().add(new TipoDeProblema("SW Ventas no guarda datos", 7));
 		dpto2.getProblemas().add(new TipoDeProblema("SW Ventas no recupera datos", 7));
-		dpto2.getProblemas().add(new TipoDeProblema("Recuperación de archivos historicos", 2));
+		dpto2.getProblemas().add(new TipoDeProblema("Recuperacion de archivos historicos", 2));
 		repoDepartamentos.save(dpto2);
 		dpto3.getProblemas().add(new TipoDeProblema("No funciona la pantalla", 3));
 		dpto3.getProblemas().add(new TipoDeProblema("No funciona el raton", 3));
