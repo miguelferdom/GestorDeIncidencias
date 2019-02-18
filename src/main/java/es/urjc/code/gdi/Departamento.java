@@ -153,4 +153,29 @@ public class Departamento {
 		
 		return (this.criticidadDepartamento * criticidadProblema);
 	}
+	
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+		
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		else
+		{
+			Departamento aux = (Departamento) obj;
+			if (this.getNombreDepartamento().equals(aux.getNombreDepartamento())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
 }
