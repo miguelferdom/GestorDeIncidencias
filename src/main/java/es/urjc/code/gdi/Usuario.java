@@ -159,4 +159,29 @@ public class Usuario {
 	public String toString () {
 		return("[USUARIO] Nombre: " + getNombre() + "; password: " + getPassword() + "; perfil: " + getPerfil());
 	}
+	
+	@Override
+	public boolean equals (Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+		
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		else
+		{
+			Usuario aux = (Usuario) obj;
+			if (this.getNombre().equals(aux.getNombre())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
 }
