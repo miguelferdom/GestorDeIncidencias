@@ -54,7 +54,7 @@ public class Incidencia {
 	 * @param titulo Asunto descriptivo del problema reportado en la incidencia
 	 * @param descripcion Descripción detallada del problema que se necesita tratar
 	 */
-	public Incidencia (Usuario cliente, Departamento departamento, String problema, String estado,String titulo, String descripcion) {
+	public Incidencia (Usuario cliente, Departamento departamento, String problema, String titulo, String descripcion) {
 		
 		super();
 		setFecha();
@@ -62,7 +62,7 @@ public class Incidencia {
 		setDepartamento (departamento);
 		setProblema(problema);
 		setUrgencia(departamento, problema);
-		setEstado(estado);
+		setEstado("Abierta");
 		setTitulo(titulo);
 		setDescripcion(descripcion);
 		setSolucion("");
