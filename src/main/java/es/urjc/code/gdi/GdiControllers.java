@@ -120,17 +120,17 @@ public class GdiControllers {
 		repoUsuarios.save(admi3);
 		repoUsuarios.save(admi4);
 		
-		Incidencia inc1 = new Incidencia(user1, dpto1, "Alta de correo", "Aceptada", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
+		Incidencia inc1 = new Incidencia(user1, dpto1, "Alta de correo", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
 		inc1.setAsignatario(tecn2);
-		Incidencia inc2 = new Incidencia(user1, dpto1, "Baja de correo", "Abierta", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
-		Incidencia inc3 = new Incidencia(user2, dpto2, "SW Ventas no recupera datos", "Abierta", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
-		Incidencia inc4 = new Incidencia(user3, dpto4, "Baja empleado", "Aceptada", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
+		Incidencia inc2 = new Incidencia(user1, dpto1, "Baja de correo", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
+		Incidencia inc3 = new Incidencia(user2, dpto2, "SW Ventas no recupera datos", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
+		Incidencia inc4 = new Incidencia(user3, dpto4, "Baja empleado", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
 		inc4.setAsignatario(tecn1);
-		Incidencia inc5 = new Incidencia(user4, dpto3, "Entrega de PC", "Abierta", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
-		Incidencia inc6 = new Incidencia(tecn1, dpto5, "Caida de servidor", "Aceptada", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
+		Incidencia inc5 = new Incidencia(user4, dpto3, "Entrega de PC", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
+		Incidencia inc6 = new Incidencia(tecn1, dpto5, "Caida de servidor", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
 		inc6.setAsignatario(admi2);
-		Incidencia inc7 = new Incidencia(tecn2, dpto5, "Antivirus", "Abierta", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
-		Incidencia inc8 = new Incidencia(admi3, dpto1, "Alta de correo", "Abierta", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
+		Incidencia inc7 = new Incidencia(tecn2, dpto5, "Antivirus", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
+		Incidencia inc8 = new Incidencia(admi3, dpto1, "Alta de correo", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
 		
 		inc1.getComentarios().add(new Comentario("comentario 01"));
 		inc1.getComentarios().add(new Comentario("comentario 02"));
@@ -199,6 +199,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
+		// Si el perfil es igual a la cadena "usuario"..., si no lo es, entonces será tecnico o administrador y se le manda a otro portal
 		if (perfil.equals("usuario"))
 		{
 			return "portalusuario";
@@ -223,9 +224,58 @@ public class GdiControllers {
 		return "consultarincidencia";
 	}
 	
+	/*
+	 * Revisar si tengo que eliminar este controlador, creo que ahora mismo no tiene uso
+	 */
 	@RequestMapping("/volverabienvenida")
 	public String cargaVolverABienvenida(Model model, @RequestParam String usuario, @RequestParam String password, @RequestParam String perfil) {
 		
 		return "bienvenida_template";
+	}
+	
+	@PostMapping("/crearincidencia")
+	public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
+		
+		Usuario userAux = new Usuario();
+		userAux.setNombre(usuario);
+		
+		Long idUser = 0L;
+		
+		Departamento dptoAux = new Departamento ();
+		dptoAux.setNombreDepartamento(departamento);
+		
+		Long idDpto = 0L;
+		
+		for (Usuario u : repoUsuarios.findAll()) {
+			if (u.equals(userAux)) {
+				idUser = u.getIdUsuario();
+			}
+		}
+		
+		userAux = repoUsuarios.getOne(idUser);
+		
+		//System.out.println("- - - - traza usuario - - - ");
+		//System.out.println("idUser: " + idUser);
+		//userAux.toString();
+		//System.out.println("- - - - traza usuario - - - ");
+		
+		for (Departamento d : repoDepartamentos.findAll()) {
+			if (d.equals(dptoAux)) {
+				idDpto = d.getIdDepartamento();
+			}
+		}
+		
+		dptoAux = repoDepartamentos.getOne(idDpto);
+		
+		//System.out.println("- - - - traza dpto - - - ");
+		//System.out.println("idDpto: " + idDpto);
+		//dptoAux.toString();
+		//System.out.println("- - - - traza dpto - - - ");
+		
+		repoIncidencias.save(new Incidencia(userAux, dptoAux, problema, titulo, descripcion));
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
 	}
 }
