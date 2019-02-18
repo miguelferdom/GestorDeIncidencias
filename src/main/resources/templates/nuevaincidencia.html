@@ -5,19 +5,102 @@
 		<title>[GDI] Login</title>
 	</head>
 	
-	<h1>Nueva incidencia</h1>
+	<h1>Gestor de Incidencias</h1>
 	
 	<body>
 	
-	<form action="incidencia" method="post">
-		<!-- Agrupación de campos -->
-		<fieldset>
-			<!-- nombre, perfil, titulo, descripcion, ¿adjuntos?, etc... -->
-		</fieldset>
-		<p></p>
-		
-		<input type='submit' value='Enviar'>
-	</form>
-
+		<form action="crearincidencia" method="post">
+			<fieldset>
+				<legend>Datos del usuario</legend>
+				<label>Usuario <input type='text' name="usuario"/></label>
+			</fieldset>
+			<br>
+			<br>
+			
+			<fieldset>
+				<legend>Categoria</legend>
+				
+				<label>Departamento 
+					<select name="departamento">
+						<option value="Correo">Correo</option>
+						<option value="Ventas">Ventas</option>
+						<option value="Microinformatica">Microinformatica</option>
+						<option value="RRHH">RRHH</option>
+						<option value="Sistemas">Sistemas</option>
+						<option value="BBDD">BBDD</option>
+						<option value="Comunicaciones">Comunicaciones</option>
+					</select>
+				</label>
+				<br>
+				<br>
+				
+				<label>Problema
+					<select name="problema">
+						<option value="probl00"> -- problemas Correos -- </option>
+						<option value="Alta de correo">Alta de correo</option>
+						<option value="Baja de correo">Baja de correo</option>
+						<option value="Recuperacion de correos">Recuperacion de correos</option>
+						<option value="Recepcion de correo malicioso">Recepcion de correo malicioso</option>
+						<option value="Recepcion Spam">Recepcion Spam</option>
+						<option value="Problema al enviar correos">Problema al enviar correos</option>
+						<option value="Problema al recibir correos">Problema al recibir correos</option>
+						<option value=" -- problemas Ventas -- "> -- problemas Ventas -- </option>
+						<option value="SW ventas no funcion">SW ventas no funcion</option>
+						<option value="SW ventas funciona muy lento">SW ventas funciona muy lento</option>
+						<option value="SW Ventas no guarda datos">SW Ventas no guarda datos</option>
+						<option value="SW Ventas no recupera datos">SW Ventas no recupera datos</option>
+						<option value="Recuperacion de archivos historico">Recuperacion de archivos historicos</option>
+						<option value=" -- problemas Microinformatica -- "> -- problemas Microinformatica -- </option>
+						<option value="No funciona la pantalla">No funciona la pantalla</option>
+						<option value="No funciona el raton">No funciona el raton</option>
+						<option value="No funciona el teclado">No funciona el teclado</option>
+						<option value="Entrega de PC">Entrega de PC</option>
+						<option value="Retirada de PC">Retirada de PC</option>
+						<option value="Instalacion de SW ofimatico">Instalacion de SW ofimatico</option>
+						<option value="Revision de configuracion de SW">Revision de configuracion de SW</option>
+						<option value=" -- problemas RRHH -- "> -- problemas RRHH -- </option>
+						<option value="Alta empleado">Alta empleado</option>
+						<option value="Baja empleado">Baja empleado</option>
+						<option value="SW RRHH no funciona">SW RRHH no funciona</option>
+						<option value="SW RRHH funciona muy lento">SW RRHH funciona muy lento</option>
+						<option value=" -- problemas Sistemas -- "> -- problemas Sistemas -- </option>
+						<option value="Ampliacion espacio de disco">Ampliacion espacio de disco</option>
+						<option value="Llenado de disco">Llenado de disco</option>
+						<option value="Caida de servidor">Caida de servidor</option>
+						<option value="Caida de proceso">Caida de proceso</option>
+						<option value="Antivirus">Antivirus</option>
+						<option value="Ampliacion recursos de servidor">Ampliacion recursos de servidor</option>
+						<option value="Retirada de servidor">Retirada de servidor</option>
+						<option value=" -- problemas BBDD -- "> -- problemas BBDD -- </option>
+						<option value="Caida BD">Caida BD</option>
+						<option value="Caida Listener">Caida Listener</option>
+						<option value="Llenado de archivers">Llenado de archivers</option>
+						<option value="Lentitud en consultas">Lentitud en consultas</option>
+						<option value=" -- problemas Comunicaciones -- "> -- problemas Comunicaciones -- </option>
+						<option value="Caida de red">Caida de red</option>
+						<option value="Lentitud en red">Lentitud en red</option>
+						<option value="Error en llamadas entrantes">Error en llamadas entrantes</option>
+						<option value="Error en llamadas salientes">Error en llamadas salientes</option>
+						<option value="Linea de datos principal caida">Linea de datos principal caida</option>
+						<option value="Linea de datos backup caida">Linea de datos backup caida</option>
+					</select>
+				</label>
+			</fieldset>
+			<br>
+			<br>
+			
+			<fieldset>
+				<legend>Datos de la incidencia</legend>
+				<label>Titulo <input type='text' style="width:100%"name="titulo"/></label>
+				<br>
+				<br>
+				<label>Descripcion
+					<textarea name="descripcion" rows="10" style="width:100%"></textarea>
+				</label>
+			</fieldset>
+			<br>
+			
+			<input type='submit' value='Abrir incidencia'>
+		</form>
 	</body>
 </html>
