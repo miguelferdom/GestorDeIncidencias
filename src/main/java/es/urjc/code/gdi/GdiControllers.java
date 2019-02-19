@@ -283,44 +283,11 @@ public class GdiControllers {
 	@PostMapping("/crearincidencia")
 	public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
 		
-		Usuario userAux = new Usuario();
-		userAux.setNombre(usuario);
 		
-		Long idUser = 0L;
-		
-		Departamento dptoAux = new Departamento ();
-		dptoAux.setNombreDepartamento(departamento);
-		
-		Long idDpto = 0L;
-		
-		for (Usuario u : repoUsuarios.findAll()) {
-			if (u.equals(userAux)) {
-				idUser = u.getIdUsuario();
-			}
-		}
-		
-		userAux = repoUsuarios.getOne(idUser);
-		
-		//System.out.println("- - - - traza usuario - - - ");
-		//System.out.println("idUser: " + idUser);
-		//userAux.toString();
-		//System.out.println("- - - - traza usuario - - - ");
-		
-		for (Departamento d : repoDepartamentos.findAll()) {
-			if (d.equals(dptoAux)) {
-				idDpto = d.getIdDepartamento();
-			}
-		}
-		
-		dptoAux = repoDepartamentos.getOne(idDpto);
-		
-		//System.out.println("- - - - traza dpto - - - ");
-		//System.out.println("idDpto: " + idDpto);
-		//dptoAux.toString();
-		//System.out.println("- - - - traza dpto - - - ");
-		
-		repoIncidencias.save(new Incidencia(userAux, dptoAux, problema, titulo, descripcion));
-		
+		Usuario userCliente = obtenerUsuario(usuario);
+		Departamento dpto = obtenerDepartamento(departamento);
+				
+		repoIncidencias.save(new Incidencia(userCliente, dpto, problema, titulo, descripcion));
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
 		return "portaltecnico";
