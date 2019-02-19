@@ -50,7 +50,7 @@ public class Incidencia {
 	 * @param cliente Identifica al usuario que ha abierto la incidencia
 	 * @param departamento Identifica el area principal en el que se categoriza la incidencia
 	 * @param problema Área en la que se engloba el problema indicado en la incidencia (problema HW, Error SW ventas, Solicitud de nuevo correo electrónico, etc...)
-	 * @param estado Describe la situación actual de la incidencia (abierta, solucionada, cerrada)
+	 * @param estado Describe la situación actual de la incidencia (Abierta, Aceptada, Solucionada, Cerrada)
 	 * @param titulo Asunto descriptivo del problema reportado en la incidencia
 	 * @param descripcion Descripción detallada del problema que se necesita tratar
 	 */
@@ -105,7 +105,7 @@ public class Incidencia {
 	/**
 	 * Método set para establecer el estado de una Incidencia
 	 * 
-	 * @param estado Describe la situación actual de la incidencia (abierta, solucionada, cerrada)
+	 * @param estado Describe la situación actual de la incidencia (Abierta, Aceptada, Solucionada, Cerrada)
 	 */
 	public void setEstado (String estado) {
 		this.estado = estado;
