@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Comentario {
@@ -17,6 +18,9 @@ public class Comentario {
 	private LocalDateTime fecha;
 	private String anotacion;
 	
+	@ManyToOne
+	private Usuario autor;
+	
 	/**
 	 * Constructor de la clase sin parámetros
 	 */
@@ -25,12 +29,14 @@ public class Comentario {
 	/**
 	 * Constructor completo de la clase
 	 * 
-	 * @param anotacion contenido del Comentario
+	 * @param autor Identifica al usuario que realiza un comentario
+	 * @param anotacion Contenido del Comentario
 	 */
-	public Comentario (String anotacion) {
+	public Comentario (Usuario autor, String anotacion) {
 		
 		super();
 		setFecha ();
+		setAutor (autor);
 		setAnotacion (anotacion);
 	}
 	
@@ -51,6 +57,15 @@ public class Comentario {
 	}
 	
 	/**
+	 * Método set para guardar el autor del Comentario
+	 * 
+	 * @param autor Identifica al usuario que realiza un comentario
+	 */
+	public void setAutor (Usuario autor) {
+		this.autor = autor;
+	}
+	
+	/**
 	 * Método get para devolver la Fecha de un Comentario
 	 * 
 	 * @return devuelve la Fecha de un Comentario
@@ -66,6 +81,15 @@ public class Comentario {
 	 */
 	public String getAnotacion () {
 		return this.anotacion;
+	}
+	
+	/**
+	 * Método get para devolver el autor del Comentario
+	 * 
+	 * @return autor devuelve el usuario que ha realizado el comentario
+	 */
+	public Usuario getAutor () {
+		return this.autor;
 	}
 	
 	@Override
