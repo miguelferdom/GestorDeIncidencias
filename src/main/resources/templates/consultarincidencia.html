@@ -71,12 +71,14 @@
 						<tr>
 							<td>Id Comentario</td>
 							<td>Fecha</td>
+							<td>Autor</td>
 							<td>Anotacion</td>
 						</tr>
 						{{#incidencia.comentarios}}
 							<tr>
 								<td char=true>{{idComentario}}</td>
 								<td char=true>{{fecha}}</td>
+								<td>{{autor.nombre}}</td>
 								<td>{{anotacion}}</td>
 							</tr>
 						{{/incidencia.comentarios}}
