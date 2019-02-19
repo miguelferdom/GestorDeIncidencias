@@ -122,13 +122,16 @@ public class GdiControllers {
 		
 		Incidencia inc1 = new Incidencia(user1, dpto1, "Alta de correo", "solicitud de nuevo correo electronico", "Necesitamos un buzon de correo para el compañero user99");
 		inc1.setAsignatario(tecn2);
+		inc1.setEstado("Aceptada");
 		Incidencia inc2 = new Incidencia(user1, dpto1, "Baja de correo", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
 		Incidencia inc3 = new Incidencia(user2, dpto2, "SW Ventas no recupera datos", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
 		Incidencia inc4 = new Incidencia(user3, dpto4, "Baja empleado", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
 		inc4.setAsignatario(tecn1);
+		inc4.setEstado("Aceptada");
 		Incidencia inc5 = new Incidencia(user4, dpto3, "Entrega de PC", "solicitud de nuevo equipo", "Necesitamos un nuevo portátil para el compañero user99 con el software necesario para el departamento de ventas");
 		Incidencia inc6 = new Incidencia(tecn1, dpto5, "Caida de servidor", "Error Cluster Maquetación", "El servidor 1 del cluster del departamento de maquetación ha caido y al arrancar da un error de pantallazo azul y no termina de levantar");
 		inc6.setAsignatario(admi2);
+		inc6.setEstado("Aceptada");
 		Incidencia inc7 = new Incidencia(tecn2, dpto5, "Antivirus", "Posible virus en correo", "El equipo del usuario parece haber estado enviando correos de spam a toda su agenda de contactos. Hemos dejado el equipo apagado, solitamos que se revise por si tuviera virus");
 		Incidencia inc8 = new Incidencia(admi3, dpto1, "Alta de correo", "solicitud de aumento de cuota", "Solicito un aumento de la capacidad de mi correo electronico, recibo y envio muchos correos diariamente con adjuntos pesados y trabajar con el archivado local me hace ir mucho más lento.");	
 		
