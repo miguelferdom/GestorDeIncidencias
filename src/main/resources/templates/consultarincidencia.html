@@ -26,26 +26,44 @@
 	
 	<body>
 		
-		<label>Numero de incidencia: {{incidencia.idIncidencia}}</label>
-		<br>
+		<fieldset>
+		<legend>Incidencia</legend>
+			<form action="aceptarincidencia" method="post">
+				<label>Numero de incidencia </label><input type='text' name="idIncidencia" value="{{incidencia.idIncidencia}}" readonly/>
+				<br>
+				<label>Estado               </label><input type='text' name="estado" value="{{incidencia.estado}}" readonly/>
+				<br>
+				<label>Urgencia             </label><input type='text' name="urgencia" value="{{incidencia.urgencia}}" readonly/>
+				<br>
+				<label>Cliente              </label><input type='text' name="nbCliente" value="{{incidencia.cliente.nombre}}" readonly/>
+				<br>
+				{{#estaAsignada}}
+					<label>Asignatario          </label><input type='text' name="nbAsignatario" value="{{incidencia.asignatario.nombre}}" readonly/>
+				{{/estaAsignada}}
+				{{^estaAsignada}}
+					<label>Asignatario          </label><input type='text' name="asignatario" value=""/><label> </label><input type='submit' value='Aceptar incidencia'>
+				{{/estaAsignada}}
+			</form>
+		</fieldset>
 		<br>
 		
 		<fieldset>
-			<legend>Datos del usuario</legend>
-			<label>Nombre de usuario: {{incidencia.cliente.nombre}}</label>
+		<legend>Area</legend>
+			<label>Departamento: {{incidencia.departamento.nombreDepartamento}}</label>
+			<br>
+			<label>Problema: {{incidencia.problema}}</label>
 		</fieldset>
-		<br>
 		<br>
 		
 		<fieldset>
 			<legend>Datos de la incidencia</legend>
 				<br>
-				<label>Titulo: {{incidencia.titulo}}</label>
+				<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
 				<br>
 				<br>
 				
-				<label>Descripcion</label><br>
-				<fieldset>{{incidencia.descripcion}}</fieldset>
+				<label>Descripcion<textarea name="descripcion" rows="5" style="width:100%">{{incidencia.descripcion}}</textarea></label>
+				<br>
 				<br>
 				
 				<label>Comentarios</label><br>
@@ -64,9 +82,8 @@
 						{{/incidencia.comentarios}}
 					</table>
 				<br>
-
-				<label>Solucion</label><br>
-				<fieldset>{{incidencia.solucion}}</fieldset>
+				
+				<label>Solucion <textarea name="solucion" rows="5" style="width:100%" value={{incidencia.solucion}}></textarea></label>
 				
 		</fieldset>
 	</body>
