@@ -25,7 +25,9 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="cliente")
 	private List <Incidencia> incidenciasAbiertas = new ArrayList<>();
-		
+	
+	@OneToMany(mappedBy="autor")
+	private List <Comentario> comentariosRealizados = new ArrayList<>();
 	
 	/**
 	 * Constructor de la clase sin parámetros
@@ -102,6 +104,15 @@ public class Usuario {
 	}
 	
 	/**
+	 * Método set para establecer la lista de comentarios realizados por el usuario
+	 * 
+	 * @param comentariosRealizados Lista de comentarios realizados por el usuario
+	 */
+	public void setComentariosRealizados (List <Comentario> comentariosRealizados) {
+		this.comentariosRealizados = comentariosRealizados;
+	}
+	
+	/**
 	 * Método get para devolver el identificador único un Usuario
 	 * 
 	 * @return Devuelve el identificador único un Usuario
@@ -153,6 +164,15 @@ public class Usuario {
 	 */
 	public List <Incidencia> setIncidenciasAbiertas () {
 		return this.incidenciasAbiertas;
+	}
+	
+	/**
+	 * Método get para devolver la lista de comentarios realizados por el usuario
+	 * 
+	 * @param comentariosRealizados Devuelve la lista de comentarios realizados por el usuario
+	 */
+	public List <Comentario> getComentariosRealizados () {
+		return this.comentariosRealizados;
 	}
 	
 	@Override
