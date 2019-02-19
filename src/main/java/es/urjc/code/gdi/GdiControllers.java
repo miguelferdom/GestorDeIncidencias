@@ -296,7 +296,7 @@ public class GdiControllers {
 	@PostMapping("/aceptarincidencia")
 	public String aceptarincidencia (Model model, @RequestParam Long idIncidencia, @RequestParam String asignatario) {
 		
-		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + idIncidencia + " no encontrada"));
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[aceptarincidencia] Incidencia " + idIncidencia + " no encontrada"));
 		
 		Usuario userAsignatario = obtenerUsuario(asignatario);
 		
@@ -314,6 +314,22 @@ public class GdiControllers {
 			estaAsignada = false;
 		}
 		model.addAttribute("estaAsignada", estaAsignada);
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
+	@PostMapping("/guardarcomentario")
+	public String guardarComentario (Model model, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String comentario) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + idIncidencia + " no encontrada"));
+		
+		Usuario userAutor = obtenerUsuario(autor);
+		
+		incidencia.getComentarios().add(new Comentario (userAutor, comentario));
+		
+		repoIncidencias.save(incidencia);
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
