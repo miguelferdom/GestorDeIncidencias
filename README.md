@@ -79,7 +79,7 @@ El servicio interno realizará las siguientes tareas:
 
 * Enviará un correo de notificación a los usuarios cuando su incidencia se resuelva.
 * Generará informes sobre las incidencias: incidencias totales del mes desglosadas por categorias, número de incidencias atendidas por cada técnico y categoria de estas, tiempo medio de resolución de incidencia por categoría...
-* actualizará la criticidad de las incidencias cada día aumentando su prioridad para evitar que haya solicitudes que se queden sin atender indefinidamente
+* actualizará la criticidad de las incidencias cada día aumentando su prioridad para evitar que haya solicitudes que se queden sin atender indefinidamente.
 	
 	
 
