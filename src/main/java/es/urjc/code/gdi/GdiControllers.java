@@ -34,6 +34,42 @@ public class GdiControllers {
 	
 	private List<Incidencia> incidencias;
 
+	private Usuario obtenerUsuario (String nbUsuario) {
+		
+		Usuario userAux = new Usuario();
+		userAux.setNombre(nbUsuario);
+		
+		Long idUser = 0L;
+		
+		for (Usuario u : repoUsuarios.findAll()) {
+			if (u.equals(userAux)) {
+				idUser = u.getIdUsuario();
+			}
+		}
+		
+		userAux = repoUsuarios.getOne(idUser);
+		
+		return userAux;
+	}
+	
+	private Departamento obtenerDepartamento (String nbDepartamento) {
+		
+		Departamento dptoAux = new Departamento ();
+		dptoAux.setNombreDepartamento(nbDepartamento);
+		
+		Long idDpto = 0L;
+		
+		for (Departamento d : repoDepartamentos.findAll()) {
+			if (d.equals(dptoAux)) {
+				idDpto = d.getIdDepartamento();
+			}
+		}
+		
+		dptoAux = repoDepartamentos.getOne(idDpto);
+		
+		return dptoAux;
+	}
+	
 	@PostConstruct
 	public void init() {
 		
@@ -222,7 +258,15 @@ public class GdiControllers {
 		
 		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + numincidencia + " no encontrada"));
 		
+		boolean estaAsignada;
 		model.addAttribute("incidencia", incidencia);
+		if (incidencia.getAsignatario()!=null) {
+			estaAsignada = true;
+		}
+		else {
+			estaAsignada = false;
+		}
+		model.addAttribute("estaAsignada", estaAsignada);
 		
 		return "consultarincidencia";
 	}
@@ -276,6 +320,33 @@ public class GdiControllers {
 		//System.out.println("- - - - traza dpto - - - ");
 		
 		repoIncidencias.save(new Incidencia(userAux, dptoAux, problema, titulo, descripcion));
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
+	@PostMapping("/aceptarincidencia")
+	public String aceptarincidencia (Model model, @RequestParam Long idIncidencia, @RequestParam String asignatario) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + idIncidencia + " no encontrada"));
+		
+		Usuario userAsignatario = obtenerUsuario(asignatario);
+		
+		incidencia.setAsignatario(userAsignatario);
+		incidencia.setEstado("Aceptada");
+		
+		repoIncidencias.save(incidencia);
+		model.addAttribute("incidencia", incidencia);
+		
+		boolean estaAsignada;
+		if (incidencia.getAsignatario()!=null) {
+			estaAsignada = true;
+		}
+		else {
+			estaAsignada = false;
+		}
+		model.addAttribute("estaAsignada", estaAsignada);
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
