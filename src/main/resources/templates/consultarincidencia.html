@@ -31,17 +31,17 @@
 			<form action="aceptarincidencia" method="post">
 				<label>Numero de incidencia </label><input type='text' name="idIncidencia" value="{{incidencia.idIncidencia}}" readonly/>
 				<br>
-				<label>Estado               </label><input type='text' name="estado" value="{{incidencia.estado}}" readonly/>
+				<label>Estado </label><input type='text' name="estado" value="{{incidencia.estado}}" readonly/>
 				<br>
-				<label>Urgencia             </label><input type='text' name="urgencia" value="{{incidencia.urgencia}}" readonly/>
+				<label>Urgencia </label><input type='text' name="urgencia" value="{{incidencia.urgencia}}" readonly/>
 				<br>
-				<label>Cliente              </label><input type='text' name="nbCliente" value="{{incidencia.cliente.nombre}}" readonly/>
+				<label>Cliente </label><input type='text' name="nbCliente" value="{{incidencia.cliente.nombre}}" readonly/>
 				<br>
 				{{#estaAsignada}}
-					<label>Asignatario          </label><input type='text' name="nbAsignatario" value="{{incidencia.asignatario.nombre}}" readonly/>
+					<label>Asignatario </label><input type='text' name="nbAsignatario" value="{{incidencia.asignatario.nombre}}" readonly/>
 				{{/estaAsignada}}
 				{{^estaAsignada}}
-					<label>Asignatario          </label><input type='text' name="asignatario" value=""/><label> </label><input type='submit' value='Aceptar incidencia'>
+					<label>Asignatario </label><input type='text' name="asignatario" value=""/><label> </label><input type='submit' value='Aceptar incidencia'>
 				{{/estaAsignada}}
 			</form>
 		</fieldset>
@@ -83,6 +83,17 @@
 							</tr>
 						{{/incidencia.comentarios}}
 					</table>
+				<br>
+				
+				<form action="guardarcomentario" method="post">
+					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+					<label>Añadir comentario
+						<br>autor <input type='text' name="autor"/><br>
+						<textarea name="comentario" rows="5" style="width:100%" maxlength="255"></textarea><br>
+						<input type='submit' value='Guardar comentario'>
+					</label>
+				</form>
+				<br>
 				<br>
 				
 				<label>Solucion <textarea name="solucion" rows="5" style="width:100%" value={{incidencia.solucion}} maxlength="255"></textarea></label>
