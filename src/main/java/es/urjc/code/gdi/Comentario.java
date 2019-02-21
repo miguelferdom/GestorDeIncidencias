@@ -94,6 +94,6 @@ public class Comentario {
 	
 	@Override
 	public String toString() {
-		return ("[COMENTARIO][" + getFecha() + "]: " + getAnotacion());
+		return ("[COMENTARIO][" + getFecha() + "][" + autor.getNombre() + "]: " + getAnotacion());
 	}
 }
