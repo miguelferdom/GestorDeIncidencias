@@ -257,9 +257,9 @@ public class GdiControllers {
 	public String cargaConsultarIncidencia(Model model, @RequestParam Long numincidencia) {
 		
 		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + numincidencia + " no encontrada"));
+		model.addAttribute("incidencia", incidencia);
 		
 		boolean estaAsignada;
-		model.addAttribute("incidencia", incidencia);
 		if (incidencia.getAsignatario()!=null) {
 			estaAsignada = true;
 		}
@@ -267,6 +267,16 @@ public class GdiControllers {
 			estaAsignada = false;
 		}
 		model.addAttribute("estaAsignada", estaAsignada);
+				
+		boolean tieneSolucion;
+		if (incidencia.getSolucion().equals("")) {
+			tieneSolucion = false;
+		}
+		else {
+			tieneSolucion = true;
+		}
+		
+		model.addAttribute("tieneSolucion", tieneSolucion);
 		
 		return "consultarincidencia";
 	}
@@ -328,6 +338,24 @@ public class GdiControllers {
 		Usuario userAutor = obtenerUsuario(autor);
 		
 		incidencia.getComentarios().add(new Comentario (userAutor, comentario));
+		
+		repoIncidencias.save(incidencia);
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
+	@PostMapping("/guardarsolucion")
+	public String guardarSolucion (Model model, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String solucion) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + idIncidencia + " no encontrada"));
+		
+		Usuario userAutor = obtenerUsuario(autor);
+		
+		incidencia.getComentarios().add(new Comentario (userAutor, solucion));
+		incidencia.setSolucion(solucion);
+		incidencia.setEstado("Solucionada");
 		
 		repoIncidencias.save(incidencia);
 		
