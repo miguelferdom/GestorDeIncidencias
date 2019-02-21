@@ -85,18 +85,34 @@
 					</table>
 				<br>
 				
-				<form action="guardarcomentario" method="post">
+				{{^tieneSolucion}}
+					<form action="guardarcomentario" method="post">
+						<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+						<label>Añadir comentario
+							<br>autor <input type='text' name="autor"/><br>
+							<textarea name="comentario" rows="5" style="width:100%" maxlength="255"></textarea>
+							<br>
+							<input type='submit' value='Guardar comentario'>
+						</label>
+					</form>
+					<br>
+					<br>
+				{{/tieneSolucion}}
+				
+				<form action="guardarsolucion" method="post">
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-					<label>Añadir comentario
+					<label>Solucion
 						<br>autor <input type='text' name="autor"/><br>
-						<textarea name="comentario" rows="5" style="width:100%" maxlength="255"></textarea><br>
-						<input type='submit' value='Guardar comentario'>
+						{{#tieneSolucion}}
+							<textarea name="solucion" rows="5" style="width:100%" maxlength="255" readonly>{{incidencia.solucion}}</textarea>
+						{{/tieneSolucion}}
+						{{^tieneSolucion}}
+							<textarea name="solucion" rows="5" style="width:100%" maxlength="255"></textarea>
+							<input type='submit' value='Guardar solucion'>
+						{{/tieneSolucion}}
+						<br>
 					</label>
 				</form>
-				<br>
-				<br>
-				
-				<label>Solucion <textarea name="solucion" rows="5" style="width:100%" value={{incidencia.solucion}} maxlength="255"></textarea></label>
 				
 		</fieldset>
 	</body>
