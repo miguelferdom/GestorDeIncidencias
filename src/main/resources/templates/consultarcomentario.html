@@ -10,6 +10,7 @@
 		<fieldset>
 			<form action="modificarcomentario" method="post">
 				<legend>Comentario</legend>
+				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 				<label><label><label>ID Comentario</label><input type='text' name="idComentario" value="{{comentario.idComentario}}" readonly/>
 				<br>
 				<label><label><label>Fecha</label><input type='text' name="fecha" value="{{comentario.fecha}}" readonly/>
