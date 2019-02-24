@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="ISO-8859-1">
+	<title>[GDI]</title>
+	</head>
+	<h1>Gestor de Incidencias</h1>
+	
+	<body>
+		<fieldset>
+			<form action="modificarcomentario" method="post">
+				<legend>Comentario</legend>
+				<label><label><label>ID Comentario</label><input type='text' name="idComentario" value="{{comentario.idComentario}}" readonly/>
+				<br>
+				<label><label><label>Fecha</label><input type='text' name="fecha" value="{{comentario.fecha}}" readonly/>
+				<br>
+				<label><label><label>Autor</label><input type='text' name="autor" value="{{comentario.autor.nombre}}" readonly/>
+				<br>
+				<fieldset>
+					<legend>Anotacion</legend>
+						<textarea name="anotacion" rows="5" style="width:100%" maxlength="255">{{comentario.anotacion}}</textarea>
+				</fieldset>
+				<input type='submit' value='Modificar comentario'>
+			</form>
+		</fieldset>
+	</body>
+</html>
