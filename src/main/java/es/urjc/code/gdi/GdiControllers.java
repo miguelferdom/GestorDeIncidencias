@@ -282,10 +282,14 @@ public class GdiControllers {
 	}
 	
 	@GetMapping("/consultarcomentario")
-	public String cargaConsultarComentario(Model model, @RequestParam Long numcomentario) {
+	public String cargaConsultarComentario(Model model, @RequestParam Long numcomentario, @RequestParam Long numincidencia) {
 		
 		Comentario comentario = repoComentarios.findById(numcomentario).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarComentario] Comentario " + numcomentario + " no encontrado"));
 		model.addAttribute("comentario", comentario);
+		
+		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarComentario] Incidencia " + numincidencia + " no encontrada"));
+		model.addAttribute("incidencia", incidencia);
+		
 		
 		return "consultarcomentario";
 	}
@@ -342,7 +346,7 @@ public class GdiControllers {
 	@PostMapping("/guardarcomentario")
 	public String guardarComentario (Model model, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String comentario) {
 		
-		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + idIncidencia + " no encontrada"));
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarComentario] Incidencia " + idIncidencia + " no encontrada"));
 		
 		Usuario userAutor = obtenerUsuario(autor);
 		
@@ -358,7 +362,7 @@ public class GdiControllers {
 	@PostMapping("/guardarsolucion")
 	public String guardarSolucion (Model model, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String solucion) {
 		
-		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + idIncidencia + " no encontrada"));
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarSolucion] Incidencia " + idIncidencia + " no encontrada"));
 		
 		Usuario userAutor = obtenerUsuario(autor);
 		
@@ -367,6 +371,28 @@ public class GdiControllers {
 		incidencia.setEstado("Solucionada");
 		
 		repoIncidencias.save(incidencia);
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
+	@PostMapping("/modificarcomentario")
+	public String modificarComentario (Model model, @RequestParam Long idComentario, @RequestParam Long idIncidencia, @RequestParam String anotacion) {
+		
+		Comentario comentario = repoComentarios.findById(idComentario).orElseThrow(()-> new EntityNotFoundException("[modificarComentario] Comentario " + idComentario + " no encontrado")); 
+		
+		if (anotacion.equals("")) {
+			Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarSolucion] Incidencia " + idIncidencia + " no encontrada"));
+			
+			if (incidencia.getSolucion().equals(comentario.getAnotacion())) {
+				incidencia.setSolucion("");
+				incidencia.setEstado("Aceptada");
+			}
+		}
+		
+		comentario.setAnotacion(anotacion);
+		repoComentarios.save(comentario);
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
