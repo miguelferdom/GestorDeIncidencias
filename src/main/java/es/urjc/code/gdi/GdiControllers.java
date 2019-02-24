@@ -256,7 +256,7 @@ public class GdiControllers {
 	@GetMapping("/consultarincidencia")
 	public String cargaConsultarIncidencia(Model model, @RequestParam Long numincidencia) {
 		
-		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("Incidencia " + numincidencia + " no encontrada"));
+		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarIncidencia] Incidencia " + numincidencia + " no encontrada"));
 		model.addAttribute("incidencia", incidencia);
 		
 		boolean estaAsignada;
@@ -279,6 +279,15 @@ public class GdiControllers {
 		model.addAttribute("tieneSolucion", tieneSolucion);
 		
 		return "consultarincidencia";
+	}
+	
+	@GetMapping("/consultarcomentario")
+	public String cargaConsultarComentario(Model model, @RequestParam Long numcomentario) {
+		
+		Comentario comentario = repoComentarios.findById(numcomentario).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarComentario] Comentario " + numcomentario + " no encontrado"));
+		model.addAttribute("comentario", comentario);
+		
+		return "consultarcomentario";
 	}
 	
 	/*
