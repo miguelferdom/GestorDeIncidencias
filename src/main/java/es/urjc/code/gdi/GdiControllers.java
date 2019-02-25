@@ -274,9 +274,17 @@ public class GdiControllers {
 		}
 		else {
 			tieneSolucion = true;
-		}
-		
+		}		
 		model.addAttribute("tieneSolucion", tieneSolucion);
+		
+		boolean estaCerrada;
+		if (incidencia.getEstado().equals("Cerrada")) {
+			estaCerrada = true;
+		}
+		else {
+			estaCerrada = false;
+		}
+		model.addAttribute("estaCerrada", estaCerrada);
 		
 		return "consultarincidencia";
 	}
@@ -422,4 +430,47 @@ public class GdiControllers {
 		
 		return "portaltecnico";
 	}
+	
+	@PostMapping("/cerrarincidencia")
+	public String cerrarIncidencia (Model model, @RequestParam Long idIncidencia) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[cerrarIncidencia] Incidencia " + idIncidencia + " no encontrada"));
+		
+		/*
+		 * Por como está protegido el boton "Cerrar incidencia" en consultarincidencia.html esta comprobación sobraría, pero la
+		 * dejo por si es necesaria más adelante
+		 */
+		if (incidencia.getEstado().equals("Solucionada")) {
+			
+			incidencia.setEstado("Cerrada");
+			repoIncidencias.save(incidencia);
+		}
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
+	@PostMapping("/reabririncidencia")
+	public String reabrirIncidencia (Model model, @RequestParam Long idIncidencia) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[reabrirIncidencia] Incidencia " + idIncidencia + " no encontrada"));
+		
+		/*
+		 * Por como está protegido el boton "Cerrar incidencia" en consultarincidencia.html esta comprobación sobraría, pero la
+		 * dejo por si es necesaria más adelante
+		 */
+		if (incidencia.getEstado().equals("Solucionada") || incidencia.getEstado().equals("Cerrada")) {
+			
+			incidencia.setEstado("Abierta");
+			incidencia.setSolucion("");
+			incidencia.setAsignatario(null);
+			repoIncidencias.save(incidencia);
+		}
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
 }
