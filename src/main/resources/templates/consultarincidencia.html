@@ -105,9 +105,20 @@
 						<br>autor <input type='text' name="autor"/><br>
 						{{#tieneSolucion}}
 							<textarea name="solucion" rows="5" style="width:100%" maxlength="255" readonly>{{incidencia.solucion}}</textarea>
+							
+							<form action="cerrarincidencia" method="post">
+								<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+								<input type='submit' value='Cerrar Incidencia'>
+							</form>
+							
+							<form action="reabririncidencia" method="post">
+								<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+								<input type='submit' value='Reabrir Incidencia'>
+							</form>
 						{{/tieneSolucion}}
 						{{^tieneSolucion}}
 							<textarea name="solucion" rows="5" style="width:100%" maxlength="255"></textarea>
+							<br>
 							<input type='submit' value='Guardar solucion'>
 						{{/tieneSolucion}}
 						<br>
