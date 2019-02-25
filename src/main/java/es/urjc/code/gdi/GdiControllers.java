@@ -381,18 +381,42 @@ public class GdiControllers {
 	public String modificarComentario (Model model, @RequestParam Long idComentario, @RequestParam Long idIncidencia, @RequestParam String anotacion) {
 		
 		Comentario comentario = repoComentarios.findById(idComentario).orElseThrow(()-> new EntityNotFoundException("[modificarComentario] Comentario " + idComentario + " no encontrado")); 
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[modificarComentario] Incidencia " + idIncidencia + " no encontrada"));
 		
 		if (anotacion.equals("")) {
-			Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarSolucion] Incidencia " + idIncidencia + " no encontrada"));
 			
 			if (incidencia.getSolucion().equals(comentario.getAnotacion())) {
 				incidencia.setSolucion("");
 				incidencia.setEstado("Aceptada");
 			}
 		}
+
+			
+		if (incidencia.getSolucion().equals(comentario.getAnotacion())) {
+			incidencia.setSolucion(anotacion);
+		}
 		
 		comentario.setAnotacion(anotacion);
 		repoComentarios.save(comentario);
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		return "portaltecnico";
+	}
+	
+	@PostMapping("/borrarcomentario")
+	public String borrarComentario (Model model, @RequestParam Long idComentario, @RequestParam Long idIncidencia) {
+		
+		Comentario comentario = repoComentarios.findById(idComentario).orElseThrow(()-> new EntityNotFoundException("[borrarComentario] Comentario " + idComentario + " no encontrado")); 
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[borrarComentario] Incidencia " + idIncidencia + " no encontrada"));
+		
+		if (incidencia.getSolucion().equals(comentario.getAnotacion())) {
+			incidencia.setSolucion("");
+			incidencia.setEstado("Aceptada");
+		}
+		
+		incidencia.getComentarios().remove(comentario);
+		repoIncidencias.save(incidencia);
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
