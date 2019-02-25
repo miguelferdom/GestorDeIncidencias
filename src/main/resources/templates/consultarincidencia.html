@@ -105,16 +105,6 @@
 						<br>autor <input type='text' name="autor"/><br>
 						{{#tieneSolucion}}
 							<textarea name="solucion" rows="5" style="width:100%" maxlength="255" readonly>{{incidencia.solucion}}</textarea>
-							
-							<form action="cerrarincidencia" method="post">
-								<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-								<input type='submit' value='Cerrar Incidencia'>
-							</form>
-							
-							<form action="reabririncidencia" method="post">
-								<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-								<input type='submit' value='Reabrir Incidencia'>
-							</form>
 						{{/tieneSolucion}}
 						{{^tieneSolucion}}
 							<textarea name="solucion" rows="5" style="width:100%" maxlength="255"></textarea>
@@ -125,6 +115,23 @@
 					</label>
 				</form>
 				
+				{{#estaCerrada}}
+				<form action="reabririncidencia" method="post">
+					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+					{{#tieneSolucion}}
+						<input type='submit' value='Reabrir Incidencia'>
+					{{/tieneSolucion}}
+				</form>
+				{{/estaCerrada}}
+				
+				{{^estaCerrada}}
+				<form action="cerrarincidencia" method="post">
+					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+					{{#tieneSolucion}}
+						<input type='submit' value='Cerrar Incidencia'>
+					{{/tieneSolucion}}
+				</form>
+				{{/estaCerrada}}
 		</fieldset>
 	</body>
 </html>
