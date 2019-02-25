@@ -8,8 +8,8 @@
 	
 	<body>
 		<fieldset>
+			<legend>Comentario</legend>
 			<form action="modificarcomentario" method="post">
-				<legend>Comentario</legend>
 				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 				<label><label><label>ID Comentario</label><input type='text' name="idComentario" value="{{comentario.idComentario}}" readonly/>
 				<br>
@@ -17,11 +17,16 @@
 				<br>
 				<label><label><label>Autor</label><input type='text' name="autor" value="{{comentario.autor.nombre}}" readonly/>
 				<br>
-				<fieldset>
-					<legend>Anotacion</legend>
-						<textarea name="anotacion" rows="5" style="width:100%" maxlength="255">{{comentario.anotacion}}</textarea>
-				</fieldset>
+				<br>
+				<label>Anotacion</label>
+				<textarea name="anotacion" rows="5" style="width:100%" maxlength="255">{{comentario.anotacion}}</textarea>
 				<input type='submit' value='Modificar comentario'>
+			</form>
+			
+			<form action="borrarcomentario" method="post">
+				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+				<input type='hidden' name="idComentario" value="{{comentario.idComentario}}"/>
+				<input type='submit' value='Borrar comentario'>
 			</form>
 		</fieldset>
 	</body>
