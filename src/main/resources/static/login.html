@@ -5,29 +5,38 @@
 		<title>[GDI] Login</title>
 	</head>
 	<h1>Gestor de Incidencias</h1>
+	
 	<body>
 		<form action="bienvenida" method="post">
 			<!-- Agrupación de campos -->
 			
 			<fieldset>
-				<label>Usuario
-					<input type='text' name="usuario"/>
-				</label>
-				<p></p>
+				<legend>Introduzca sus datos para hacer login</legend>
+				<br>
 				
-				<label>Password
-					<input type='password' name="password"/>
-				</label>
-				<p></p>
-				
-				<label>Perfil
-					<select name="perfil">
-						<option value="usuario">usuario</option>
-						<option value="tecnico">tecnico</option>
-						<option value="administrador">administrador</option>
-					</select>
-				</label>
-				<p></p>
+				<table width="30%" cellspacing="0" cellpadding="5" border="0">
+					<tr>
+						<td><label>Usuario</label></td>
+						<td><input type='text' name="usuario"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>Password</label></td>
+						<td><input type='password' name="password"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>Perfil</select></td>
+						<td>
+							<select name="perfil">
+							<option value="usuario">usuario</option>
+							<option value="tecnico">tecnico</option>
+							<option value="administrador">administrador</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<br>
 				
 				<input type='submit' value='Conectar'>
 			</fieldset>
