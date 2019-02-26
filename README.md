@@ -7,6 +7,9 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Descripcion de las entidades](#Descripción-de-las-entidades)
 	- [Descripcion del servicio interno](#Descripcion-del-servicio-interno)
 - [Fase 2 - Desarrollo de la aplicacion web en local](#Fase-2---Desarrollo-de-la-aplicacion-web-en-local)
+	- [Paginas de la aplicacion](#Paginas-de-la-aplicacion)
+	- [Modelo Entidad Relacion](#Modelo-Entidad-Relacion)
+	- [Diagrama de clases UML](#Diagrama-de-clases-UML)
 - [Fase 3 - Inclusion de seguridad y servicio interno](#Fase-3---Inclusion-de-seguridad-y-servicio-interno)
 - [Fase 4 - Incluir tolerancia a fallos en la aplicacion](#Fase-4---Incluir-tolerancia-a-fallos-en-la-aplicacion)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
@@ -68,7 +71,8 @@ Durante la apertura de la incidencia habrá que categorizarla para que los técn
 	+ SW RRHH funciona muy lento
 + Sistemas
 	+ Ampliacion espacio de disco
-	+ Llenado de disco
+
++ Llenado de disco
 	+ Caida de servidor
 	+ Caida de proceso
 	+ Antivirus
@@ -104,6 +108,42 @@ El servicio interno realizará las siguientes tareas:
 
 ## Fase 2 - Desarrollo de la aplicacion web en local
 
+### Paginas de la aplicacion
+
+A continuación de muestran las páginas de la aplicación según los perfiles de usuario de Técnico/Admistrador, que son los que pueden ver todos los elementos sin resticciones:
+
+En primer lugar tenemos la página de Login:
+
+![](Capturas de pantalla/login.png)
+
+Desde ella un usuario introducirá un nombre de usuario y password y seleccionará un perfil (usuario, tecnico o administrador) y se conectará a la aplicación mostrándo la siguiente página de bienvenida:
+
+![](Capturas de pantalla/bienvenida.png)
+
+Aquí se ofrecen dos opciones a todos los usuarios, abrir una nueva incidencia o hacer una consulta de una incidencia a través de su Id. En caso de que el usuario sea un técnico o un administrador, además se mostrárá una tabla con las incidencias del sistema. Estos usuarios podrán acceder a estas o bien usando el cuadro de búsqueda comentado antes o pinchando en el hiperenlace del Id de la incidencia.
+
+Si elegimos abrir una nueva incidencia se cargara el siguiente formulario:
+
+![](Capturas de pantalla/nuevaincidencia.png)
+
+Aquí se nos solicitarán los datos necesarios para abrir una nueva incidencia.
+
+Si deseamos consultar una incidencia se mostrará esta otra web:
+
+![](Capturas de pantalla/consultarincidencia.png)
+
+En esta página los usuarios podrán ver la información de la incidencia, junto con los avances que se hayan podido llevar a cabo visibles en la tabla de comentarios y en el campo solución, también podrá añadir comentarios a la incidencia si fuera necesario y cerrar la incidencia si esta está solucionada y el usuario está de acuerdo con ello. Los técnicos y administradores podrán asignarse incidencias para resolverlas, añadir comentarios y solucionarlas, un administrador podrá, además, modificar y borrar comentarios, y reabrir incidencias que se encuentren cerradas.
+
+Si un administrador quiere actuar sobre un comentario, podrá acceder a él pinchando en el hipervínculo de su Id con lo que accederá a la siguiente página:
+
+![](Capturas de pantalla/modificarcomentario.png)
+
+Desde aquí podrá modificar el texto de una anotación o borrar el comentario por completo y hacer esos cambios efectivos.
+
+### Modelo Entidad Relacion
+
+
+### Diagrama de clases UML
 
 ## Fase 3 - Inclusion de seguridad y servicio interno
 
