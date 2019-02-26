@@ -3,8 +3,8 @@
 Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de GIC en la URJC
 
 - [Fase 1 - Equipo de desarrollo y tematica de la web](#Fase-1---Equipo-de-desarrollo-y-tematica-de-la-web)
-	- [Descripcion de la aplicacion](#Descripcion-de-la-aplicación)
-	- [Descripcion de las entidades](#Descripción-de-las-entidades)
+	- [Descripcion de la aplicacion](#Descripcion-de-la-aplicacion)
+	- [Descripcion de las entidades](#Descripcion-de-las-entidades)
 	- [Descripcion del servicio interno](#Descripcion-del-servicio-interno)
 - [Fase 2 - Desarrollo de la aplicacion web en local](#Fase-2---Desarrollo-de-la-aplicacion-web-en-local)
 	- [Paginas de la aplicacion](#Paginas-de-la-aplicacion)
