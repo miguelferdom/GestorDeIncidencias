@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="ISO-8859-1">
-		<title>[GDI]</title>
-		
-		<style>
-			table {
-			  width:100%;
-			}
-			table, th, td {
-			  border: 1px solid black;
-			  border-collapse: collapse;
-			}
-			th, td {
-			  padding: 5px;
-			  text-align: left;
-			}
-			th {
-			  background-color: black;
-			  color: white;
-			}
-		</style>
+	<meta charset="ISO-8859-1">
+	<title>[GDI]</title>
+	<style>
+		table {
+		  width:100%;
+		}
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		}
+		th, td {
+		  padding: 5px;
+		  text-align: left;
+		}
+		th {
+		  background-color: black;
+		  color: white;
+		}
+	</style>
 	</head>
+	
 	<h1>Gestor de Incidencias</h1>
 	
 	<body>
@@ -29,21 +29,36 @@
 		<fieldset>
 		<legend>Incidencia</legend>
 			<form action="aceptarincidencia" method="post">
-				<label>Numero de incidencia </label><input type='text' name="idIncidencia" value="{{incidencia.idIncidencia}}" readonly/>
+				<label style="width:200px;position:absolute;top:115px;left:20px;">Numero de incidencia</label>
+				<input type='text' name="idIncidencia" value="{{incidencia.idIncidencia}}" readonly style="position:absolute;top:115px;left:220px;"/>
 				<br>
-				<label>Estado </label><input type='text' name="estado" value="{{incidencia.estado}}" readonly/>
+				
+				<label style="width:200px;position:absolute;top:145px;left:20px;">Estado</label>
+				<input type='text' name="estado" value="{{incidencia.estado}}" readonly style="position:absolute;top:145px;left:220px;"/>
 				<br>
-				<label>Urgencia </label><input type='text' name="urgencia" value="{{incidencia.urgencia}}" readonly/>
+				
+				<label style="width:200px;position:absolute;top:175px;left:20px;">Urgencia</label>
+				<input type='text' name="urgencia" value="{{incidencia.urgencia}}" readonly style="position:absolute;top:175px;left:220px;"/>
 				<br>
-				<label>Cliente </label><input type='text' name="nbCliente" value="{{incidencia.cliente.nombre}}" readonly/>
+				
+				<label style="width:200px;position:absolute;top:205px;left:20px;">Cliente</label>
+				<input type='text' name="nbCliente" value="{{incidencia.cliente.nombre}}" readonly style="position:absolute;top:205px;left:220px;"/>
 				<br>
+				
+				<label style="width:200px;position:absolute;top:235px;left:20px;">Asignatario</label>
 				{{#estaAsignada}}
-					<label>Asignatario </label><input type='text' name="nbAsignatario" value="{{incidencia.asignatario.nombre}}" readonly/>
+					<input type='text' name="nbAsignatario" value="{{incidencia.asignatario.nombre}}" readonly style="position:absolute;top:235px;left:220px;"/>
 				{{/estaAsignada}}
 				{{^estaAsignada}}
-					<label>Asignatario </label><input type='text' name="asignatario" value=""/><label> </label><input type='submit' value='Aceptar incidencia'>
+					<input type='text' name="asignatario" value="" style="position:absolute;top:235px;left:220px;"/>
+					<input type='submit' value='Aceptar incidencia' style="position:absolute;top:235px;left:390px;">
 				{{/estaAsignada}}
 			</form>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 		</fieldset>
 		<br>
 		
@@ -57,22 +72,21 @@
 		
 		<fieldset>
 			<legend>Datos de la incidencia</legend>
-				<br>
 				<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
 				<br>
 				<br>
 				
-				<label>Descripcion<textarea name="descripcion" rows="5" style="width:100%" maxlength="255">{{incidencia.descripcion}}</textarea></label>
+				<label>Descripcion<textarea name="descripcion" rows="3" style="width:100%" maxlength="255">{{incidencia.descripcion}}</textarea></label>
 				<br>
 				<br>
 				
 				<label>Comentarios</label><br>
 					<table>
 						<tr>
-							<td>Id Comentario</td>
-							<td>Fecha</td>
-							<td>Autor</td>
-							<td>Anotacion</td>
+							<th>Id Comentario</th>
+							<th>Fecha</th>
+							<th>Autor</th>
+							<th>Anotacion</th>
 						</tr>
 						{{#incidencia.comentarios}}
 							<tr>
@@ -90,7 +104,7 @@
 						<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 						<label>Añadir comentario
 							<br>autor <input type='text' name="autor"/><br>
-							<textarea name="comentario" rows="5" style="width:100%" maxlength="255"></textarea>
+							<textarea name="comentario" rows="3" style="width:100%" maxlength="255"></textarea>
 							<br>
 							<input type='submit' value='Guardar comentario'>
 						</label>
@@ -104,10 +118,10 @@
 					<label>Solucion
 						<br>autor <input type='text' name="autor"/><br>
 						{{#tieneSolucion}}
-							<textarea name="solucion" rows="5" style="width:100%" maxlength="255" readonly>{{incidencia.solucion}}</textarea>
+							<textarea name="solucion" rows="3" style="width:100%" maxlength="255" readonly>{{incidencia.solucion}}</textarea>
 						{{/tieneSolucion}}
 						{{^tieneSolucion}}
-							<textarea name="solucion" rows="5" style="width:100%" maxlength="255"></textarea>
+							<textarea name="solucion" rows="3" style="width:100%" maxlength="255"></textarea>
 							<br>
 							<input type='submit' value='Guardar solucion'>
 						{{/tieneSolucion}}
