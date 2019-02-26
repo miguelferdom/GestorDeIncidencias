@@ -311,6 +311,22 @@ public class GdiControllers {
 		return "bienvenida_template";
 	}
 	
+	@RequestMapping("/volveraportal")
+	public String volverAPortal (Model model, @RequestParam String perfil) {
+		
+		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		// Si el perfil es igual a la cadena "usuario"..., si no lo es, entonces será tecnico o administrador y se le manda a otro portal
+		if (perfil.equals("usuario"))
+		{
+			return "portalusuario";
+		}
+		else {
+			return "portaltecnico";
+		}
+	}
+	
+	
 	@PostMapping("/crearincidencia")
 	public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
 		
@@ -383,6 +399,22 @@ public class GdiControllers {
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
 		return "portaltecnico";
+	}
+	
+	@PostMapping("/guardartitulodescripcion")
+	public String guardarTituloDescripcion (Model model, @RequestParam Long idIncidencia, @RequestParam String titulo, @RequestParam String descripcion) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarSolucion] Incidencia " + idIncidencia + " no encontrada"));
+		
+		incidencia.setTitulo(titulo);
+		incidencia.setDescripcion(descripcion);
+		
+		repoIncidencias.save(incidencia);
+		
+		//model.addAttribute("incidencias", repoIncidencias.findAll());
+		model.addAttribute("incidencia", incidencia);
+		
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/modificarcomentario")
@@ -471,6 +503,6 @@ public class GdiControllers {
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
 		return "portaltecnico";
-	}
+	}	
 	
 }
