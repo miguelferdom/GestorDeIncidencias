@@ -1,9 +1,31 @@
-# GestorDeIncidencias
+# Gestor de Incidencias (GDI)
+
 Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de GIC en la URJC
 
-Nombre de la aplicación: GDI
+Alumno: Miguel Fernández Domínguez
+
+Correo: m.fernandezdo@alumnos.urjc.es
+
+**Indice**
+
+[TOC]
+
+## Fase 1: Equipo de desarrollo y temática de la web
+### Descripción de la aplicación
+### Descripción de las entidades
+### Descripción del servicio interno
+## Fase 2: Desarrollo de la aplicación web en local
+## Fase 3: Inclusión de seguridad y servicio interno
+## Fase 4: Incluir tolerancia a fallos en la aplicación
+## Fase 5: Automatizar el despliegue de la aplicación
+
+## Fase 1: Equipo de desarrollo y temática de la web
+
+### Descripción de la aplicación
 
 La aplicación a desarrollar es una web para gestion de indicencias en una empresa tipo PYME, donde el número de empleados permite que que esta herramienta no sea demasiado complicada, aportando una funcionalidad básica accesible a usuarios con cualquier nivel de conocimientos en informática.
+
+### Descripción de las entidades
 
 Interactuarán con la aplicación varios tipos de personas:
 
@@ -74,12 +96,23 @@ En la parte publica de la web se mostrará una ventana de login para cualquier u
 * Usuario: Podrá abrir una nueva incidencia, consultar aquellas que tuviese abiertas y añadir comentarios o ficheros en estas si fuese necesario
 * Tecnico: Verá la cola de incidencias ordenada por criticidad, podrá asignarse incidencias a su nombre, añadir comentarios y adjuntos, escribir sobre el campo solución y cerrar incidencias
 * Administrador: Tendrá una vista similar a la de un técnico pero con más privilegios, pudiendo modificar cualquier campo (Descripción, comentario o solución), tambián podrá reabrir incidencias. Además dará de alta y baja a los técnicos y les podrá dar privilegios de administrador
-	
+
+### Descripción del servicio interno
+
 El servicio interno realizará las siguientes tareas:
 
 * Enviará un correo de notificación a los usuarios cuando su incidencia se resuelva.
 * Generará informes sobre las incidencias: incidencias totales del mes desglosadas por categorias, número de incidencias atendidas por cada técnico y categoria de estas, tiempo medio de resolución de incidencia por categoría...
 * actualizará la criticidad de las incidencias cada día aumentando su prioridad para evitar que haya solicitudes que se queden sin atender indefinidamente.
-	
-	
 
+
+## Fase 2: Desarrollo de la aplicación web en local
+
+
+## Fase 3: Inclusión de seguridad y servicio interno
+
+
+## Fase 4: Incluir tolerancia a fallos en la aplicación
+
+
+## Fase 5: Automatizar el despliegue de la aplicación
