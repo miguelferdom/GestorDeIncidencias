@@ -11,18 +11,32 @@
 			<legend>Comentario</legend>
 			<form action="modificarcomentario" method="post">
 				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-				<label><label><label>ID Comentario</label><input type='text' name="idComentario" value="{{comentario.idComentario}}" readonly/>
-				<br>
-				<label><label><label>Fecha</label><input type='text' name="fecha" value="{{comentario.fecha}}" readonly/>
-				<br>
-				<label><label><label>Autor</label><input type='text' name="autor" value="{{comentario.autor.nombre}}" readonly/>
-				<br>
-				<br>
+				
+				<table width="30%" cellspacing="0" cellpadding="5" border="0">
+					<tr>
+						<td><label>ID Comentario</label></td>
+						<td><input type='text' name="idComentario" value="{{comentario.idComentario}}" readonly/></td>
+					</tr>
+					
+					<tr>
+						<td><label>Fecha</label></td>
+						<td><input type='text' name="fecha" value="{{comentario.fecha}}" readonly/></td>
+					</tr>
+										
+					<tr>
+						<td><label>Autor</select></td>
+						<td><input type='text' name="autor" value="{{comentario.autor.nombre}}" readonly/></td>
+					</tr>
+				</table>
+
 				<label>Anotacion</label>
 				<textarea name="anotacion" rows="5" style="width:100%" maxlength="255">{{comentario.anotacion}}</textarea>
+				<br>
+				<br>	
 				<input type='submit' value='Modificar comentario'>
 			</form>
 			
+			<br>
 			<form action="borrarcomentario" method="post">
 				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 				<input type='hidden' name="idComentario" value="{{comentario.idComentario}}"/>
