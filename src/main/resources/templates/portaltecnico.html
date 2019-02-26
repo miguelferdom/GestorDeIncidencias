@@ -26,34 +26,39 @@
 	
 	<body>
 		<!-- Bienvenido user/pass [profile] -->
-		<p></p>
+		<br>
 		
 		<!-- Agrupación de campos -->
 		<fieldset>
+			<legend>Quieres abrir o consultar una incidencia?</legend>
+			<br>
+			<label style="width:200px;position:absolute;top:130px;left:20px;">Abrir una nueva incidencia</label>
 			<form action="nuevaincidencia">
-				<input type='submit' value='Abrir incidencia'>
+				<input type='submit' value='Abrir incidencia' style="position:absolute;top:130px;left:220px;"/>
 			</form>
-			<p></p>
+			<br>
 			
-			<label>Consultar incidencia
-				<form action="consultarincidencia" method="get">
-					<input type='number' name="numincidencia"/>
-					<input type='submit' value='Ver'>
-				</form>
-			</label>
-			<p></p>
+			<label style="width:200px;position:absolute;top:160px;left:20px;">Consultar incidencia</label>
+			<form action="consultarincidencia" method="get">
+				<input type='number' name="numincidencia" style="position:absolute;top:160px;left:220px;"/>
+				<input type='submit' value='Ver' style="position:absolute;top:160px;left:390px;"/>
+			</form>
+			<br>
 			
+			<label style="width:200px;position:absolute;top:190px;left:20px;">Volver al login</label>
 			<form action="login">
-				<input type='submit' value='Cancelar'>
+				<input type='submit' value='Cancelar' style="position:absolute;top:190px;left:220px;"/>
 			</form>
+			<br>
+			<br>
 		</fieldset>
-		<p></p>
-		<p></p>
+		<br>
 		
 		<!-- Agrupación de campos 2 -->
-		<p>Cola de incidencias</p>
 		
 		<fieldset>
+			<br>
+			<legend>Cola de incidencias</legend>
 			<table>
 				<tr>
 					<th>Id Incidencia</th>
@@ -77,7 +82,7 @@
 					</tr>
 				{{/incidencias}}
 			</table>
+			<br>
 		</fieldset>
-		
 	</body>
 </html>
