@@ -72,11 +72,19 @@
 		
 		<fieldset>
 			<legend>Datos de la incidencia</legend>
-				<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
-				<br>
-				<br>
-				
-				<label>Descripcion<textarea name="descripcion" rows="3" style="width:100%" maxlength="255">{{incidencia.descripcion}}</textarea></label>
+			
+				<form action="guardartitulodescripcion" method="post">
+					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+					
+					<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
+					<br>
+					<br>
+					
+					<label>Descripcion<textarea name="descripcion" rows="3" style="width:100%" maxlength="255">{{incidencia.descripcion}}</textarea></label>
+					<br>
+					<br>
+					<input type='submit' value='Guardar cambios'>
+				</form>
 				<br>
 				<br>
 				
@@ -106,6 +114,7 @@
 							<br>autor <input type='text' name="autor"/><br>
 							<textarea name="comentario" rows="3" style="width:100%" maxlength="255"></textarea>
 							<br>
+							<br>
 							<input type='submit' value='Guardar comentario'>
 						</label>
 					</form>
@@ -122,6 +131,7 @@
 						{{/tieneSolucion}}
 						{{^tieneSolucion}}
 							<textarea name="solucion" rows="3" style="width:100%" maxlength="255"></textarea>
+							<br>
 							<br>
 							<input type='submit' value='Guardar solucion'>
 						{{/tieneSolucion}}
@@ -147,5 +157,12 @@
 				</form>
 				{{/estaCerrada}}
 		</fieldset>
+		<br>
+		<br>
+		
+		<form action="volveraportal" method="post">
+			<input type='hidden' name="perfil" value="tecnico"/>
+			<input type='submit' value='Volver al portal'>
+		</form>
 	</body>
 </html>
