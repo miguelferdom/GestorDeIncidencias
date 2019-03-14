@@ -130,18 +130,32 @@ public class GdiControllers {
 		dpto7.getProblemas().add(new TipoDeProblema("Linea de datos backup caida", 6));
 		repoDepartamentos.save(dpto7);
 		
-		Usuario user1 = new Usuario("user1", "1234", "usuario");
-		Usuario user2 = new Usuario("user2", "1234", "usuario");
-		Usuario user3 = new Usuario("user3", "1234", "usuario");
-		Usuario user4 = new Usuario("user4", "1234", "usuario");
-		Usuario tecn1 = new Usuario("tecn1", "1234", "tecnico");
-		Usuario tecn2 = new Usuario("tecn2", "1234", "tecnico");
-		Usuario tecn3 = new Usuario("tecn3", "1234", "tecnico");
-		Usuario tecn4 = new Usuario("tecn4", "1234", "tecnico");
-		Usuario admi1 = new Usuario("admi1", "1234", "administrador");
-		Usuario admi2 = new Usuario("admi2", "1234", "administrador");
-		Usuario admi3 = new Usuario("admi3", "1234", "administrador");
-		Usuario admi4 = new Usuario("admi4", "1234", "administrador");
+		Usuario user1 = new Usuario("user1", "user1", "ROLE_usuario");
+		Usuario user2 = new Usuario("user2", "user2", "ROLE_usuario");
+		Usuario user3 = new Usuario("user3", "user3", "ROLE_usuario");
+		Usuario user4 = new Usuario("user4", "user4", "ROLE_usuario");
+		
+		Usuario tecn1 = new Usuario("tecn1", "tecn1", "ROLE_tecnico");
+		Usuario tecn2 = new Usuario("tecn2", "tecn2", "ROLE_tecnico");
+		Usuario tecn3 = new Usuario("tecn3", "tecn3", "ROLE_tecnico");
+		Usuario tecn4 = new Usuario("tecn4", "tecn4", "ROLE_tecnico");
+		tecn1.setPerfiles("ROLE_usuario");
+		tecn2.setPerfiles("ROLE_usuario");
+		tecn3.setPerfiles("ROLE_usuario");
+		tecn4.setPerfiles("ROLE_usuario");
+		
+		Usuario admi1 = new Usuario("admi1", "admi1", "ROLE_administrador");
+		Usuario admi2 = new Usuario("admi2", "admi2", "ROLE_administrador");
+		Usuario admi3 = new Usuario("admi3", "admi3", "ROLE_administrador");
+		Usuario admi4 = new Usuario("admi4", "admi4", "ROLE_administrador");
+		admi1.setPerfiles("ROLE_usuario");
+		admi2.setPerfiles("ROLE_usuario");
+		admi3.setPerfiles("ROLE_usuario");
+		admi4.setPerfiles("ROLE_usuario");
+		admi1.setPerfiles("ROLE_usuario");
+		admi2.setPerfiles("ROLE_tecnico");
+		admi3.setPerfiles("ROLE_tecnico");
+		admi4.setPerfiles("ROLE_tecnico");
 		
 		repoUsuarios.save(user1);
 		repoUsuarios.save(user2);
@@ -229,23 +243,36 @@ public class GdiControllers {
 		return "login.html";
 	}
 	
+	@RequestMapping("/loginerror")
+	public String cargaLoginError(Model model) {
+			
+		return "loginerror.html";
+	}
+
+	@RequestMapping("/logout")
+	public String cargaLogout(Model model) {
+			
+		return "logout.html";
+	}
+	
 	@PostMapping("/bienvenida")
-	public String cargaBienvenida(Model model, @RequestParam String usuario, @RequestParam String password, @RequestParam String perfil) {
-		
+	//public String cargaBienvenida(Model model, @RequestParam String usuario, @RequestParam String password, @RequestParam String perfil) {
+	public String cargaBienvenida(Model model, @RequestParam String usuario, @RequestParam String password) {
 		model.addAttribute("user", usuario);
 		model.addAttribute("pass", password);
-		model.addAttribute("profile", perfil);
+		//model.addAttribute("profile", perfil);
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
 		// Si el perfil es igual a la cadena "usuario"..., si no lo es, entonces será tecnico o administrador y se le manda a otro portal
-		if (perfil.equals("usuario"))
+		/*if (perfil.equals("usuario"))
 		{
 			return "portalusuario";
 		}
 		else {
 			return "portaltecnico";
-		}
+		}*/
+		return "portaltecnico";
 	}
 	
 	@RequestMapping("/nuevaincidencia")
