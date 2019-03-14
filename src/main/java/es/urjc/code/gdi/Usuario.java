@@ -3,11 +3,15 @@ package es.urjc.code.gdi;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class Usuario {
@@ -18,7 +22,8 @@ public class Usuario {
 	
 	private String nombre;
 	private String password;
-	private String perfil;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List <String> perfiles = new ArrayList<>();
 	
 	@OneToMany(mappedBy="asignatario")
 	private List <Incidencia> incidenciasAsignadas = new ArrayList<>();
@@ -46,7 +51,7 @@ public class Usuario {
 		super();
 		setNombre (nombre);
 		setPassword(password);
-		setPerfil (perfil);
+		setPerfiles (perfil);
 	}
 	
 	/**
@@ -68,21 +73,21 @@ public class Usuario {
 	}
 	
 	/**
-	 * Método set para establecer la contraseña de un Usuario
+	 * Método set para establecer la contraseña de un Usuario, se guardará encriptada
 	 * 
 	 * @param password Contraseña del usuario en la aplicacion
 	 */
 	public void setPassword (String password) {
-		this.password = password;
+		this.password = (new BCryptPasswordEncoder().encode(password));
 	}
 
 	/**
-	 * Método set para establecer el perfil de un Usuario
+	 * Método set para establecer los perfiles de un Usuario
 	 * 
 	 * @param perfil Rol del usuario dentro de la aplicacion (usuario, técnico o administrador)
 	 */
-	public void setPerfil (String perfil) {
-		this.perfil = perfil;
+	public void setPerfiles (String perfil) {
+		this.perfiles.add(perfil);
 	}
 	
 	/**
@@ -133,19 +138,19 @@ public class Usuario {
 	/**
 	 * Método get para devolver el password de un Usuario
 	 * 
-	 * @return Devuelve el password del usuario
+	 * @return Devuelve el password del usuario encriptada
 	 */
 	public String getPassword () {
 		return this.password;
 	}
 	
 	/**
-	 * Método get para devolver el perfil de un Usuario
+	 * Método get para devolver la perfiles de un Usuario
 	 * 
-	 * @return Devuelve el perfil del usuario
+	 * @return Devuelve los perfiles del usuario
 	 */
-	public String getPerfil () {
-		return this.perfil;
+	public List <String> getPerfiles () {
+		return this.perfiles;
 	}
 	
 	/**
@@ -177,7 +182,7 @@ public class Usuario {
 	
 	@Override
 	public String toString () {
-		return("[USUARIO] Nombre: " + getNombre() + "; password: " + getPassword() + "; perfil: " + getPerfil());
+		return("[USUARIO] Nombre: " + getNombre() + "; password: " + getPassword());
 	}
 	
 	@Override
