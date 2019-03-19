@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -237,7 +238,7 @@ public class GdiControllers {
 		incidencias = repoIncidencias.findAll();
 	}
 	
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String cargaLogin(Model model) {
 			
 		return "login.html";
@@ -255,11 +256,12 @@ public class GdiControllers {
 		return "logout.html";
 	}
 	
-	@PostMapping("/bienvenida")
+	//@PostMapping("/bienvenida")
 	//public String cargaBienvenida(Model model, @RequestParam String usuario, @RequestParam String password, @RequestParam String perfil) {
-	public String cargaBienvenida(Model model, @RequestParam String usuario, @RequestParam String password) {
-		model.addAttribute("user", usuario);
-		model.addAttribute("pass", password);
+	@GetMapping("/bienvenida")
+	public String cargaBienvenida(Model model) {
+		//model.addAttribute("user", usuario);
+		//model.addAttribute("pass", password);
 		//model.addAttribute("profile", perfil);
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
