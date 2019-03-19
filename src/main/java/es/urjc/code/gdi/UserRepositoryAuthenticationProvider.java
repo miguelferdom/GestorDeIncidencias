@@ -22,18 +22,18 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		System.out.println("[UserRepositoryAuthenticationProvider] He entrado en el método para autenticar a un usuario!!! ");
+		//System.out.println("[UserRepositoryAuthenticationProvider] He entrado en el método para autenticar a un usuario!!! ");
 		
 		Usuario user = repoCrudUsuarios.findByNombre(authentication.getName());
-		System.out.println("[UserRepositoryAuthenticationProvider] user nombre: " + user.getNombre());
 		
 		if (user == null) {
 			throw new BadCredentialsException("[UserRepositoryAuthenticationProvider] Usuario no encontrado");
 		}
 
 		String password = (String) authentication.getCredentials();
-		System.out.println("[UserRepositoryAuthenticationProvider] password user: " + user.getPassword());
-		System.out.println("[UserRepositoryAuthenticationProvider] vble password: " + password);
+		//System.out.println("[UserRepositoryAuthenticationProvider] user nombre: " + user.getNombre());
+		//System.out.println("[UserRepositoryAuthenticationProvider] password user: " + user.getPassword());
+		//System.out.println("[UserRepositoryAuthenticationProvider] vble password: " + password);
 		
 		if (!new BCryptPasswordEncoder().matches(password, user.getPassword())) {
 			throw new BadCredentialsException("[UserRepositoryAuthenticationProvider] Password erronea!");
@@ -51,7 +51,7 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 	@Override
 	public boolean supports(Class<?> authentication) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 }
