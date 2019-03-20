@@ -73,18 +73,28 @@
 		<fieldset>
 			<legend>Datos de la incidencia</legend>
 			
-				<form action="guardartitulodescripcion" method="post">
-					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-					
-					<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
+				{{^esTecnico}}
+					<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}" readonly/>
 					<br>
 					<br>
-					
-					<label>Descripcion<textarea name="descripcion" rows="3" style="width:100%" maxlength="255">{{incidencia.descripcion}}</textarea></label>
-					<br>
-					<br>
-					<input type='submit' value='Guardar cambios'>
-				</form>
+					<label>Descripcion<textarea name="descripcion" rows="3" style="width:100%" maxlength="255" readonly>{{incidencia.descripcion}}</textarea></label>
+				{{/esTecnico}}
+			
+				{{#esTecnico}}
+					<form action="guardartitulodescripcion" method="post">
+						<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+						
+						<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
+						<br>
+						<br>
+						<label>Descripcion<textarea name="descripcion" rows="3" style="width:100%" maxlength="255">{{incidencia.descripcion}}</textarea></label>
+						
+						<br>
+						<br>
+						<input type='submit' value='Guardar cambios'>
+					</form>
+				{{/esTecnico}}
+				
 				<br>
 				<br>
 				
@@ -164,5 +174,20 @@
 			<input type='hidden' name="perfil" value="tecnico"/>
 			<input type='submit' value='Volver al portal'>
 		</form>
+		
+		
+		<br><br>
+		{{#esUsuario}}
+		<label>esUsuario</label><br>
+		{{/esUsuario}}
+		
+		{{#esTecnico}}
+		<label>esTecnico</label><br>
+		{{/esTecnico}}
+		
+		{{#esAdministrador}}
+		<label>esAdministrador</label><br>
+		{{/esAdministrador}}
+		
 	</body>
 </html>
