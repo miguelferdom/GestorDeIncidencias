@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.security.core.Authentication;
+
 @Controller
 public class GdiControllers {
 	
@@ -175,7 +177,7 @@ public class GdiControllers {
 		inc1.setAsignatario(tecn2);
 		inc1.setEstado("Aceptada");
 		Incidencia inc2 = new Incidencia(user1, dpto1, "Baja de correo", "Baja de correo electronico", "solicitamos eliminar el buzon de correo del usuario user98 por causar baja en la empresa");
-		Incidencia inc3 = new Incidencia(user2, dpto2, "SW Ventas no recupera datos", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del álmacen");
+		Incidencia inc3 = new Incidencia(user2, dpto2, "SW Ventas no recupera datos", "No cargan los nuevos artículos", "Desde el departamento de ventas vemos que los nuevos artículos que se han introducido en nuestro catálogo desde principios de esta semana no nos aparecen al hacer las consultas del stock general del almacén");
 		Incidencia inc4 = new Incidencia(user3, dpto4, "Baja empleado", "Usuario duplicado en Directorio Activo", "Solicitamos que se elimine del directorio activo el usuario user97 ya que se trata de la misma persona que user99 que ha pasado de ser becario a formar parte de la plantilla");
 		inc4.setAsignatario(tecn1);
 		inc4.setEstado("Aceptada");
@@ -240,40 +242,34 @@ public class GdiControllers {
 	
 	@GetMapping("/login")
 	public String cargaLogin(Model model) {
-			
+		
 		return "login.html";
 	}
 	
-	@RequestMapping("/loginerror")
+	@GetMapping("/loginerror")
 	public String cargaLoginError(Model model) {
 			
 		return "loginerror.html";
 	}
 
-	@RequestMapping("/logout")
+	@GetMapping("/logout")
 	public String cargaLogout(Model model) {
 			
 		return "logout.html";
 	}
 	
-	//@PostMapping("/bienvenida")
-	//public String cargaBienvenida(Model model, @RequestParam String usuario, @RequestParam String password, @RequestParam String perfil) {
 	@GetMapping("/bienvenida")
-	public String cargaBienvenida(Model model) {
-		//model.addAttribute("user", usuario);
-		//model.addAttribute("pass", password);
-		//model.addAttribute("profile", perfil);
+	public String cargaBienvenida(Model model, HttpServletRequest request) {
+
+		model.addAttribute("esUsuario", request.isUserInRole("usuario"));
+		model.addAttribute("esTecnico", request.isUserInRole("tecnico"));
+		model.addAttribute("esAdministrador", request.isUserInRole("administrador"));
+		model.addAttribute("nbUsuario", request.getRemoteUser());
+		
+		//Usuario user = obtenerUsuario(request.getRemoteUser());
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		// Si el perfil es igual a la cadena "usuario"..., si no lo es, entonces será tecnico o administrador y se le manda a otro portal
-		/*if (perfil.equals("usuario"))
-		{
-			return "portalusuario";
-		}
-		else {
-			return "portaltecnico";
-		}*/
 		return "portaltecnico";
 	}
 	
@@ -357,10 +353,15 @@ public class GdiControllers {
 	
 	
 	@PostMapping("/crearincidencia")
-	public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
+	//public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
+	public String crearIncidencia (Model model, HttpServletRequest request, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {	
 		
+		model.addAttribute("esUsuario", request.isUserInRole("usuario"));
+		model.addAttribute("esTecnico", request.isUserInRole("tecnico"));
+		model.addAttribute("esAdministrador", request.isUserInRole("administrador"));
+		model.addAttribute("nbUsuario", request.getRemoteUser());
 		
-		Usuario userCliente = obtenerUsuario(usuario);
+		Usuario userCliente = obtenerUsuario(request.getRemoteUser());
 		Departamento dpto = obtenerDepartamento(departamento);
 				
 		repoIncidencias.save(new Incidencia(userCliente, dpto, problema, titulo, descripcion));
