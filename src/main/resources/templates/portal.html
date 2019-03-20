@@ -43,8 +43,8 @@
 			<br>
 			
 			<label style="width:200px;position:absolute;top:175px;left:20px;">Volver al login</label>
-			<form action="login">
-				<input type='submit' value='Cancelar' style="position:absolute;top:175px;left:220px;"/>
+			<form action="logout">
+				<input type='submit' value='Logout' style="position:absolute;top:175px;left:220px;"/>
 			</form>
 			<br>
 			<br>
@@ -84,6 +84,9 @@
 		<br>
 		<br>
 		<br>
+		<label>{{nbUsuario}}</label>
+		<br>
+		
 		{{#esUsuario}}
 		<label>esUsuario</label><br>
 		{{/esUsuario}}

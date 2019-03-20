@@ -270,7 +270,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@RequestMapping("/nuevaincidencia")
@@ -327,30 +327,13 @@ public class GdiControllers {
 		return "consultarcomentario";
 	}
 	
-	/*
-	 * Revisar si tengo que eliminar este controlador, creo que ahora mismo no tiene uso
-	 */
-	@RequestMapping("/volverabienvenida")
-	public String cargaVolverABienvenida(Model model, @RequestParam String usuario, @RequestParam String password, @RequestParam String perfil) {
-		
-		return "bienvenida_template";
-	}
-	
 	@RequestMapping("/volveraportal")
-	public String volverAPortal (Model model, @RequestParam String perfil) {
+	public String volverAPortal (Model model) {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		// Si el perfil es igual a la cadena "usuario"..., si no lo es, entonces será tecnico o administrador y se le manda a otro portal
-		if (perfil.equals("usuario"))
-		{
-			return "portalusuario";
-		}
-		else {
-			return "portaltecnico";
-		}
+		return "portal";
 	}
-	
 	
 	@PostMapping("/crearincidencia")
 	//public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
@@ -367,7 +350,7 @@ public class GdiControllers {
 		repoIncidencias.save(new Incidencia(userCliente, dpto, problema, titulo, descripcion));
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/aceptarincidencia")
@@ -394,7 +377,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/guardarcomentario")
@@ -410,7 +393,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/guardarsolucion")
@@ -428,7 +411,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/guardartitulodescripcion")
@@ -471,7 +454,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/borrarcomentario")
@@ -490,7 +473,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/cerrarincidencia")
@@ -510,7 +493,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}
 	
 	@PostMapping("/reabririncidencia")
@@ -532,7 +515,7 @@ public class GdiControllers {
 		
 		model.addAttribute("incidencias", repoIncidencias.findAll());
 		
-		return "portaltecnico";
+		return "portal";
 	}	
 	
 }
