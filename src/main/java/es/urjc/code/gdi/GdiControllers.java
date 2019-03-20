@@ -73,6 +73,27 @@ public class GdiControllers {
 		return dptoAux;
 	}
 	
+	private void CargarDatosSesionHttpEnModelo (Model model, HttpServletRequest request) {
+		
+		model.addAttribute("esUsuario", request.isUserInRole("usuario"));
+		model.addAttribute("esTecnico", request.isUserInRole("tecnico"));
+		model.addAttribute("esAdministrador", request.isUserInRole("administrador"));
+		model.addAttribute("nbUsuario", request.getRemoteUser());
+		
+		Usuario user = obtenerUsuario(request.getRemoteUser());
+		
+		// si el usuario logado tiene un rol de tecnico o superior, mostramos todas las incidencias
+		if (request.isUserInRole("tecnico")) {
+			model.addAttribute("incidencias", repoIncidencias.findAllByOrderByUrgenciaDesc());
+			System.out.println("[CargarDatosSesionHttpEnModelo]: cargado en modelo todas indidencias");
+		}
+		// si no solo ve en las que aparece como cliente
+		else {
+			model.addAttribute("incidencias", repoIncidencias.findByCliente(user));
+			System.out.println("[CargarDatosSesionHttpEnModelo]: cargado en modelo indidencias del cliente");
+		}
+	}
+	
 	@PostConstruct
 	public void init() {
 		
@@ -261,20 +282,16 @@ public class GdiControllers {
 	@GetMapping("/bienvenida")
 	public String cargaBienvenida(Model model, HttpServletRequest request) {
 
-		model.addAttribute("esUsuario", request.isUserInRole("usuario"));
-		model.addAttribute("esTecnico", request.isUserInRole("tecnico"));
-		model.addAttribute("esAdministrador", request.isUserInRole("administrador"));
-		model.addAttribute("nbUsuario", request.getRemoteUser());
-		
-		//Usuario user = obtenerUsuario(request.getRemoteUser());
-		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		CargarDatosSesionHttpEnModelo (model, request);
 		
 		return "portal";
 	}
 	
 	@RequestMapping("/nuevaincidencia")
-	public String cargaNuevaIncidencia(Model model) {
+	public String cargaNuevaIncidencia(Model model, HttpServletRequest request) {
+		
+		CargarDatosSesionHttpEnModelo (model, request);
+		
 		return "nuevaincidencia";
 	}
 	
@@ -328,27 +345,22 @@ public class GdiControllers {
 	}
 	
 	@RequestMapping("/volveraportal")
-	public String volverAPortal (Model model) {
+	public String volverAPortal (Model model, HttpServletRequest request) {
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		CargarDatosSesionHttpEnModelo (model, request);
 		
 		return "portal";
 	}
 	
 	@PostMapping("/crearincidencia")
-	//public String crearIncidencia (Model model, @RequestParam String usuario, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {
 	public String crearIncidencia (Model model, HttpServletRequest request, @RequestParam String departamento, @RequestParam String problema, @RequestParam String titulo, @RequestParam String descripcion) {	
-		
-		model.addAttribute("esUsuario", request.isUserInRole("usuario"));
-		model.addAttribute("esTecnico", request.isUserInRole("tecnico"));
-		model.addAttribute("esAdministrador", request.isUserInRole("administrador"));
-		model.addAttribute("nbUsuario", request.getRemoteUser());
-		
+
 		Usuario userCliente = obtenerUsuario(request.getRemoteUser());
 		Departamento dpto = obtenerDepartamento(departamento);
 				
 		repoIncidencias.save(new Incidencia(userCliente, dpto, problema, titulo, descripcion));
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		
+		CargarDatosSesionHttpEnModelo (model, request);
 		
 		return "portal";
 	}
