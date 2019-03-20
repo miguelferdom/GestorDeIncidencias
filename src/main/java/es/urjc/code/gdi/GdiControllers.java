@@ -94,6 +94,36 @@ public class GdiControllers {
 		}
 	}
 	
+	private void EstadosIncidencia (Model model, Incidencia incidencia) {
+		
+		boolean estaAsignada;
+		if (incidencia.getAsignatario()!=null) {
+			estaAsignada = true;
+		}
+		else {
+			estaAsignada = false;
+		}
+		model.addAttribute("estaAsignada", estaAsignada);
+				
+		boolean tieneSolucion;
+		if (incidencia.getSolucion().equals("")) {
+			tieneSolucion = false;
+		}
+		else {
+			tieneSolucion = true;
+		}		
+		model.addAttribute("tieneSolucion", tieneSolucion);
+		
+		boolean estaCerrada;
+		if (incidencia.getEstado().equals("Cerrada")) {
+			estaCerrada = true;
+		}
+		else {
+			estaCerrada = false;
+		}
+		model.addAttribute("estaCerrada", estaCerrada);
+	}
+	
 	@PostConstruct
 	public void init() {
 		
@@ -296,37 +326,14 @@ public class GdiControllers {
 	}
 	
 	@GetMapping("/consultarincidencia")
-	public String cargaConsultarIncidencia(Model model, @RequestParam Long numincidencia) {
+	public String cargaConsultarIncidencia(Model model, HttpServletRequest request, @RequestParam Long numincidencia) {
+		
+		CargarDatosSesionHttpEnModelo (model, request);
 		
 		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarIncidencia] Incidencia " + numincidencia + " no encontrada"));
 		model.addAttribute("incidencia", incidencia);
 		
-		boolean estaAsignada;
-		if (incidencia.getAsignatario()!=null) {
-			estaAsignada = true;
-		}
-		else {
-			estaAsignada = false;
-		}
-		model.addAttribute("estaAsignada", estaAsignada);
-				
-		boolean tieneSolucion;
-		if (incidencia.getSolucion().equals("")) {
-			tieneSolucion = false;
-		}
-		else {
-			tieneSolucion = true;
-		}		
-		model.addAttribute("tieneSolucion", tieneSolucion);
-		
-		boolean estaCerrada;
-		if (incidencia.getEstado().equals("Cerrada")) {
-			estaCerrada = true;
-		}
-		else {
-			estaCerrada = false;
-		}
-		model.addAttribute("estaCerrada", estaCerrada);
+		EstadosIncidencia(model, incidencia);
 		
 		return "consultarincidencia";
 	}
@@ -427,7 +434,9 @@ public class GdiControllers {
 	}
 	
 	@PostMapping("/guardartitulodescripcion")
-	public String guardarTituloDescripcion (Model model, @RequestParam Long idIncidencia, @RequestParam String titulo, @RequestParam String descripcion) {
+	public String guardarTituloDescripcion (Model model, HttpServletRequest request, @RequestParam Long idIncidencia, @RequestParam String titulo, @RequestParam String descripcion) {
+		
+		CargarDatosSesionHttpEnModelo (model, request);
 		
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarSolucion] Incidencia " + idIncidencia + " no encontrada"));
 		
@@ -435,10 +444,11 @@ public class GdiControllers {
 		incidencia.setDescripcion(descripcion);
 		
 		repoIncidencias.save(incidencia);
+
+		EstadosIncidencia(model, incidencia);
 		
-		//model.addAttribute("incidencias", repoIncidencias.findAll());
 		model.addAttribute("incidencia", incidencia);
-		
+
 		return "consultarincidencia";
 	}
 	
