@@ -22,10 +22,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/logout").permitAll();
 
         // Private pages (all other pages)
-        http.authorizeRequests().anyRequest().authenticated();
-        //http.authorizeRequests()
-        //	.antMatchers("/").access("hasRole('tecnico')")
-        //	.anyRequest().authenticated();
+        // Antiguo control para páginas privadas si todo funciona con la nueva 
+        // expresión borrar estas lineas en siguientes actualizaciones
+        //http.authorizeRequests().anyRequest().authenticated();
+        
+        // Cortamos el acceso a la página /consultarcomentario a usuarios y lo permitimos para técnicos y administradores
+        // el resto de páginas privadas son accesibles con una autenticación válida
+        http.authorizeRequests()
+        	.antMatchers("/consultarcomentario").access("hasRole('tecnico')")
+        	.anyRequest().authenticated();
 
         // Login form
         http.formLogin().loginPage("/login");
