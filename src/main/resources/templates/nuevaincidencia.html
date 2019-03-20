@@ -15,7 +15,7 @@
 				<table width="30%" cellspacing="0" cellpadding="5" border="0">
 					<tr>
 						<td><label>Usuario</label></td>
-						<td><input type='text' name="usuario"/></td>
+						<td><input type='text' name="usuario" value="{{nbUsuario}}" readonly/></td>
 					</tr>
 				</table>
 			</fieldset>
@@ -111,6 +111,10 @@
 			<br>
 			
 			<input type='submit' value='Abrir incidencia'>
+		</form>
+		<br>
+		<form action="volveraportal" method="post">
+			<input type='submit' value='Volver al portal'>
 		</form>
 	</body>
 </html>
