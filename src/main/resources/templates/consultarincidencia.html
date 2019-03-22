@@ -50,8 +50,13 @@
 					<input type='text' name="nbAsignatario" value="{{incidencia.asignatario.nombre}}" readonly style="position:absolute;top:235px;left:220px;"/>
 				{{/estaAsignada}}
 				{{^estaAsignada}}
-					<input type='text' name="asignatario" value="" style="position:absolute;top:235px;left:220px;"/>
-					<input type='submit' value='Aceptar incidencia' style="position:absolute;top:235px;left:390px;">
+					{{^esTecnico}}
+						<input type='text' name="asignatario" value="" style="position:absolute;top:235px;left:220px;" readonly/>
+					{{/esTecnico}}
+					{{#esTecnico}}
+						<input type='hidden' name="asignatario" value="{{nbUsuario}}" style="position:absolute;top:235px;left:220px;"/>
+						<input type='submit' value='Aceptar incidencia' style="position:absolute;top:235px;left:220px;">
+					{{/esTecnico}}
 				{{/estaAsignada}}
 			</form>
 			<br>
@@ -101,14 +106,18 @@
 				<label>Comentarios</label><br>
 					<table>
 						<tr>
-							<th>Id Comentario</th>
+							{{#esTecnico}}
+								<th>Id Comentario</th>
+							{{/esTecnico}}
 							<th>Fecha</th>
 							<th>Autor</th>
 							<th>Anotacion</th>
 						</tr>
 						{{#incidencia.comentarios}}
 							<tr>
-								<td><a href="/consultarcomentario?numcomentario={{idComentario}}&numincidencia={{incidencia.idIncidencia}}">{{idComentario}}</a></td>
+								{{#esTecnico}}
+									<td><a href="/consultarcomentario?numcomentario={{idComentario}}&numincidencia={{incidencia.idIncidencia}}">{{idComentario}}</a></td>
+								{{/esTecnico}}
 								<td>{{fecha}}</td>
 								<td>{{autor.nombre}}</td>
 								<td>{{anotacion}}</td>
@@ -120,10 +129,9 @@
 				{{^tieneSolucion}}
 					<form action="guardarcomentario" method="post">
 						<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-						<label>Añadir comentario
-							<br>autor <input type='text' name="autor"/><br>
+						<label>Nuevo comentario
+							<input type='hidden' name="autor" value="{{nbUsuario}}"/>
 							<textarea name="comentario" rows="3" style="width:100%" maxlength="255"></textarea>
-							<br>
 							<br>
 							<input type='submit' value='Guardar comentario'>
 						</label>
@@ -135,15 +143,19 @@
 				<form action="guardarsolucion" method="post">
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					<label>Solucion
-						<br>autor <input type='text' name="autor"/><br>
+						<input type='hidden' name="autor" value="{{nbUsuario}}"/>
 						{{#tieneSolucion}}
 							<textarea name="solucion" rows="3" style="width:100%" maxlength="255" readonly>{{incidencia.solucion}}</textarea>
 						{{/tieneSolucion}}
 						{{^tieneSolucion}}
-							<textarea name="solucion" rows="3" style="width:100%" maxlength="255"></textarea>
-							<br>
-							<br>
-							<input type='submit' value='Guardar solucion'>
+							{{#esTecnico}}
+								<textarea name="solucion" rows="3" style="width:100%" maxlength="255"></textarea>
+								<br>
+								<input type='submit' value='Guardar solucion'>
+							{{/esTecnico}}
+							{{^esTecnico}}
+								<textarea name="solucion" rows="3" style="width:100%" maxlength="255" readonly></textarea>
+							{{/esTecnico}}
 						{{/tieneSolucion}}
 						<br>
 					</label>
@@ -153,7 +165,9 @@
 				<form action="reabririncidencia" method="post">
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					{{#tieneSolucion}}
-						<input type='submit' value='Reabrir Incidencia'>
+						{{#esAdministrador}}
+							<input type='submit' value='Reabrir Incidencia'>
+						{{/esAdministrador}}
 					{{/tieneSolucion}}
 				</form>
 				{{/estaCerrada}}
@@ -162,7 +176,9 @@
 				<form action="cerrarincidencia" method="post">
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					{{#tieneSolucion}}
-						<input type='submit' value='Cerrar Incidencia'>
+						{{#usuarioEsElcliente}}
+							<input type='submit' value='Cerrar Incidencia'>
+						{{/usuarioEsElcliente}}
 					{{/tieneSolucion}}
 				</form>
 				{{/estaCerrada}}
@@ -175,6 +191,9 @@
 			<input type='submit' value='Volver al portal'>
 		</form>
 		
+		<br>
+		<label>{{nbUsuario}}</label>
+		<br>
 		
 		<br><br>
 		{{#esUsuario}}
