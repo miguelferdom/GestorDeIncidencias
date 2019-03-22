@@ -85,16 +85,16 @@ public class GdiControllers {
 		// si el usuario logado tiene un rol de tecnico o superior, mostramos todas las incidencias
 		if (request.isUserInRole("tecnico")) {
 			model.addAttribute("incidencias", repoIncidencias.findAllByOrderByUrgenciaDesc());
-			System.out.println("[CargarDatosSesionHttpEnModelo]: cargado en modelo todas indidencias");
+			//System.out.println("[CargarDatosSesionHttpEnModelo]: cargado el modelo todas indidencias");
 		}
 		// si no solo ve en las que aparece como cliente
 		else {
 			model.addAttribute("incidencias", repoIncidencias.findByCliente(user));
-			System.out.println("[CargarDatosSesionHttpEnModelo]: cargado en modelo indidencias del cliente");
+			//System.out.println("[CargarDatosSesionHttpEnModelo]: cargado el modelo indidencias del cliente");
 		}
 	}
 	
-	private void EstadosIncidencia (Model model, Incidencia incidencia) {
+	private void EstadosIncidencia (Model model, HttpServletRequest request, Incidencia incidencia) {
 		
 		boolean estaAsignada;
 		if (incidencia.getAsignatario()!=null) {
@@ -122,6 +122,15 @@ public class GdiControllers {
 			estaCerrada = false;
 		}
 		model.addAttribute("estaCerrada", estaCerrada);
+		
+		boolean usuarioEsElcliente;
+		if (incidencia.getCliente().getNombre().equals(request.getRemoteUser())) {
+			usuarioEsElcliente = true;
+		}
+		else {
+			usuarioEsElcliente = false;
+		}
+		model.addAttribute("usuarioEsElcliente", usuarioEsElcliente);
 	}
 	
 	@PostConstruct
@@ -206,7 +215,7 @@ public class GdiControllers {
 		admi2.setPerfiles("ROLE_usuario");
 		admi3.setPerfiles("ROLE_usuario");
 		admi4.setPerfiles("ROLE_usuario");
-		admi1.setPerfiles("ROLE_usuario");
+		admi1.setPerfiles("ROLE_tecnico");
 		admi2.setPerfiles("ROLE_tecnico");
 		admi3.setPerfiles("ROLE_tecnico");
 		admi4.setPerfiles("ROLE_tecnico");
@@ -333,7 +342,7 @@ public class GdiControllers {
 		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarIncidencia] Incidencia " + numincidencia + " no encontrada"));
 		model.addAttribute("incidencia", incidencia);
 		
-		EstadosIncidencia(model, incidencia);
+		EstadosIncidencia(model, request, incidencia);
 		
 		return "consultarincidencia";
 	}
@@ -373,7 +382,7 @@ public class GdiControllers {
 	}
 	
 	@PostMapping("/aceptarincidencia")
-	public String aceptarincidencia (Model model, @RequestParam Long idIncidencia, @RequestParam String asignatario) {
+	public String aceptarincidencia (Model model, HttpServletRequest request, @RequestParam Long idIncidencia, @RequestParam String asignatario) {
 		
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[aceptarincidencia] Incidencia " + idIncidencia + " no encontrada"));
 		
@@ -385,22 +394,14 @@ public class GdiControllers {
 		repoIncidencias.save(incidencia);
 		model.addAttribute("incidencia", incidencia);
 		
-		boolean estaAsignada;
-		if (incidencia.getAsignatario()!=null) {
-			estaAsignada = true;
-		}
-		else {
-			estaAsignada = false;
-		}
-		model.addAttribute("estaAsignada", estaAsignada);
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
-		
-		return "portal";
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/guardarcomentario")
-	public String guardarComentario (Model model, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String comentario) {
+	public String guardarComentario (Model model, HttpServletRequest request, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String comentario) {
 		
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarComentario] Incidencia " + idIncidencia + " no encontrada"));
 		
@@ -409,14 +410,16 @@ public class GdiControllers {
 		incidencia.getComentarios().add(new Comentario (userAutor, comentario));
 		
 		repoIncidencias.save(incidencia);
+		model.addAttribute("incidencia", incidencia);
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
 		
-		return "portal";
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/guardarsolucion")
-	public String guardarSolucion (Model model, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String solucion) {
+	public String guardarSolucion (Model model, HttpServletRequest request, @RequestParam Long idIncidencia, @RequestParam String autor, @RequestParam String solucion) {
 		
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[guardarSolucion] Incidencia " + idIncidencia + " no encontrada"));
 		
@@ -427,10 +430,12 @@ public class GdiControllers {
 		incidencia.setEstado("Solucionada");
 		
 		repoIncidencias.save(incidencia);
+		model.addAttribute("incidencia", incidencia);
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
 		
-		return "portal";
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/guardartitulodescripcion")
@@ -445,7 +450,7 @@ public class GdiControllers {
 		
 		repoIncidencias.save(incidencia);
 
-		EstadosIncidencia(model, incidencia);
+		EstadosIncidencia(model, request, incidencia);
 		
 		model.addAttribute("incidencia", incidencia);
 
@@ -499,7 +504,7 @@ public class GdiControllers {
 	}
 	
 	@PostMapping("/cerrarincidencia")
-	public String cerrarIncidencia (Model model, @RequestParam Long idIncidencia) {
+	public String cerrarIncidencia (Model model, HttpServletRequest request, @RequestParam Long idIncidencia) {
 		
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[cerrarIncidencia] Incidencia " + idIncidencia + " no encontrada"));
 		
@@ -513,13 +518,16 @@ public class GdiControllers {
 			repoIncidencias.save(incidencia);
 		}
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		model.addAttribute("incidencia", incidencia);
 		
-		return "portal";
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
+		
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/reabririncidencia")
-	public String reabrirIncidencia (Model model, @RequestParam Long idIncidencia) {
+	public String reabrirIncidencia (Model model, HttpServletRequest request, @RequestParam Long idIncidencia) {
 		
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[reabrirIncidencia] Incidencia " + idIncidencia + " no encontrada"));
 		
@@ -534,10 +542,13 @@ public class GdiControllers {
 			incidencia.setAsignatario(null);
 			repoIncidencias.save(incidencia);
 		}
+
+		model.addAttribute("incidencia", incidencia);
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
 		
-		return "portal";
+		return "consultarincidencia";
 	}	
 	
 }
