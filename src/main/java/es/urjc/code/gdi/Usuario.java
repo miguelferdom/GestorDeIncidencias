@@ -34,6 +34,8 @@ public class Usuario {
 	@OneToMany(mappedBy="autor")
 	private List <Comentario> comentariosRealizados = new ArrayList<>();
 	
+	private String email;
+	
 	/**
 	 * Constructor de la clase sin parámetros
 	 */
@@ -46,12 +48,13 @@ public class Usuario {
 	 * @param password Contraseña del usuario en la aplicacion
 	 * @param perfil Rol del usuario dentro de la aplicacion (usuario, técnico o administrador)
 	 */
-	public Usuario (String nombre, String password, String perfil) {
+	public Usuario (String nombre, String password, String perfil, String email) {
 		
 		super();
 		setNombre (nombre);
 		setPassword(password);
 		setPerfiles (perfil);
+		setEmail(email);
 	}
 	
 	/**
@@ -118,6 +121,15 @@ public class Usuario {
 	}
 	
 	/**
+	 * Método set para establecer el correo electronico de un Usuario
+	 * 
+	 * @param email Correo electrónico del Usuario
+	 */
+	public void setEmail (String email) {
+		this.email = email;
+	}
+	
+	/**
 	 * Método get para devolver el identificador único un Usuario
 	 * 
 	 * @return Devuelve el identificador único un Usuario
@@ -174,10 +186,19 @@ public class Usuario {
 	/**
 	 * Método get para devolver la lista de comentarios realizados por el usuario
 	 * 
-	 * @param comentariosRealizados Devuelve la lista de comentarios realizados por el usuario
+	 * @param Devuelve la lista de comentarios realizados por el usuario
 	 */
 	public List <Comentario> getComentariosRealizados () {
 		return this.comentariosRealizados;
+	}
+	
+	/**
+	 *  Método get para devolver el correo electronico de un Usuario
+	 * 
+	 * @return Devuelve el email de un usuario 
+	 */
+	public String getEmail () {
+		return this.email;
 	}
 	
 	@Override
