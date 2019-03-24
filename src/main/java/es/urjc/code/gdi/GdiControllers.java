@@ -439,7 +439,12 @@ public class GdiControllers {
 		
 		DatosIncidenciaCorreo datos = new DatosIncidenciaCorreo (incidencia.getIdIncidencia(), incidencia.getTitulo(), incidencia.getDescripcion(), incidencia.getSolucion(), incidencia.getCliente().getEmail());
 		
-		String url= "http://localhost:8080/mailer/";
+		//direccion del servicio interno para pruebas en la máquina local
+		//String url= "http://localhost:8080/mailer/";
+		
+		//direccion del servicio interno para pruebas en la máquina virtual
+		String url= "http://192.168.1.7:8080/mailer/";
+		
 		RestTemplate msjRest = new RestTemplate();
 		msjRest.postForObject(url, datos, DatosIncidenciaCorreo.class);
 		
