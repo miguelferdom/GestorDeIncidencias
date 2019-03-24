@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.client.RestTemplate;
 import org.springframework.security.core.Authentication;
 
 @Controller
@@ -193,24 +193,24 @@ public class GdiControllers {
 		dpto7.getProblemas().add(new TipoDeProblema("Linea de datos backup caida", 6));
 		repoDepartamentos.save(dpto7);
 		
-		Usuario user1 = new Usuario("user1", "user1", "ROLE_usuario");
-		Usuario user2 = new Usuario("user2", "user2", "ROLE_usuario");
-		Usuario user3 = new Usuario("user3", "user3", "ROLE_usuario");
-		Usuario user4 = new Usuario("user4", "user4", "ROLE_usuario");
+		Usuario user1 = new Usuario("user1", "user1", "ROLE_usuario", "m.fernandezdo@alumnos.urjc.es");
+		Usuario user2 = new Usuario("user2", "user2", "ROLE_usuario", "m.fernandezdo@alumnos.urjc.es");
+		Usuario user3 = new Usuario("user3", "user3", "ROLE_usuario", "m.fernandezdo@alumnos.urjc.es");
+		Usuario user4 = new Usuario("user4", "user4", "ROLE_usuario", "m.fernandezdo@alumnos.urjc.es");
 		
-		Usuario tecn1 = new Usuario("tecn1", "tecn1", "ROLE_tecnico");
-		Usuario tecn2 = new Usuario("tecn2", "tecn2", "ROLE_tecnico");
-		Usuario tecn3 = new Usuario("tecn3", "tecn3", "ROLE_tecnico");
-		Usuario tecn4 = new Usuario("tecn4", "tecn4", "ROLE_tecnico");
+		Usuario tecn1 = new Usuario("tecn1", "tecn1", "ROLE_tecnico", "m.fernandezdo@alumnos.urjc.es");
+		Usuario tecn2 = new Usuario("tecn2", "tecn2", "ROLE_tecnico", "m.fernandezdo@alumnos.urjc.es");
+		Usuario tecn3 = new Usuario("tecn3", "tecn3", "ROLE_tecnico", "m.fernandezdo@alumnos.urjc.es");
+		Usuario tecn4 = new Usuario("tecn4", "tecn4", "ROLE_tecnico", "m.fernandezdo@alumnos.urjc.es");
 		tecn1.setPerfiles("ROLE_usuario");
 		tecn2.setPerfiles("ROLE_usuario");
 		tecn3.setPerfiles("ROLE_usuario");
 		tecn4.setPerfiles("ROLE_usuario");
 		
-		Usuario admi1 = new Usuario("admi1", "admi1", "ROLE_administrador");
-		Usuario admi2 = new Usuario("admi2", "admi2", "ROLE_administrador");
-		Usuario admi3 = new Usuario("admi3", "admi3", "ROLE_administrador");
-		Usuario admi4 = new Usuario("admi4", "admi4", "ROLE_administrador");
+		Usuario admi1 = new Usuario("admi1", "admi1", "ROLE_administrador", "m.fernandezdo@alumnos.urjc.es");
+		Usuario admi2 = new Usuario("admi2", "admi2", "ROLE_administrador", "m.fernandezdo@alumnos.urjc.es");
+		Usuario admi3 = new Usuario("admi3", "admi3", "ROLE_administrador", "m.fernandezdo@alumnos.urjc.es");
+		Usuario admi4 = new Usuario("admi4", "admi4", "ROLE_administrador", "m.fernandezdo@alumnos.urjc.es");
 		admi1.setPerfiles("ROLE_usuario");
 		admi2.setPerfiles("ROLE_usuario");
 		admi3.setPerfiles("ROLE_usuario");
@@ -434,6 +434,14 @@ public class GdiControllers {
 		
 		CargarDatosSesionHttpEnModelo (model, request);
 		EstadosIncidencia (model, request, incidencia);
+		
+		// comunicacion con el servicio interno
+		
+		DatosIncidenciaCorreo datos = new DatosIncidenciaCorreo (incidencia.getIdIncidencia(), incidencia.getTitulo(), incidencia.getDescripcion(), incidencia.getSolucion(), incidencia.getCliente().getEmail());
+		
+		String url= "http://localhost:8080/mailer/";
+		RestTemplate msjRest = new RestTemplate();
+		msjRest.postForObject(url, datos, DatosIncidenciaCorreo.class);
 		
 		return "consultarincidencia";
 	}
