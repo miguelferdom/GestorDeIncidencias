@@ -220,25 +220,7 @@ Los técnicos o administradores también podrán solucionar incidencias lo que h
 
 ### Navegacion entre paginas
 
-```mermaid
-graph TD
-A[Login] -->|Credenciales OK| B[Portal]
-A[Login] -->|Credenciales no OK| C[Logout]
-C --> A[login]
-
-B --> |Abrir nueva incidencia| D[Nueva incidencia]
-B --> |Ver| E[Consultar incidencia]
-B --> |Logout| C[Logout]
-
-D --> |Volver| B[Portal]
-D --> |Nueva Incidencia abierta| B[Portal]
-
-E --> |Modificar título y/o descripción // Añadir comentario // Añadir solución| E[Consultar incidencia]
-E --> |Modificar comentario| F[Consultar comentario]
-
-F --> |Volver| E[Consultar incidencia]
-F --> |Modificar comentario // Borrar comentario| E[Consultar incidencia]
-```
+![](Capturasdepantalla/navegacionpaginas_f3.png)
 
 ### Modelo Entidad Relacion actualizado
 
