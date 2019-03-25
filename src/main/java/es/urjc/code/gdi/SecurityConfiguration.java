@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout", "PUT"));
         
         // Disable CSRF at the moment
-        http.csrf().disable();
+        //http.csrf().disable();
     }
 
     @Override
