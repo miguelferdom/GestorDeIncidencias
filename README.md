@@ -222,18 +222,20 @@ Los técnicos o administradores también podrán solucionar incidencias lo que h
 
 ![](Capturasdepantalla/navegacionpaginas_f3.png)
 
+
 ### Modelo Entidad Relacion actualizado
 
-![](Capturasdepantalla/)
+![](Capturasdepantalla/EER-gdidb_actualizado_f3.png)
 
 
 ### Diagrama de clases UML actualizado
 
 ![](Capturasdepantalla/UMLGDI_actualizado_f3.png)
 
+
 ### Comandos de instalacion y ejecucion en una VM limpia
 
-Para este apartado se entiende como Máquina Virtual limpia un Ubuntu Server 16.04 LTS 64bits (con 2 procesadores asignados, 4096Mb de RAM y 30Gb de HD asignado de forma dinámica) recien instalado al que se le han aplicado los siguientes cambios mínimos:
+Para este apartado se entiende como Máquina Virtual limpia un Ubuntu Server 16.04 LTS 64bits (con 2 procesadores, 4096Mb de RAM y 30Gb de HD asignado de forma dinámica) recien instalado al que se le han aplicado los siguientes cambios mínimos:
 
 * Instalación de un cliente/servidor ssh durante la instalación
 * Instalación del paquete build-essential para necesario para instalar a su vez las guest additions de VirtualBox, necesarias a su vez para poder compartir una carpeta con el sistema Host Windows 10 sobre el que corren las VM's levantadas por VirtualBox
