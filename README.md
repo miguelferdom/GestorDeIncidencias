@@ -11,6 +11,11 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Modelo Entidad Relacion](#Modelo-Entidad-Relacion)
 	- [Diagrama de clases UML](#Diagrama-de-clases-UML)
 - [Fase 3 - Inclusion de seguridad y servicio interno](#Fase-3---Inclusion-de-seguridad-y-servicio-interno)
+	- [Cambios realizados sobre las Fases 2 y 3](#Cambios-realizados-sobre-las-Fases-2-y-3)
+	- [Paginas de la aplicacion actualizadas](#Paginas-de-la-aplicacion-actualizadas)
+	- [Navegacion entre paginas](#Navegacion-entre-paginas)
+	- [Modelo Entidad Relacion actualizado](#Modelo-Entidad-Relacion-actualizado)
+	- [Diagrama de clases UML actualizado](#Diagrama-de-clases-UML-actualizado)
 - [Fase 4 - Incluir tolerancia a fallos en la aplicacion](#Fase-4---Incluir-tolerancia-a-fallos-en-la-aplicacion)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
 
@@ -93,17 +98,15 @@ Durante la apertura de la incidencia habrá que categorizarla para que los técn
 	
 En la parte publica de la web se mostrará una ventana de login para cualquier usuario y en función de que tipo de usuario se conecte se mostrará lo siguiente:
 	
-* Usuario: Podrá abrir una nueva incidencia, consultar aquellas que tuviese abiertas y añadir comentarios o ficheros en estas si fuese necesario
-* Tecnico: Verá la cola de incidencias ordenada por criticidad, podrá asignarse incidencias a su nombre, añadir comentarios y adjuntos, escribir sobre el campo solución y cerrar incidencias
-* Administrador: Tendrá una vista similar a la de un técnico pero con más privilegios, pudiendo modificar cualquier campo (Descripción, comentario o solución), tambián podrá reabrir incidencias. Además dará de alta y baja a los técnicos y les podrá dar privilegios de administrador
+* Usuario: Podrá abrir una nueva incidencia, consultar aquellas que tuviese abiertas, añadir comentarios y cerrar de forma definitiva sus incidencias, si está de acuerdo con la solución, cuando se las resuelvan los técnicos.
+* Tecnico: Verá la cola de incidencias ordenada por criticidad, podrá asignarse incidencias a su nombre, añadir comentarios a las incidencias, modificar la descripción y el título, escribir sobre el campo solución y solucionar incidencias.
+* Administrador: Tendrá una vista similar a la de un técnico pero con más privilegios, pudiendo borrar comentarios y reabrir incidencias cerradas por el usuario.
 
 ### Descripcion del servicio interno
 
-El servicio interno realizará las siguientes tareas:
+El servicio interno realizará la siguiente tarea:
 
 * Enviará un correo de notificación a los usuarios cuando su incidencia se resuelva.
-* Generará informes sobre las incidencias: incidencias totales del mes desglosadas por categorias, número de incidencias atendidas por cada técnico y categoria de estas, tiempo medio de resolución de incidencia por categoría...
-* actualizará la criticidad de las incidencias cada día aumentando su prioridad para evitar que haya solicitudes que se queden sin atender indefinidamente.
 
 
 ## Fase 2 - Desarrollo de la aplicacion web en local
@@ -151,6 +154,27 @@ Desde aquí podrá modificar el texto de una anotación o borrar el comentario p
 
 ## Fase 3 - Inclusion de seguridad y servicio interno
 
+En esta fase se ha llevado a cabo:
+* La implementación de la seguridad https + CSRF usando Spring Security
+* La implementación de un servicio interno, creado como una aplicación nueva, con el que se comunicará el Gestor de Incidencias cada vez que un técnico o administrador solucione una incidencia. Este servicio interno enviará un email al usuario informando que su incidencia ha sido resuelta.
+	* El código del servicio interno puede ser consultado en el siguiente repositorio de GitHub: [Servicio interno](https://github.com/miguelferdom/GestorDeIncidenciasServicioInterno)
+	* El envío de correos se hace a través de la cuenta de Gmail gdi.servicio.interno@gmail.com
+* Entrega de la aplicación + servicio interno + bd corriendo en una máquina virtual (Ubuntu server 16.04 LTS 64bits sobre en VirtualBox).
+
+### [Cambios realizados sobre las Fases 2 y 3]
+
+Para poder llevar a cabo los requisitos de la Fase 3 se han tenido que modificar el diseño de algunas de las páginas entregadas en la fase 2 además de tener que cambiar y añadir algunos atributos más en la entidad Usuario de la BD. Estos cambios los dejaremos reflejados con nuevas capturas de pantalla de las páginas de la aplicación y del diagrama ER y modelo UML.
+
+### [Paginas de la aplicacion actualizadas]
+
+
+### [Navegacion entre paginas]
+
+
+### [Modelo Entidad Relacion actualizado]
+
+
+### [Diagrama de clases UML actualizado]
 
 ## Fase 4 - Incluir tolerancia a fallos en la aplicacion
 
