@@ -30,18 +30,48 @@
 				</table>
 
 				<label>Anotacion</label>
-				<textarea name="anotacion" rows="5" style="width:100%" maxlength="255">{{comentario.anotacion}}</textarea>
-				<br>
-				<br>	
-				<input type='submit' value='Modificar comentario'>
+				{{^esTecnico}}
+					<textarea name="anotacion" rows="5" style="width:100%" maxlength="255" readonly>{{comentario.anotacion}}</textarea>
+				{{/esTecnico}}
+				{{#esTecnico}}
+					<textarea name="anotacion" rows="5" style="width:100%" maxlength="255">{{comentario.anotacion}}</textarea>
+					<br>
+					<br>
+					<input type='submit' value='Modificar comentario'>
+				{{/esTecnico}}
 			</form>
 			
 			<br>
-			<form action="borrarcomentario" method="post">
+			{{#esAdministrador}}
+				<form action="borrarcomentario" method="post">
+					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
+					<input type='hidden' name="idComentario" value="{{comentario.idComentario}}"/>
+					<input type='submit' value='Borrar comentario'>
+				</form>
+			{{/esAdministrador}}
+			<br>
+			<form action="volveraincidencia" method="post">
 				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
-				<input type='hidden' name="idComentario" value="{{comentario.idComentario}}"/>
-				<input type='submit' value='Borrar comentario'>
+				<input type='submit' value='Volver a la incidencia'>
 			</form>
 		</fieldset>
+		
+				
+		<br>
+		<label>{{nbUsuario}}</label>
+		<br>
+		
+		<br><br>
+		{{#esUsuario}}
+		<label>esUsuario</label><br>
+		{{/esUsuario}}
+		
+		{{#esTecnico}}
+		<label>esTecnico</label><br>
+		{{/esTecnico}}
+		
+		{{#esAdministrador}}
+		<label>esAdministrador</label><br>
+		{{/esAdministrador}}
 	</body>
 </html>
