@@ -303,7 +303,7 @@ public class GdiControllers {
 	@GetMapping("/login")
 	public String cargaLogin(Model model) {
 		
-		return "login.html";
+		return "login";
 	}
 	
 	@GetMapping("/loginerror")
