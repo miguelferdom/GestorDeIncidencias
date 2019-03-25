@@ -229,7 +229,7 @@ Los técnicos o administradores también podrán solucionar incidencias lo que h
 
 ### Diagrama de clases UML actualizado
 
-![](Capturasdepantalla/)
+![](Capturasdepantalla/UMLGDI_actualizado_f3.png)
 
 ### Comandos de instalacion y ejecucion en una VM limpia
 
