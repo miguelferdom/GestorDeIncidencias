@@ -17,9 +17,9 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Modelo Entidad Relacion actualizado](#Modelo-Entidad-Relacion-actualizado)
 	- [Diagrama de clases UML actualizado](#Diagrama-de-clases-UML-actualizado)
 	- [Comandos de instalacion y ejecucion en una VM limpia](#Comandos-de-instalacion-y-ejecucion-en-una-VM-limpia)
-		-[Comandos para la instalacion de MySQL Server](#Comandos-para-la-instalacion-de-MySQL-Server)
-		-[Comandos para la instalacion de Java](#Comandos-para-la-instalacion-de-Java)
-		-[Comandos para lanzar la aplicacion y el servicio interno](#Comandos-para-lanzar-la-aplicacion-y-el-servicio-interno)
+		+[Comandos para la instalacion de MySQL Server](#Comandos-para-la-instalacion-de-MySQL-Server)
+		+[Comandos para la instalacion de Java](#Comandos-para-la-instalacion-de-Java)
+		+[Comandos para lanzar la aplicacion y el servicio interno](#Comandos-para-lanzar-la-aplicacion-y-el-servicio-interno)
 - [Fase 4 - Incluir tolerancia a fallos en la aplicacion](#Fase-4---Incluir-tolerancia-a-fallos-en-la-aplicacion)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
 
