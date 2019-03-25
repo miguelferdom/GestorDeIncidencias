@@ -244,24 +244,18 @@ Se elije esta version de Ubuntu server ya que las versiones que instala de java 
 #### Comandos para la instalacion de MySQL Server
 
 Instalación de MySQL Server:
-
 sudo apt-get update
-sudo apt-get install mysql-server
-(durante la instalación se pide teclear la passwor de root para mysql 2 veces, introducir 1234)
+sudo apt-get install mysql-server // (durante la instalación se pide teclear la passwor de root para mysql 2 veces, introducir 1234)
 
 Para verificar que el servicio de MySQL esta levantado:
-
 sudo service mysql status
 
 Para parar o arrancar el servicio de MySQL:
-
 sudo service mysql stop
 sudo service mysql start
 
 Con MySQL Server ya instalado debemos crear la instacia de nuestra base de datos:
-
-sudo /usr/bin/mysql -u root -p
-(introducimos las passwords para el comando sudo y luego para el root de mysql)
+sudo /usr/bin/mysql -u root -p // (introducimos las passwords para el comando sudo y luego para el root de mysql)
 
 Y una vez nos hemos conectado a la consola de MySQL:
 mysql> CREATE DATABASE gdidb;
@@ -269,19 +263,16 @@ mysql> exit;
 
 #### Comandos para la instalacion de Java
 
-Instalación de Java 8
-
+Instalación de Java 8:
 sudo apt-get update
 sudo apt-get install openjdk-8-jre
 
 Para verificar la version de java instalada:
-
 java -version
 
 #### Comandos para lanzar la aplicacion y el servicio interno
 
 Ejecución de la aplicación y del servicio interno:
-
 java -jar gdi-0.0.1-SNAPSHOT.jar &
 java -jar GestorDeIncidenciasServicioInterno-0.0.1-SNAPSHOT.jar &
 
