@@ -10,6 +10,7 @@
 		<fieldset>
 			<legend>Comentario</legend>
 			<form action="modificarcomentario" method="post">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 				
 				<table width="30%" cellspacing="0" cellpadding="5" border="0">
@@ -44,6 +45,7 @@
 			<br>
 			{{#esAdministrador}}
 				<form action="borrarcomentario" method="post">
+					<input type="hidden" name="_csrf" value="{{token}}"/>
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					<input type='hidden' name="idComentario" value="{{comentario.idComentario}}"/>
 					<input type='submit' value='Borrar comentario'>
@@ -51,27 +53,10 @@
 			{{/esAdministrador}}
 			<br>
 			<form action="volveraincidencia" method="post">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 				<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 				<input type='submit' value='Volver a la incidencia'>
 			</form>
 		</fieldset>
-		
-				
-		<br>
-		<label>{{nbUsuario}}</label>
-		<br>
-		
-		<br><br>
-		{{#esUsuario}}
-		<label>esUsuario</label><br>
-		{{/esUsuario}}
-		
-		{{#esTecnico}}
-		<label>esTecnico</label><br>
-		{{/esTecnico}}
-		
-		{{#esAdministrador}}
-		<label>esAdministrador</label><br>
-		{{/esAdministrador}}
 	</body>
 </html>

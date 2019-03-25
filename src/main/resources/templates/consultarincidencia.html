@@ -29,6 +29,8 @@
 		<fieldset>
 		<legend>Incidencia</legend>
 			<form action="aceptarincidencia" method="post">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
+			
 				<label style="width:200px;position:absolute;top:115px;left:20px;">Numero de incidencia</label>
 				<input type='text' name="idIncidencia" value="{{incidencia.idIncidencia}}" readonly style="position:absolute;top:115px;left:220px;"/>
 				<br>
@@ -87,6 +89,7 @@
 			
 				{{#esTecnico}}
 					<form action="guardartitulodescripcion" method="post">
+						<input type="hidden" name="_csrf" value="{{token}}"/>
 						<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 						
 						<label>Titulo</label><input type='text' style="width:100%" name="titulo" value="{{incidencia.titulo}}"/>
@@ -128,6 +131,7 @@
 				
 				{{^tieneSolucion}}
 					<form action="guardarcomentario" method="post">
+						<input type="hidden" name="_csrf" value="{{token}}"/>
 						<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 						<label>Nuevo comentario
 							<input type='hidden' name="autor" value="{{nbUsuario}}"/>
@@ -141,6 +145,7 @@
 				{{/tieneSolucion}}
 				
 				<form action="guardarsolucion" method="post">
+					<input type="hidden" name="_csrf" value="{{token}}"/>
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					<label>Solucion
 						<input type='hidden' name="autor" value="{{nbUsuario}}"/>
@@ -163,6 +168,7 @@
 				
 				{{#estaCerrada}}
 				<form action="reabririncidencia" method="post">
+					<input type="hidden" name="_csrf" value="{{token}}"/>
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					{{#tieneSolucion}}
 						{{#esAdministrador}}
@@ -174,6 +180,7 @@
 				
 				{{^estaCerrada}}
 				<form action="cerrarincidencia" method="post">
+					<input type="hidden" name="_csrf" value="{{token}}"/>
 					<input type='hidden' name="idIncidencia" value="{{incidencia.idIncidencia}}"/>
 					{{#tieneSolucion}}
 						{{#usuarioEsElcliente}}
@@ -187,26 +194,8 @@
 		<br>
 		
 		<form action="volveraportal" method="post">
-			<input type='hidden' name="perfil" value="tecnico"/>
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 			<input type='submit' value='Volver al portal'>
 		</form>
-		
-		<br>
-		<label>{{nbUsuario}}</label>
-		<br>
-		
-		<br><br>
-		{{#esUsuario}}
-		<label>esUsuario</label><br>
-		{{/esUsuario}}
-		
-		{{#esTecnico}}
-		<label>esTecnico</label><br>
-		{{/esTecnico}}
-		
-		{{#esAdministrador}}
-		<label>esAdministrador</label><br>
-		{{/esAdministrador}}
-		
 	</body>
 </html>

@@ -24,21 +24,11 @@
 						<td><label>Password</label></td>
 						<td><input type='password' name="password"/></td>
 					</tr>
-					
-					<!-- tr>
-						<td><label>Perfil</select></td>
-						<td>
-							<select name="perfil">
-							<option value="usuario">usuario</option>
-							<option value="tecnico">tecnico</option>
-							<option value="administrador">administrador</option>
-							</select>
-						</td>
-					</tr-->
 				</table>
 				<br>
 				
 				<input type='submit' value='Conectar'>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 			</fieldset>
 		</form>
 	</body>

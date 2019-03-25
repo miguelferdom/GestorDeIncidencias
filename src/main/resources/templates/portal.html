@@ -31,12 +31,14 @@
 			<br>
 			<label style="width:200px;position:absolute;top:115px;left:20px;">Abrir una nueva incidencia</label>
 			<form action="nuevaincidencia">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 				<input type='submit' value='Abrir incidencia' style="position:absolute;top:115px;left:220px;"/>
 			</form>
 			<br>
 			
 			<label style="width:200px;position:absolute;top:145px;left:20px;">Consultar incidencia</label>
 			<form action="consultarincidencia" method="get">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 				<input type='number' name="numincidencia" style="position:absolute;top:145px;left:220px;"/>
 				<input type='submit' value='Ver' style="position:absolute;top:145px;left:390px;"/>
 			</form>
@@ -44,6 +46,7 @@
 			
 			<label style="width:200px;position:absolute;top:175px;left:20px;">Volver al login</label>
 			<form action="logout">
+				<input type="hidden" name="_csrf" value="{{token}}"/>
 				<input type='submit' value='Logout' style="position:absolute;top:175px;left:220px;"/>
 			</form>
 			<br>
@@ -78,22 +81,5 @@
 				{{/incidencias}}
 			</table>
 		</fieldset>
-		
-		<br>
-		<label>{{nbUsuario}}</label>
-		<br>
-		
-		{{#esUsuario}}
-		<label>esUsuario</label><br>
-		{{/esUsuario}}
-		
-		{{#esTecnico}}
-		<label>esTecnico</label><br>
-		{{/esTecnico}}
-		
-		{{#esAdministrador}}
-		<label>esAdministrador</label><br>
-		{{/esAdministrador}}
-		
 	</body>
 </html>

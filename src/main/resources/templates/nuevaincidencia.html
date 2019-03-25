@@ -10,6 +10,7 @@
 	<body>
 	
 		<form action="crearincidencia" method="post">
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 			<fieldset>
 				<legend>Datos del usuario</legend>
 				<table width="30%" cellspacing="0" cellpadding="5" border="0">
@@ -114,6 +115,7 @@
 		</form>
 		<br>
 		<form action="volveraportal" method="post">
+			<input type="hidden" name="_csrf" value="{{token}}"/>
 			<input type='submit' value='Volver al portal'>
 		</form>
 	</body>
