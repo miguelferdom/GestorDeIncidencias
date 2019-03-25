@@ -17,6 +17,9 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Modelo Entidad Relacion actualizado](#Modelo-Entidad-Relacion-actualizado)
 	- [Diagrama de clases UML actualizado](#Diagrama-de-clases-UML-actualizado)
 	- [Comandos de instalacion y ejecucion en una VM limpia](#Comandos-de-instalacion-y-ejecucion-en-una-VM-limpia)
+		-[Comandos para la instalacion de MySQL Server](#Comandos-para-la-instalacion-de-MySQL-Server)
+		-[Comandos para la instalacion de Java](#Comandos-para-la-instalacion-de-Java)
+		-[Comandos para lanzar la aplicacion y el servicio interno](#Comandos-para-lanzar-la-aplicacion-y-el-servicio-interno)
 - [Fase 4 - Incluir tolerancia a fallos en la aplicacion](#Fase-4---Incluir-tolerancia-a-fallos-en-la-aplicacion)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
 
@@ -160,14 +163,14 @@ En esta fase se ha llevado a cabo:
 * La implementación de un servicio interno, creado como una aplicación nueva, con el que se comunicará el Gestor de Incidencias cada vez que un técnico o administrador solucione una incidencia. Este servicio interno enviará un email al usuario informando que su incidencia ha sido resuelta.
 	* El código del servicio interno puede ser consultado en el siguiente repositorio de GitHub: [Servicio interno](https://github.com/miguelferdom/GestorDeIncidenciasServicioInterno)
 	* El envío de correos se hace a través de la cuenta de Gmail gdi.servicio.interno@gmail.com
-* Entrega de la aplicación + servicio interno + bd corriendo en una máquina virtual (Ubuntu server 16.04 LTS 64bits sobre en VirtualBox).
+* Entrega de la aplicación + servicio interno + bd corriendo en una máquina virtual (Ubuntu server 16.04 LTS 64bits ejecutándose sobre VirtualBox).
 
 ### Cambios realizados sobre las Fases 2 y 3
 
 Para poder llevar a cabo los requisitos de la Fase 3 se han tenido que modificar el diseño de algunas de las páginas entregadas en la fase 2 además de tener que cambiar y añadir algunos atributos más en la entidad Usuario de la BD. Estos cambios los dejaremos reflejados con nuevas capturas de pantalla de las páginas de la aplicación y del diagrama ER y modelo UML.
 
 Se añade a Usuario un campo email para recibir los correos que le envie el servicio interno.
-Se modifica el atributo perfil de Usuario para que ahora sea una lista de roles ("ROLE_usuario", "ROLE_tecnico" y "ROLE_administrador") en funcion de los cuales tendrá mas o menos funcionalidades dentro de la aplicación.
+Se modifica el atributo perfil de Usuario para que ahora sea una lista de roles ("ROLE_usuario", "ROLE_tecnico" y "ROLE_administrador") según los cuales tendrá mas o menos funcionalidades dentro de la aplicación.
 
 ### Paginas de la aplicacion actualizadas
 
@@ -210,13 +213,32 @@ Desde está página, si somos técnicos o administradores además podremos acced
 
 ![](Capturasdepantalla/modificarcomentario_actualizado_f3.png)
 
-Los técnicos o administradores también podrán solucionar incidencias lo que hará que se envie la información de estas al servicio interno y se envíe un correo, como el que sigue, informando al usuario que la abrió:
+Los técnicos o administradores también podrán solucionar incidencias lo que hará que se envie la información de estas al servicio interno y se mande un correo, como el que sigue, informando al usuario que la abrió:
 
 ![](Capturasdepantalla/correo_servicio_interno_f3.png)
 
 
 ### Navegacion entre paginas
 
+```mermaid
+graph TD
+A[Login] -->|Credenciales OK| B[Portal]
+A[Login] -->|Credenciales no OK| C[Logout]
+C --> A[login]
+
+B --> |Abrir nueva incidencia| D[Nueva incidencia]
+B --> |Ver| E[Consultar incidencia]
+B --> |Logout| C[Logout]
+
+D --> |Volver| B[Portal]
+D --> |Nueva Incidencia abierta| B[Portal]
+
+E --> |Modificar título y/o descripción // Añadir comentario // Añadir solución| E[Consultar incidencia]
+E --> |Modificar comentario| F[Consultar comentario]
+
+F --> |Volver| E[Consultar incidencia]
+F --> |Modificar comentario // Borrar comentario| E[Consultar incidencia]
+```
 
 ### Modelo Entidad Relacion actualizado
 
@@ -231,9 +253,56 @@ Los técnicos o administradores también podrán solucionar incidencias lo que h
 
 Para este apartado se entiende como Máquina Virtual limpia un Ubuntu Server 16.04 LTS 64bits (con 2 procesadores asignados, 4096Mb de RAM y 30Gb de HD asignado de forma dinámica) recien instalado al que se le han aplicado los siguientes cambios mínimos:
 
-* instalación de un cliente/servidor ssh durante la instalación
-* instalación del paquete build-essential para necesario para instalar a su vez las guest additions de VirtualBox, necesarias a su vez para poder compartir una carpeta con el sistema Host Windows 10 sobre el que corren las VM's levantadas por VirtualBox
-* creación y configuracion de la carpeta /compartida para el intercambio de archivos con el Host Windows 10.
+* Instalación de un cliente/servidor ssh durante la instalación
+* Instalación del paquete build-essential para necesario para instalar a su vez las guest additions de VirtualBox, necesarias a su vez para poder compartir una carpeta con el sistema Host Windows 10 sobre el que corren las VM's levantadas por VirtualBox
+* Creación y configuracion de la carpeta /compartida para el intercambio de archivos con el Host Windows 10.
+
+Se elije esta version de Ubuntu server ya que las versiones que instala de java (1.8) y MySQL Server (5.7) son compatibles con las usadas hasta el momento en el desarro de la aplicación en una máquina fisica (java 1.8 y MySQL Server 5.5)
+
+#### Comandos para la instalacion de MySQL Server
+
+Instalación de MySQL Server:
+
+sudo apt-get update
+sudo apt-get install mysql-server
+(durante la instalación se pide teclear la passwor de root para mysql 2 veces, introducir 1234)
+
+Para verificar que el servicio de MySQL esta levantado:
+
+sudo service mysql status
+
+Para parar o arrancar el servicio de MySQL:
+
+sudo service mysql stop
+sudo service mysql start
+
+Con MySQL Server ya instalado debemos crear la instacia de nuestra base de datos:
+
+sudo /usr/bin/mysql -u root -p
+(introducimos las passwords para el comando sudo y luego para el root de mysql)
+
+Y una vez nos hemos conectado a la consola de MySQL:
+mysql> CREATE DATABASE gdidb;
+mysql> exit;
+
+#### Comandos para la instalacion de Java
+
+Instalación de Java 8
+
+sudo apt-get update
+sudo apt-get install openjdk-8-jre
+
+Para verificar la version de java instalada:
+
+java -version
+
+#### Comandos para lanzar la aplicacion y el servicio interno
+
+Ejecución de la aplicación y del servicio interno:
+
+java -jar gdi-0.0.1-SNAPSHOT.jar &
+java -jar GestorDeIncidenciasServicioInterno-0.0.1-SNAPSHOT.jar &
+
 
 ## Fase 4 - Incluir tolerancia a fallos en la aplicacion
 
