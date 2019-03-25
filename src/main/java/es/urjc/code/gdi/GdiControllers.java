@@ -348,7 +348,7 @@ public class GdiControllers {
 	}
 	
 	@GetMapping("/consultarcomentario")
-	public String cargaConsultarComentario(Model model, @RequestParam Long numcomentario, @RequestParam Long numincidencia) {
+	public String cargaConsultarComentario(Model model, HttpServletRequest request, @RequestParam Long numcomentario, @RequestParam Long numincidencia) {
 		
 		Comentario comentario = repoComentarios.findById(numcomentario).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarComentario] Comentario " + numcomentario + " no encontrado"));
 		model.addAttribute("comentario", comentario);
@@ -356,6 +356,8 @@ public class GdiControllers {
 		Incidencia incidencia = repoIncidencias.findById(numincidencia).orElseThrow(()-> new EntityNotFoundException("[cargaConsultarComentario] Incidencia " + numincidencia + " no encontrada"));
 		model.addAttribute("incidencia", incidencia);
 		
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
 		
 		return "consultarcomentario";
 	}
@@ -366,6 +368,18 @@ public class GdiControllers {
 		CargarDatosSesionHttpEnModelo (model, request);
 		
 		return "portal";
+	}
+	
+	@PostMapping("/volveraincidencia")
+	public String volverAIncidencia (Model model, HttpServletRequest request, @RequestParam Long idIncidencia) {
+		
+		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[volverAIncidencial] Incidencia " + idIncidencia + " no encontrada"));
+		model.addAttribute("incidencia", incidencia);
+		
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
+		
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/crearincidencia")
@@ -471,7 +485,7 @@ public class GdiControllers {
 	}
 	
 	@PostMapping("/modificarcomentario")
-	public String modificarComentario (Model model, @RequestParam Long idComentario, @RequestParam Long idIncidencia, @RequestParam String anotacion) {
+	public String modificarComentario (Model model, HttpServletRequest request, @RequestParam Long idComentario, @RequestParam Long idIncidencia, @RequestParam String anotacion) {
 		
 		Comentario comentario = repoComentarios.findById(idComentario).orElseThrow(()-> new EntityNotFoundException("[modificarComentario] Comentario " + idComentario + " no encontrado")); 
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[modificarComentario] Incidencia " + idIncidencia + " no encontrada"));
@@ -492,17 +506,21 @@ public class GdiControllers {
 		comentario.setAnotacion(anotacion);
 		repoComentarios.save(comentario);
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		model.addAttribute("incidencia", incidencia);
 		
-		return "portal";
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
+		
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/borrarcomentario")
-	public String borrarComentario (Model model, @RequestParam Long idComentario, @RequestParam Long idIncidencia) {
+	public String borrarComentario (Model model, HttpServletRequest request, @RequestParam Long idComentario, @RequestParam Long idIncidencia) {
 		
 		Comentario comentario = repoComentarios.findById(idComentario).orElseThrow(()-> new EntityNotFoundException("[borrarComentario] Comentario " + idComentario + " no encontrado")); 
 		Incidencia incidencia = repoIncidencias.findById(idIncidencia).orElseThrow(()-> new EntityNotFoundException("[borrarComentario] Incidencia " + idIncidencia + " no encontrada"));
 		
+		// Si el comentario que estamos borrando coincide con la solución, cambiamos el estado de la incidencia
 		if (incidencia.getSolucion().equals(comentario.getAnotacion())) {
 			incidencia.setSolucion("");
 			incidencia.setEstado("Aceptada");
@@ -511,9 +529,12 @@ public class GdiControllers {
 		incidencia.getComentarios().remove(comentario);
 		repoIncidencias.save(incidencia);
 		
-		model.addAttribute("incidencias", repoIncidencias.findAll());
+		model.addAttribute("incidencia", incidencia);
 		
-		return "portal";
+		CargarDatosSesionHttpEnModelo (model, request);
+		EstadosIncidencia (model, request, incidencia);
+		
+		return "consultarincidencia";
 	}
 	
 	@PostMapping("/cerrarincidencia")
