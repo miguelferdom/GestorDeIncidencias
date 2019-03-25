@@ -16,6 +16,7 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Navegacion entre paginas](#Navegacion-entre-paginas)
 	- [Modelo Entidad Relacion actualizado](#Modelo-Entidad-Relacion-actualizado)
 	- [Diagrama de clases UML actualizado](#Diagrama-de-clases-UML-actualizado)
+	- [Comandos de instalacion y ejecucion en una VM limpia](#Comandos-de-instalacion-y-ejecucion-en-una-VM-limpia)
 - [Fase 4 - Incluir tolerancia a fallos en la aplicacion](#Fase-4---Incluir-tolerancia-a-fallos-en-la-aplicacion)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
 
@@ -113,7 +114,7 @@ El servicio interno realizará la siguiente tarea:
 
 ### Paginas de la aplicacion
 
-A continuación de muestran las páginas de la aplicación según los perfiles de usuario de Técnico/Admistrador, que son los que pueden ver todos los elementos sin resticciones:
+A continuación se muestran las páginas de la aplicación según los perfiles de usuario de Técnico/Admistrador, que son los que pueden ver todos los elementos sin resticciones.
 
 En primer lugar tenemos la página de Login:
 
@@ -161,20 +162,78 @@ En esta fase se ha llevado a cabo:
 	* El envío de correos se hace a través de la cuenta de Gmail gdi.servicio.interno@gmail.com
 * Entrega de la aplicación + servicio interno + bd corriendo en una máquina virtual (Ubuntu server 16.04 LTS 64bits sobre en VirtualBox).
 
-### [Cambios realizados sobre las Fases 2 y 3]
+### Cambios realizados sobre las Fases 2 y 3
 
 Para poder llevar a cabo los requisitos de la Fase 3 se han tenido que modificar el diseño de algunas de las páginas entregadas en la fase 2 además de tener que cambiar y añadir algunos atributos más en la entidad Usuario de la BD. Estos cambios los dejaremos reflejados con nuevas capturas de pantalla de las páginas de la aplicación y del diagrama ER y modelo UML.
 
-### [Paginas de la aplicacion actualizadas]
+Se añade a Usuario un campo email para recibir los correos que le envie el servicio interno.
+Se modifica el atributo perfil de Usuario para que ahora sea una lista de roles ("ROLE_usuario", "ROLE_tecnico" y "ROLE_administrador") en funcion de los cuales tendrá mas o menos funcionalidades dentro de la aplicación.
+
+### Paginas de la aplicacion actualizadas
+
+A continuación se muestran las páginas de la aplicación actualizadas para un perfil de Admistrador son los que pueden ver todos los elementos sin resticciones, también mostraremos una página de bienvenida de un usuario donde se ve que los usuarios solo ven las incidencias que ellos han creado.
+
+La página incial de la aplicación será la de login:
+
+![](Capturasdepantalla/login_actualizado_f3.png)
+
+Desde ella un usuario introducirá un nombre de usuario y password y se conectará a la aplicación, si se introducen unas credenciales incorrectas se le redirigira a la página de loginerror:
+
+![](Capturasdepantalla/loginerror_f3.png)
+
+Si las credenciales son correctas se cargara la página de bienvenida en función de su rol:
+
+Un usuario verá solo sus incidencias:
+
+![](Capturasdepantalla/bienvenida_user_f3.png)
+
+Un técnico o un administrador verá todas las incidencias ordenadas por su criticidad:
+ 
+![](Capturasdepantalla/bienvenida_tec_f3.png)
+
+Desde esta página se ofrecen varias opciones, abrir una nueva incidencia, hacer una consulta de una incidencia a través de su Id o salir de la aplicación haciendo logout.
+
+Si elegimos hacer logout se carga la siguiente web que nos permite volver a la página de login:
+
+![](Capturasdepantalla/logout_f3.png)
+
+Si elegimos abrir una nueva incidencia, se cargará el siguiente formulario:
+
+![](Capturasdepantalla/nuevaincidencia_actualizado_f3.png)
+
+Y por último si elegimos consultar una incidencia:
+
+![](Capturasdepantalla/consultarincidencia_actualizado_f3.png)
+![](Capturasdepantalla/consultarincidencia_2_actualizado_f3.png)
+
+Desde está página, si somos técnicos o administradores además podremos acceder a la información de los comentarios para modificarlos o borrarlos (solo administradores):
+
+![](Capturasdepantalla/modificarcomentario_actualizado_f3.png)
+
+Los técnicos o administradores también podrán solucionar incidencias lo que hará que se envie la información de estas al servicio interno y se envíe un correo, como el que sigue, informando al usuario que la abrió:
+
+![](Capturasdepantalla/correo_servicio_interno_f3.png)
 
 
-### [Navegacion entre paginas]
+### Navegacion entre paginas
 
 
-### [Modelo Entidad Relacion actualizado]
+### Modelo Entidad Relacion actualizado
+
+![](Capturasdepantalla/)
 
 
-### [Diagrama de clases UML actualizado]
+### Diagrama de clases UML actualizado
+
+![](Capturasdepantalla/)
+
+### Comandos de instalacion y ejecucion en una VM limpia
+
+Para este apartado se entiende como Máquina Virtual limpia un Ubuntu Server 16.04 LTS 64bits (con 2 procesadores asignados, 4096Mb de RAM y 30Gb de HD asignado de forma dinámica) recien instalado al que se le han aplicado los siguientes cambios mínimos:
+
+* instalación de un cliente/servidor ssh durante la instalación
+* instalación del paquete build-essential para necesario para instalar a su vez las guest additions de VirtualBox, necesarias a su vez para poder compartir una carpeta con el sistema Host Windows 10 sobre el que corren las VM's levantadas por VirtualBox
+* creación y configuracion de la carpeta /compartida para el intercambio de archivos con el Host Windows 10.
 
 ## Fase 4 - Incluir tolerancia a fallos en la aplicacion
 
