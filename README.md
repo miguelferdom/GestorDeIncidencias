@@ -163,6 +163,8 @@ En esta fase se ha llevado a cabo:
 * La implementación de un servicio interno, creado como una aplicación nueva, con el que se comunicará el Gestor de Incidencias cada vez que un técnico o administrador solucione una incidencia. Este servicio interno enviará un email al usuario informando que su incidencia ha sido resuelta.
 	* El código del servicio interno puede ser consultado en el siguiente repositorio de GitHub: [Servicio interno](https://github.com/miguelferdom/GestorDeIncidenciasServicioInterno)
 	* El envío de correos se hace a través de la cuenta de Gmail gdi.servicio.interno@gmail.com
+	* El servicio interno se presenta a través del puerto 8080 por la interfaz llamada /mailer. Para hacer uso de este servicio interno hay que enviar un objeto de tipo DatosIncidenciaCorreo mediante una petición REST de tipo POST a este controlador. Para facilitar la comunicación entre aplicación y servicio interno se ha creado en los dos proyectos la clase DatosIncidenciaCorreo.java que permite conocer, en ambos extremos, como manipular este tipo de dato. 
+	* La llamada desde la aplicación gdi al servicio interno se puede ver en el método "guardarSolucion" en la clase GdiControllers.java
 * Entrega de la aplicación + servicio interno + bd corriendo en una máquina virtual (Ubuntu server 16.04 LTS 64bits ejecutándose sobre VirtualBox).
 
 ### Cambios realizados sobre las Fases 2 y 3
