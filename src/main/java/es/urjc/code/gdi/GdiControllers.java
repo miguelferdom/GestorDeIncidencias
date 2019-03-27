@@ -1,6 +1,5 @@
 package es.urjc.code.gdi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.security.core.Authentication;
 
 @Controller
 public class GdiControllers {
@@ -309,13 +307,13 @@ public class GdiControllers {
 	@GetMapping("/loginerror")
 	public String cargaLoginError(Model model) {
 			
-		return "loginerror.html";
+		return "loginerror";
 	}
 
 	@GetMapping("/logout")
 	public String cargaLogout(Model model) {
 			
-		return "logout.html";
+		return "logout";
 	}
 	
 	@GetMapping("/bienvenida")
