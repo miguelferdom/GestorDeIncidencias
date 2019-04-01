@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>[GDI]</title>
+	</head>
+	<h1>Gestor de Incidencias</h1>
+	
+	<body>
+		<form action="crearusuario">
+			
+			<fieldset>
+				<legend>Introduzca los datos del nuevo usuario</legend>
+				
+				<table width="30%" cellspacing="0" cellpadding="5" border="0">
+					<tr>
+						<td><label style="width:200px;position:absolute;top:115px;left:20px;">Nombre de usuario</label></td>
+						<td><input type='text' name="usuario" style="width:200px;position:absolute;top:115px;left:220px;"/></td>
+					</tr>
+					<br>
+					
+					<table width="30%" cellspacing="0" cellpadding="5" border="0">
+						<tr>
+							<td><label style="width:200px;position:absolute;top:145px;left:20px;">Rol</label></td>
+							<td>
+								<select name="rol" style="width:200px;position:absolute;top:145px;left:220px;">
+									<option value="ROLE_usuario">usuario</option>
+									<option value="ROLE_tecnico">tecnico</option>
+									<option value="ROLE_administrador">administrador</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<br>
+					
+					<tr>
+						<td><label style="width:200px;position:absolute;top:175px;left:20px;">Correo electronico</label></td>
+						<td><input type='text' name="email" style="width:200px;position:absolute;top:175px;left:220px;"/></td>
+					</tr>
+					<br>
+					
+					<tr>
+						<td><label style="width:200px;position:absolute;top:205px;left:20px;">Introduzca la password</label></td>
+						<td><input type='password' name="password" style="width:200px;position:absolute;top:205px;left:220px;"/></td>
+					</tr>
+					<br>
+					
+					<tr>
+						<td><label style="width:200px;position:absolute;top:235px;left:20px;">Repita la password</label></td>
+						<td><input type='password' name="reppassword" style="width:200px;position:absolute;top:235px;left:220px;"/></td>
+					</tr>
+
+				</table>
+				
+				<input type='submit' value='Crear nuevo usuario' style="width:200px;position:absolute;top:265px;left:20px;"/>
+				<input type="hidden" name="_csrf" value="{{token}}"/>
+				
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</fieldset>
+		</form>
+		<br>
+		
+		<form action="volveraportal" method="post">
+			<input type="hidden" name="_csrf" value="{{token}}"/>
+			<input type='submit' value='Volver al portal'>
+		</form>
+	</body>
+</html>
