@@ -81,5 +81,17 @@
 				{{/incidencias}}
 			</table>
 		</fieldset>
+		<br>
+		
+		{{#esAdministrador}}
+			<fieldset>
+				<br>
+				<legend>Administrar usuarios</legend>
+				<form action="nuevousuario">
+					<input type="hidden" name="_csrf" value="{{token}}"/>
+					<input type='submit' value='Crear usuario'/>
+				</form>
+			</fieldset>
+		{{/esAdministrador}}
 	</body>
 </html>
