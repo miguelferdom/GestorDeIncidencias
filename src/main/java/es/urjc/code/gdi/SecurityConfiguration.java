@@ -27,9 +27,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //http.authorizeRequests().anyRequest().authenticated();
         
         // Cortamos el acceso a la página /consultarcomentario a usuarios y lo permitimos para técnicos y administradores
+        // Cortamos el acceso a la página /nuevousuario a usuarios y tecnicos y lo permitimos solo para administradores
         // el resto de páginas privadas son accesibles con una autenticación válida
         http.authorizeRequests()
         	.antMatchers("/consultarcomentario").access("hasRole('tecnico')")
+        	.antMatchers("/nuevousuario").access("hasRole('administrador')")
         	.anyRequest().authenticated();
 
         // Login form
