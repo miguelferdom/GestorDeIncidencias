@@ -581,6 +581,50 @@ public class GdiControllers {
 		EstadosIncidencia (model, request, incidencia);
 		
 		return "consultarincidencia";
-	}	
+	}
+	
+	@GetMapping("/nuevousuario")
+	public String nuevoUsuario (Model model, HttpServletRequest request) {
+		return "nuevousuario";
+	}
+	
+	@GetMapping("/crearusuario")
+	public String crearNuevoUsuario (Model model, HttpServletRequest request, @RequestParam String usuario, @RequestParam String rol, @RequestParam String email, @RequestParam String password, @RequestParam String reppassword) {
+		
+		CargarDatosSesionHttpEnModelo (model, request);
+		
+		Usuario user = obtenerUsuario(usuario);
+		
+		if (usuario.equals("")) {
+			return "newusererror";
+		}
+		
+		if (user.getIdUsuario() != 0L) {
+			return "newusererror";
+		}
+		
+		if (password.equals("")) {
+			return "passworderror";
+		}
+		
+		if (!(password.equals(reppassword))) {
+			return "passworderror";
+		}
+
+		user = new Usuario(usuario, password, rol, email);
+		
+		if (rol.equals("ROLE_administrador")) {
+			user.setPerfiles("ROLE_usuario");
+			user.setPerfiles("ROLE_tecnico");
+		}
+		
+		if (rol.equals("ROLE_tecnico")) {
+			user.setPerfiles("ROLE_usuario");
+		}
+		
+		repoUsuarios.save(user);
+		
+		return "portal";
+	}
 	
 }
