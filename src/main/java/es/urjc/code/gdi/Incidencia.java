@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 public class Incidencia {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idIncidencia;
 	
 	private LocalDateTime fecha;
