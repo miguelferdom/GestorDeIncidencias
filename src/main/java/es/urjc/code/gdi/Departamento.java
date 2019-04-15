@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Departamento {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idDepartamento;
 	private String nombreDepartamento;
 	private int criticidadDepartamento;
