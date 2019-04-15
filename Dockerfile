@@ -9,4 +9,4 @@ COPY --from=builder /code/target/*.jar /usr/app/
 COPY ./run.sh /usr/app/
 WORKDIR /usr/app
 RUN chmod 777 /usr/app/run.sh
-CMD ["/usr/app/run.sh"]
+# CMD ["/usr/app/run.sh"]
