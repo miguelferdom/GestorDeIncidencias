@@ -8,5 +8,5 @@ RUN apt-get update; apt-get install -y netcat
 COPY --from=builder /code/target/*.jar /usr/app/
 COPY ./run.sh /usr/app/
 WORKDIR /usr/app
-RUN chmod 777 /usr/app/run.sh
+RUN chmod 777 /usr/app/*.*
 CMD ["/usr/app/run.sh"]
