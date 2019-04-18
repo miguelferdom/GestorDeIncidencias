@@ -34,6 +34,9 @@ public class GdiControllers {
 	private RepositorioTipoDeProblema repoTipoDeProblemas;
 	
 	private List<Incidencia> incidencias;
+	
+	@Autowired
+	private PropiedadesServicioInterno psi;
 
 	private Usuario obtenerUsuario (String nbUsuario) {
 		
@@ -457,7 +460,13 @@ public class GdiControllers {
 		//String url= "http://localhost:8080/mailer/";
 		
 		//direccion del servicio interno para pruebas en la máquina virtual
-		String url= "http://192.168.1.7:8080/mailer/";
+		//String url= "http://192.168.1.7:8080/mailer/";
+		
+		//Solución sacada de:
+		//https://stackoverflow.com/questions/32058814/spring-boot-custom-variables-in-application-properties
+		//https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
+		
+		String url= psi.getIpServicioInterno()+":8080/mailer/";
 		
 		RestTemplate msjRest = new RestTemplate();
 		msjRest.postForObject(url, datos, DatosIncidenciaCorreo.class);
