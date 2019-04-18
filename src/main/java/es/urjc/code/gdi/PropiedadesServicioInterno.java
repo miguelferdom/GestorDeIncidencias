@@ -6,21 +6,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class PropiedadesServicioInterno {
 
-	@Value("${ipServicioInterno}")
-	private String ipServicioInterno;
+	@Value("${ipserviciointerno}")
+	private String ipserviciointerno;
 	
 	public PropiedadesServicioInterno () {}
 	
-	public PropiedadesServicioInterno (String ipServicioInterno) {
-		setIpServicioInterno(ipServicioInterno);
+	public PropiedadesServicioInterno (String ipserviciointerno) {
+		setIpServicioInterno(ipserviciointerno);
 	}
 	
-	public void setIpServicioInterno (String ipServicioInterno) {
-		this.ipServicioInterno = ipServicioInterno;
+	public void setIpServicioInterno (String ipserviciointerno) {
+		this.ipserviciointerno = ipserviciointerno;
 	}
 	
 	public String getIpServicioInterno () {
-		return this.ipServicioInterno;
+		return this.ipserviciointerno;
 	}
 	
 }

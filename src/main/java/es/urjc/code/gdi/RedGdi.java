@@ -6,20 +6,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedGdi {
 
-	@Value("${ipRedGdi}")
-	private String ipRedGdi;
+	@Value("${ipredgdi}")
+	private String ipredgdi;
 	
 	public RedGdi () {}
 	
-	public RedGdi (String ipRedGdi) {
-		setIpRedGdi(ipRedGdi);
+	public RedGdi (String ipredgdi) {
+		setIpRedGdi(ipredgdi);
 	}
 	
-	public void setIpRedGdi (String ipRedGdi) {
-		this.ipRedGdi = ipRedGdi;
+	public void setIpRedGdi (String ipredgdi) {
+		this.ipredgdi = ipredgdi;
 	}
 	
 	public String getIpRedGdi () {
-		return this.ipRedGdi;
+		return this.ipredgdi;
 	}
 }
