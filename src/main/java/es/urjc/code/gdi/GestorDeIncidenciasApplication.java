@@ -27,7 +27,7 @@ public class GestorDeIncidenciasApplication {
 		Config config = new Config();
 		JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 		joinConfig.getMulticastConfig().setEnabled(false);
-		joinConfig.getTcpIpConfig().setEnabled(true).setMembers(Collections.singletonList(redgdi.getIpRedGdi()));
+		joinConfig.getTcpIpConfig().setEnabled(true).setMembers(Collections.singletonList("127.0.0.1"));
 		return config;
 	}
 
