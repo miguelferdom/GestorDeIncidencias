@@ -466,7 +466,7 @@ public class GdiControllers {
 		//https://stackoverflow.com/questions/32058814/spring-boot-custom-variables-in-application-properties
 		//https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
 		
-		String url= psi.getIpServicioInterno()+":8080/mailer/";
+		String url= "http://" + psi.getIpServicioInterno() + ":8080/mailer/";
 		
 		RestTemplate msjRest = new RestTemplate();
 		msjRest.postForObject(url, datos, DatosIncidenciaCorreo.class);
