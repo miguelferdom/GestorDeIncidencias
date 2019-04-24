@@ -134,7 +134,7 @@ public class GdiControllers {
 		model.addAttribute("usuarioEsElcliente", usuarioEsElcliente);
 	}
 	
-	
+	/*
 	@PostConstruct
 	public void init() {
 		
@@ -301,7 +301,7 @@ public class GdiControllers {
 		
 		incidencias = repoIncidencias.findAll();
 	}
-	
+	*/
 	
 	@GetMapping("/login")
 	public String cargaLogin(Model model) {
