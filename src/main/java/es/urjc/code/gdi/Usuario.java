@@ -22,7 +22,7 @@ public class Usuario {
 	
 	private String nombre;
 	private String password;
-	//@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	private List <String> perfiles = new ArrayList<>();
 	
 	@OneToMany(mappedBy="asignatario")

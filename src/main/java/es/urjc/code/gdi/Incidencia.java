@@ -28,7 +28,7 @@ public class Incidencia {
 	private String descripcion;
 	private String solucion;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
