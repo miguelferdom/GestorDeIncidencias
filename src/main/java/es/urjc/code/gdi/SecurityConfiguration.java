@@ -20,7 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/loginerror").permitAll();
         http.authorizeRequests().antMatchers("/logout").permitAll();
-
+        http.authorizeRequests().antMatchers("/cache").permitAll();
+        
         // Private pages (all other pages)
         // Antiguo control para páginas privadas si todo funciona con la nueva 
         // expresión borrar estas lineas en siguientes actualizaciones
