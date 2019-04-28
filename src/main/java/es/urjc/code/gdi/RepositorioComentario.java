@@ -12,13 +12,7 @@ public interface RepositorioComentario extends JpaRepository <Comentario, Long> 
 
 	@CacheEvict(allEntries=true)
 	Comentario save(Comentario comentario);
-	
-	@Cacheable
-	Comentario findById();
-	
-	@Cacheable
-	List <Comentario> findAllByOrderByFechaDesc();
-	
+
 	@Cacheable
 	List <Comentario> findAll();
 }
