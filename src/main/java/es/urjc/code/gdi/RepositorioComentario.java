@@ -14,6 +14,9 @@ public interface RepositorioComentario extends JpaRepository <Comentario, Long> 
 	Comentario save(Comentario comentario);
 	
 	@Cacheable
+	Comentario findById();
+	
+	@Cacheable
 	List <Comentario> findAllByOrderByFechaDesc();
 	
 	@Cacheable
