@@ -18,4 +18,7 @@ public interface RepositorioIncidencia extends JpaRepository <Incidencia, Long>{
 
 	@Cacheable
 	List <Incidencia> findAllByOrderByUrgenciaDesc();
+	
+	@Cacheable
+	List <Incidencia> findAll();
 }
