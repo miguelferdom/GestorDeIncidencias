@@ -36,7 +36,7 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="autor")
 	@Fetch(FetchMode.JOIN)
-	@IndexColumn(name="idComentario")
+	@IndexColumn(name="id_comentario")
 	private List <Comentario> comentariosRealizados = new ArrayList<>();
 	
 	private String email;

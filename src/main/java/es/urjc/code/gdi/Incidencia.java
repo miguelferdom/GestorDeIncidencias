@@ -33,7 +33,7 @@ public class Incidencia {
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@Fetch(FetchMode.JOIN)
-	@IndexColumn(name="idComentario")
+	@IndexColumn(name="id_comentario")
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
