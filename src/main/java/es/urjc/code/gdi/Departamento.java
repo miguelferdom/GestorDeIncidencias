@@ -26,10 +26,12 @@ public class Departamento {
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	private List <TipoDeProblema> problemas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="departamento")
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	private List <Incidencia> incidenciasDepartamentos = new ArrayList<>();
 	
 	/**

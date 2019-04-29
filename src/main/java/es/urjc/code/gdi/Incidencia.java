@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -38,12 +39,15 @@ public class Incidencia {
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
+	@JsonBackReference
 	private Usuario asignatario;
 	
 	@ManyToOne
+	@JsonBackReference
 	private Usuario cliente;
 	
 	@ManyToOne
+	@JsonBackReference
 	private Departamento departamento;
 		
 	/**

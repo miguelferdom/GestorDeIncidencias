@@ -30,9 +30,13 @@ public class Usuario {
 	private List <String> perfiles = new ArrayList<>();
 	
 	@OneToMany(mappedBy="asignatario")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	private List <Incidencia> incidenciasAsignadas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="cliente")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	private List <Incidencia> incidenciasAbiertas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="autor")
