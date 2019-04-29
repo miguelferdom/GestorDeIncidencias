@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.IndexColumn;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -35,6 +36,7 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="autor")
 	@Fetch(FetchMode.JOIN)
+	@IndexColumn(name="idComentario")
 	private List <Comentario> comentariosRealizados = new ArrayList<>();
 	
 	private String email;

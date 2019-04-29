@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.IndexColumn;
 
 @Entity
 public class Incidencia {
@@ -32,6 +33,7 @@ public class Incidencia {
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@Fetch(FetchMode.JOIN)
+	@IndexColumn(name="idComentario")
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
