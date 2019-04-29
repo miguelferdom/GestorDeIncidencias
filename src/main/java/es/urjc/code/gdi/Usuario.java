@@ -11,9 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -35,8 +34,7 @@ public class Usuario {
 	private List <Incidencia> incidenciasAbiertas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="autor")
-	@Fetch(FetchMode.JOIN)
-	@IndexColumn(name="id_comentario")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Comentario> comentariosRealizados = new ArrayList<>();
 	
 	private String email;

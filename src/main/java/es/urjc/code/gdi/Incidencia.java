@@ -12,9 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Incidencia {
@@ -32,8 +31,7 @@ public class Incidencia {
 	private String solucion;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@Fetch(FetchMode.JOIN)
-	@IndexColumn(name="id_comentario")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
