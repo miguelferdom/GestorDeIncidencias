@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Incidencia {
 
@@ -28,6 +31,7 @@ public class Incidencia {
 	private String solucion;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@Fetch(FetchMode.JOIN)
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
