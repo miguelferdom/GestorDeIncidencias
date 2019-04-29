@@ -15,6 +15,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Usuario {
 
@@ -35,6 +37,7 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="autor")
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	private List <Comentario> comentariosRealizados = new ArrayList<>();
 	
 	private String email;

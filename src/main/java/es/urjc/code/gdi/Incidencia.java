@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Incidencia {
 
@@ -32,6 +34,7 @@ public class Incidencia {
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	private List <Comentario> comentarios = new ArrayList<>();
 	
 	@ManyToOne
