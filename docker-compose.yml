@@ -1,0 +1,89 @@
+version: "3.7"
+
+services:
+
+  #appweb:
+  appweb1:
+    image: compartida_appweb:latest
+    #build:
+    #  context: https://github.com/miguelferdom/GestorDeIncidencias.git
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb/gdidb
+      - IPREDGDI=appweb1, appweb2
+      - IPSERVICIOINTERNO=isbalancer
+    container_name: gdi-webapp1
+    links:
+      - mysqldb
+      - isbalancer
+    networks:
+      - gdinet
+
+  appweb2:
+    image: compartida_appweb:latest
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb/gdidb
+      - IPREDGDI=appweb1, appweb2
+      - IPSERVICIOINTERNO=isbalancer
+    container_name: gdi-webapp2
+    links:
+      - mysqldb
+      - isbalancer
+    networks:
+      - gdinet
+
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=gdidb
+    container_name: gdi-db
+    networks:
+      - gdinet
+
+  #intsrv:
+  intsrv1:
+    image: compartida_intsrv:latest
+    #build:
+    #  context: https://github.com/miguelferdom/GestorDeIncidenciasServicioInterno.git
+    #container_name: gdi-is
+    container_name: gdi-is1
+    networks:
+      - gdinet
+
+  intsrv2:
+    image: compartida_intsrv:latest
+    container_name: gdi-is2
+    networks:
+      - gdinet
+
+  appbalancer:
+    image: compartida_appbalancer
+    #build:
+    #  context: https://github.com/miguelferdom/GestorDeIncidencias.git#:HAproxyWEB
+    #  dockerfile: Dockerfile.gdi.haproxy.web
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - appweb1
+      - appweb2
+    container_name: gdi-webapp-hapxy
+    networks:
+      - gdinet
+
+  isbalancer:
+    image: compartida_isbalancer
+    #build:
+    #  context: https://github.com/miguelferdom/GestorDeIncidencias.git#:HAproxyIS
+    #  dockerfile: Dockerfile.gdi.haproxy.is
+    ports:
+      - "8080:80"
+    links:
+      - intsrv1
+      - intsrv2
+    container_name: gdi-is-hapxy
+    networks:
+      - gdinet
+
+networks:
+  gdinet:

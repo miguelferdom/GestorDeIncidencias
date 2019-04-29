@@ -11,7 +11,7 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Modelo Entidad Relacion](#Modelo-Entidad-Relacion)
 	- [Diagrama de clases UML](#Diagrama-de-clases-UML)
 - [Fase 3 - Inclusion de seguridad y servicio interno](#Fase-3---Inclusion-de-seguridad-y-servicio-interno)
-	- [Cambios realizados sobre las Fases 2 y 3](#Cambios-realizados-sobre-las-Fases-2-y-3)
+	- [Cambios realizados sobre las Fases 1 y 2](#Cambios-realizados-sobre-las-Fases-1-y-2)
 	- [Paginas de la aplicacion actualizadas](#Paginas-de-la-aplicacion-actualizadas)
 	- [Navegacion entre paginas](#Navegacion-entre-paginas)
 	- [Modelo Entidad Relacion actualizado](#Modelo-Entidad-Relacion-actualizado)
@@ -21,6 +21,9 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 		- [Comandos para la instalacion de Java](#Comandos-para-la-instalacion-de-Java)
 		- [Comandos para lanzar la aplicacion y el servicio interno](#Comandos-para-lanzar-la-aplicacion-y-el-servicio-interno)
 - [Fase 4 - Incluir tolerancia a fallos en la aplicacion](#Fase-4---Incluir-tolerancia-a-fallos-en-la-aplicacion)
+	- [Cambios realizados sobre las Fases 1, 2 y 3](#Cambios-realizados-sobre-las-Fases-1,-2-y-3)
+	- [Paginas de la aplicacion agregadas en la fase 4](#Paginas-de-la-aplicacion-agregadas-en-la-fase-4)
+	- [Diagrama de la aplicacion distribuida](#Diagrama-de-la-aplicacion-distribuida)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
 
 ## Fase 1 - Equipo de desarrollo y tematica de la web
@@ -167,7 +170,7 @@ En esta fase se ha llevado a cabo:
 	* La llamada desde la aplicación gdi al servicio interno se puede ver en el método "guardarSolucion" en la clase GdiControllers.java
 * Entrega de la aplicación + servicio interno + bd corriendo en una máquina virtual (Ubuntu server 16.04 LTS 64bits ejecutándose sobre VirtualBox).
 
-### Cambios realizados sobre las Fases 2 y 3
+### Cambios realizados sobre las Fases 1 y 2
 
 Para poder llevar a cabo los requisitos de la Fase 3 se han tenido que modificar el diseño de algunas de las páginas entregadas en la fase 2 además de tener que cambiar y añadir algunos atributos más en la entidad Usuario de la BD. Estos cambios los dejaremos reflejados con nuevas capturas de pantalla de las páginas de la aplicación y del diagrama ER y modelo UML.
 
@@ -296,5 +299,83 @@ Ejecución de la aplicación y del servicio interno:
 
 ## Fase 4 - Incluir tolerancia a fallos en la aplicacion
 
+En esta fase se han llevado a cabo los siguientes objetivos:
+
+* Se ha creado una imagen Docker personalizada, a partir de una imagen openjdk:8-jre, de la aplicación web, del servicio interno y a partir de ellas se han levantado dos instancias de cada tipo
+* Se ha usado una imagen Docker mysql:5.7 para persitir los datos de la aplicación del Gestor de Incidencias
+* Se han creado un balanceador basado en una imagen Docker haproxy:1.9 para añadir tolerancia a fallos y balanceo de carga para las instancias de aplicación web, además este balanceador implementa seguridad SSL para conexiones desde el exterior hacia la aplicación, para la comunicación entre el frontend y el backend se ha optado por usar la técnica de SSL Termination por lo que esta se realiza sin seguridad
+* Se han creado un balanceador basado en una imagen Docker haproxy:1.9 para añadir tolerancia a fallos y balanceo de carga para las instancias del servicio interno
+* Se ha implementado una caché con Hazelcast para que la sesión del usuario se comparta entre los nodos de la aplicación web
+* Se ha implementado un mecanismo de caché para algunas peticiones la al base de datos (usuarios, incidencias y comentarios)
+
+
+### Cambios realizados sobre las Fases 1, 2 y 3
+
+Para cumplir con los últimos requisitos de manejo de la aplicación se introduce una funcionalidad para dar de alta a nuevos usuarios, esta opción solo estará disponible para usuarios con rol de administrador.
+
+
+### Paginas de la aplicacion agregadas en la fase 4
+
+A continucación podemos ver las nuevas páginas agregadas durante esta fase.
+
+Si estamos conectados con un usuario con rol de administrador veremos un nuevo botón en la página de bienvenida que nos permitirá crear usuarios:
+
+![](Capturasdepantalla/bienvenida_adm_f4.png)
+
+Si lo pulsamos nos llevará a la siguiente página donde deberemos introducir los datos del nuevo usuario: nombre, password, correo electrónico y perfil. La password será necesaria introducirla dos veces para comprobar que se hace sin errores, el nombre de usuario también se comprobará y si ya existe se impedirá crearlo por duplicado. En la selección de perfíl se elegirá el rol con permisos más elevados que se quieran conceder al nuevo usuario, los permisos por debajo de este rol se le otorgarán de forma automática sin tener que hacer ninguna acción adicional.
+
+![](Capturasdepantalla/nuevousuario_f4.png)
+
+Si introducimos el nombre de un usuario existente veremos el siguiente error:
+
+![](Capturasdepantalla/newusererror_f4.png)
+
+Si introducimos mal una password también se nos avisará con la siguiente pantalla de error:
+
+![](Capturasdepantalla/passworderror_f4.png)
+
+Si no se produce ningún incidente durante la creación del nuevo usuario se nos devolverá a la pantalla de bienvenida ya vista.
+
+
+### Diagrama de la aplicacion distribuida
+
+A continuación añadimos un diagrama esquemático del despliegue de la aplicación, en el podemos ver que los contenedores que componen la aplicación distribuida se levantan en un Ubuntu Server 16.04 LTS, dentro de una red llamada gdinet que los aisla del resto de aplicaciones que pudieran estar ejecutando en este Ubuntu server. La aplicación solo expone al exterior los puertos 80 y 443 del balanceador de las aplicaciones web, estas se comunican a su vez con la instancia de la base de datos MySQL y con el balanceador de las dos instancias de servicio interno.
+
+![](Capturasdepantalla/diagrama_de_despliegue_f4.png)
 
 ## Fase 5 - Automatizar el despliegue de la aplicacion
+
+Para el despliegue de la aplicación se utiliza el docker-compose.yml incluido en la raíz del proyecto, este fichero se conecta con el repositorio de github para descargar los proyectos de la aplicación web y el servicio interno y, leyendo los respectivos Dokerfile de cada uno, compilar y crear una imagen Docker personalizada de ellos. Nota: el nombre de las imagenes que aparecen en el doker-compose viene de la carpeta compartida entre el sistema Windows 10 en el que se ha desarrollado la aplicación y la máquina virtual Ubuntu Server 16.04 LTS, ejecutando en VirtualBox, que usamos para simular un entorno Cloud en el que ejecutar nuestros dockers.
+
+Para realizar el despliegue correctamente habría que realizar los siguientes pasos:
+
+* Para la primera ejecución:
+	* En el proyecto maven de la aplicación web descomentar el método init del fichero GdiControllers.java que contiene unos datod de prueba para cargar en la base de datos
+	* En el proyecto maven de la aplicación web cambiar la propiedad spring.jpa.hibernate.ddl-auto de "none" a "create"
+	* En el docker-compose.yml:
+		* Descomentar la linea #appweb:
+		* Comentar la linea appweb1:
+		* Comentar la linea image: compartida_appweb:latest
+		* Descomentar la linea #build:
+		* Descomentar la linea #context: https://github.com/miguelferdom/GestorDeIncidencias.git
+		* Descomentar la linea #intsrv:
+		* Comentar la linea intsrv1:
+		* Descomentar la linea #build:
+		* Descomentar la linea #  context: https://github.com/miguelferdom/GestorDeIncidenciasServicioInterno.git
+		* Comentar la linea image: compartida_appbalancer
+		* Descomentar la linea #build:
+		* Descomentar la linea #  context: https://github.com/miguelferdom/GestorDeIncidencias.git#:HAproxyWEB
+		* Descomentar la linea #  dockerfile: Dockerfile.gdi.haproxy.web
+		* Comentar la linea image: compartida_isbalancer
+		* Descomentar la linea #build:
+		* Descomentar la linea #  context: https://github.com/miguelferdom/GestorDeIncidencias.git#:HAproxyIS
+		* Descomentar la linea #  dockerfile: Dockerfile.gdi.haproxy.is
+	* Salvar los cambios del docker-compose.yml y en el Ubutu Server ejecutar "sudo docker-compose build", esto hará que se construyan las imágenes de todos los Dockers
+	* Cuando el comando anterior finalice ejecutar "sudo docker-compose up" para levantar la aplicación distribuida
+	* Cuando terminen de levantarse todos los dockers detenemos la aplicación, con esto ya habremos cargado los primeros usuarios y datos en la base de datos MySQL
+* Para la segunda ejecución y posteriores:
+	* Deshacemos todos los cambios del docker-compose.yml hechos anteriormente o lo descargamos de GitHub nuevamente.
+	* Ejecutar "sudo docker-compose up" para levantar la aplicación distribuida.
+		
+	
+
