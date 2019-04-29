@@ -301,10 +301,10 @@ Ejecución de la aplicación y del servicio interno:
 
 En esta fase se han llevado a cabo los siguientes objetivos:
 
-* Se ha creado una imagen Docker personalizada, a partir de una imagen openjdk:8-jre, de la aplicación web, del servicio interno y a partir de ellas se han levantado dos instancias de cada tipo
+* Se ha creado una imagen Docker personalizada, a partir de una imagen openjdk:8-jre, de la aplicación web y del servicio interno y a partir de ellas se han levantado dos instancias de cada tipo
 * Se ha usado una imagen Docker mysql:5.7 para persitir los datos de la aplicación del Gestor de Incidencias
-* Se han creado un balanceador basado en una imagen Docker haproxy:1.9 para añadir tolerancia a fallos y balanceo de carga para las instancias de aplicación web, además este balanceador implementa seguridad SSL para conexiones desde el exterior hacia la aplicación, para la comunicación entre el frontend y el backend se ha optado por usar la técnica de SSL Termination por lo que esta se realiza sin seguridad
-* Se han creado un balanceador basado en una imagen Docker haproxy:1.9 para añadir tolerancia a fallos y balanceo de carga para las instancias del servicio interno
+* Se ha creado un balanceador basado en una imagen Docker haproxy:1.9 para añadir tolerancia a fallos y balanceo de carga para las instancias de aplicación web, además este balanceador implementa seguridad SSL para conexiones desde el exterior hacia la aplicación, para la comunicación entre el frontend y el backend se ha optado por usar la técnica de SSL Termination por lo que esta se realiza sin seguridad
+* Se ha creado un balanceador basado en una imagen Docker haproxy:1.9 para añadir tolerancia a fallos y balanceo de carga para las instancias del servicio interno
 * Se ha implementado una caché con Hazelcast para que la sesión del usuario se comparta entre los nodos de la aplicación web
 * Se ha implementado un mecanismo de caché para algunas peticiones la al base de datos (usuarios, incidencias y comentarios)
 
@@ -316,13 +316,13 @@ Para cumplir con los últimos requisitos de manejo de la aplicación se introduc
 
 ### Paginas de la aplicacion agregadas en la fase 4
 
-A continucación podemos ver las nuevas páginas agregadas durante esta fase.
+A continuación podemos ver las nuevas páginas agregadas durante esta fase.
 
 Si estamos conectados con un usuario con rol de administrador veremos un nuevo botón en la página de bienvenida que nos permitirá crear usuarios:
 
 ![](Capturasdepantalla/bienvenida_adm_f4.png)
 
-Si lo pulsamos nos llevará a la siguiente página donde deberemos introducir los datos del nuevo usuario: nombre, password, correo electrónico y perfil. La password será necesaria introducirla dos veces para comprobar que se hace sin errores, el nombre de usuario también se comprobará y si ya existe se impedirá crearlo por duplicado. En la selección de perfíl se elegirá el rol con permisos más elevados que se quieran conceder al nuevo usuario, los permisos por debajo de este rol se le otorgarán de forma automática sin tener que hacer ninguna acción adicional.
+Si lo pulsamos nos llevará a la siguiente página donde deberemos introducir los datos del nuevo usuario: nombre, rol, correo electrónico y password. La password será necesaria introducirla dos veces para comprobar que se hace sin errores, el nombre de usuario también se comprobará y si ya existe se impedirá crearlo por duplicado. En la selección de rol se elegirá el perfil con permisos más elevados que se quieran conceder al nuevo usuario, los permisos por debajo de este rol se le otorgarán de forma automática sin tener que hacer ninguna acción adicional.
 
 ![](Capturasdepantalla/nuevousuario_f4.png)
 
@@ -345,13 +345,15 @@ A continuación añadimos un diagrama esquemático del despliegue de la aplicaci
 
 ## Fase 5 - Automatizar el despliegue de la aplicacion
 
-Para el despliegue de la aplicación se utiliza el docker-compose.yml incluido en la raíz del proyecto, este fichero se conecta con el repositorio de github para descargar los proyectos de la aplicación web y el servicio interno y, leyendo los respectivos Dokerfile de cada uno, compilar y crear una imagen Docker personalizada de ellos. Nota: el nombre de las imagenes que aparecen en el doker-compose viene de la carpeta compartida entre el sistema Windows 10 en el que se ha desarrollado la aplicación y la máquina virtual Ubuntu Server 16.04 LTS, ejecutando en VirtualBox, que usamos para simular un entorno Cloud en el que ejecutar nuestros dockers.
+Para el despliegue de la aplicación se utiliza el docker-compose.yml incluido en la raíz del proyecto, este fichero se conecta con los repositorios de github para descargar los proyectos de la aplicación web y el servicio interno y, leyendo los respectivos Dokerfile de cada uno, compilar y crear una imagen Docker personalizada de ellos.
+
+Nota: el nombre de las imagenes que aparecen en el doker-compose deriva del nombre de la carpeta compartida entre el sistema Windows 10 en el que está instalado VirtualBox y la máquina virtual Ubuntu Server 16.04 LTS que levantamos con él. Este Ubuntu Server lo usamos para simular un entorno Cloud en el que ejecutar nuestros dockers.
 
 Para realizar el despliegue correctamente habría que realizar los siguientes pasos:
 
 * Para la primera ejecución:
-	* En el proyecto maven de la aplicación web descomentar el método init del fichero GdiControllers.java que contiene unos datod de prueba para cargar en la base de datos
-	* En el proyecto maven de la aplicación web cambiar la propiedad spring.jpa.hibernate.ddl-auto de "none" a "create"
+	* En el proyecto maven GestorDeIncidencias descomentar el método init del fichero GdiControllers.java que contiene unos datos de prueba para cargar en la base de datos
+	* En el proyecto maven GestorDeIncidencias cambiar la propiedad spring.jpa.hibernate.ddl-auto de "none" a "create"
 	* En el docker-compose.yml:
 		* Descomentar la linea #appweb:
 		* Comentar la linea appweb1:
@@ -370,7 +372,7 @@ Para realizar el despliegue correctamente habría que realizar los siguientes pa
 		* Descomentar la linea #build:
 		* Descomentar la linea #  context: https://github.com/miguelferdom/GestorDeIncidencias.git#:HAproxyIS
 		* Descomentar la linea #  dockerfile: Dockerfile.gdi.haproxy.is
-	* Salvar los cambios del docker-compose.yml y en el Ubutu Server ejecutar "sudo docker-compose build", esto hará que se construyan las imágenes de todos los Dockers
+	* Salvar los cambios del docker-compose.yml y en el Ubuntu Server ejecutar "sudo docker-compose build", esto hará que se construyan las imágenes de todos los Dockers
 	* Cuando el comando anterior finalice ejecutar "sudo docker-compose up" para levantar la aplicación distribuida
 	* Cuando terminen de levantarse todos los dockers detenemos la aplicación, con esto ya habremos cargado los primeros usuarios y datos en la base de datos MySQL
 * Para la segunda ejecución y posteriores:
