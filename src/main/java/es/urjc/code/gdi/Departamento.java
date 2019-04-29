@@ -10,6 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Departamento {
 
@@ -20,6 +25,7 @@ public class Departamento {
 	private int criticidadDepartamento;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <TipoDeProblema> problemas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="departamento")
