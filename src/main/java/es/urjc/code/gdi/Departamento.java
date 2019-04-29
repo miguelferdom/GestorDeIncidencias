@@ -29,6 +29,7 @@ public class Departamento {
 	private List <TipoDeProblema> problemas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="departamento")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Incidencia> incidenciasDepartamentos = new ArrayList<>();
 	
 	/**
