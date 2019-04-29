@@ -40,6 +40,6 @@ public class GestorDeIncidenciasApplication {
 	@Bean
     public CacheManager cacheManager() {
     	LOG.info("Activating cache...");
-    	return new ConcurrentMapCacheManager("comentarios");
+    	return new ConcurrentMapCacheManager("gdi");
 	}
 }
