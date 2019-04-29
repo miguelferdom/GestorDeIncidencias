@@ -13,6 +13,6 @@ public interface RepositorioTipoDeProblema extends JpaRepository <TipoDeProblema
 	@CacheEvict(allEntries=true)
 	TipoDeProblema save(TipoDeProblema tipoDeProblema);
 	
-	@Cacheable
-	List <TipoDeProblema> findAll();
+	//@Cacheable
+	//List <TipoDeProblema> findAll();
 }

@@ -16,6 +16,6 @@ public interface RepositorioCrudUsuario extends CrudRepository <Usuario, Long> {
 	@Cacheable
 	Usuario findByNombre(String nombre);
 	
-	@Cacheable
-	List <Usuario> findAll();
+	//@Cacheable
+	//List <Usuario> findAll();
 }

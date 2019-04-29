@@ -16,6 +16,6 @@ public interface RepositorioUsuario extends JpaRepository <Usuario, Long>{
 	@CacheEvict(allEntries=true)
 	Usuario save(Usuario usuario);
 	
-	@Cacheable
-	List <Usuario> findAll();
+	//@Cacheable
+	//List <Usuario> findAll();
 }

@@ -13,6 +13,6 @@ public interface RepositorioDepartamento extends JpaRepository <Departamento, Lo
 	@CacheEvict(allEntries=true)
 	Departamento save(Departamento departamento);
 	
-	@Cacheable
-	List <Departamento> findAll();
+	//@Cacheable
+	//List <Departamento> findAll();
 }
