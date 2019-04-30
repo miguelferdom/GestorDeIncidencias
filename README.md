@@ -24,6 +24,7 @@ Proyecto para la asignatura de Desarrollo de Aplicaciones Distrubuidas, 3º de G
 	- [Cambios realizados sobre las Fases 1, 2 y 3](#Cambios-realizados-sobre-las-Fases-1,-2-y-3)
 	- [Paginas de la aplicacion agregadas en la fase 4](#Paginas-de-la-aplicacion-agregadas-en-la-fase-4)
 	- [Diagrama de la aplicacion distribuida](#Diagrama-de-la-aplicacion-distribuida)
+	- [Video de uso de la aplicacion](#Video-de-uso-de-la-aplicacion)
 - [Fase 5 - Automatizar el despliegue de la aplicacion](#Fase-5---Automatizar-el-despliegue-de-la-aplicacion)
 
 ## Fase 1 - Equipo de desarrollo y tematica de la web
@@ -342,6 +343,13 @@ Si no se produce ningún incidente durante la creación del nuevo usuario se nos
 A continuación añadimos un diagrama esquemático del despliegue de la aplicación, en el podemos ver que los contenedores que componen la aplicación distribuida se levantan en un Ubuntu Server 16.04 LTS, dentro de una red llamada gdinet que los aisla del resto de aplicaciones que pudieran estar ejecutando en este Ubuntu server. La aplicación solo expone al exterior los puertos 80 y 443 del balanceador de las aplicaciones web, estas se comunican a su vez con la instancia de la base de datos MySQL y con el balanceador de las dos instancias de servicio interno.
 
 ![](Capturasdepantalla/diagrama_de_despliegue_f4.png)
+
+
+### Video de uso de la aplicacion
+
+[Video de demostración de uso de Gdi](https://www.youtube.com/watch?v=ZyeVn3NR0bk)	
+	
+	
 
 ## Fase 5 - Automatizar el despliegue de la aplicacion
 
